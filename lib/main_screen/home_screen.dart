@@ -14,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Column(
           children: [
@@ -27,9 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.blue,
-                      Color.fromRGBO(144, 202, 249, 1),
+                      Color.fromARGB(215, 24, 167, 176),
+                      Color.fromARGB(115, 24, 167, 176),
                     ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
                   ),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),

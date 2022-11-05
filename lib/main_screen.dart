@@ -27,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title[bottomNavIndex]),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {},
@@ -42,9 +42,13 @@ class _MainScreenState extends State<MainScreen> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.blue,
-                Color.fromRGBO(144, 202, 249, 1),
+                Color.fromARGB(215, 24, 167, 176),
+                Color.fromARGB(115, 24, 167, 176),
+                // Colors.blue,
+                // Color.fromRGBO(144, 202, 249, 1),
               ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
           ),
         ),
@@ -54,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: false,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color.fromARGB(215, 24, 167, 176),
         unselectedItemColor: Colors.black38,
         currentIndex: bottomNavIndex,
         items: const [
