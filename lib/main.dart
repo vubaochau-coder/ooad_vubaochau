@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/get_started.dart';
-import 'package:ooad_vubaochau/login.dart';
 
 void main() {
   runApp(const MyApp());
