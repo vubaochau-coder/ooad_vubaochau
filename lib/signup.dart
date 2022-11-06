@@ -12,25 +12,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
   double borderRadius = 26;
   bool isUnShowPass = true;
   bool loadingSignUp = false;
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double statusbarHeight = MediaQuery.of(context).padding.top;
+    double bottomHeight = MediaQuery.of(context).padding.bottom;
+    double height = screenHeight - statusbarHeight - bottomHeight - 30;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      //resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
-          child: Center(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  flex: 6,
+                SizedBox(
+                  height: height * 6 / 7,
+                  width: double.infinity,
+                  //flex: 6,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        flex: 3,
+                      SizedBox(
+                        height: (height * 6 / 7) * 3 / 11,
+                        width: double.infinity,
+                        //flex: 3,
                         child: Center(
                           child: GradientText(
                             'EMA',
@@ -45,8 +53,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
+                      SizedBox(
+                        height: (height * 6 / 7) * 2 / 11,
+                        width: double.infinity,
+                        //flex: 2,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -66,17 +76,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                       ),
-                      Expanded(
-                        flex: 6,
+                      SizedBox(
+                        height: (height * 6 / 7) * 6 / 11,
+                        width: double.infinity,
+                        //flex: 6,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Expanded(
-                              flex: 1,
-                              child: SizedBox(),
+                            SizedBox(
+                              height: ((height * 6 / 7) * 6 / 11) / 7,
+                              width: double.infinity,
+                              //flex: 1,
                             ),
-                            Expanded(
-                              flex: 5, //hello ,
+                            SizedBox(
+                              height: ((height * 6 / 7) * 6 / 11) * 5 / 7,
+                              width: double.infinity,
+                              //flex: 5, //hello ,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -233,9 +248,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ],
                               ),
                             ),
-                            const Expanded(
-                              flex: 1,
-                              child: SizedBox(),
+                            SizedBox(
+                              height: ((height * 6 / 7) * 6 / 11) / 7,
+                              width: double.infinity,
+                              //flex: 1,
                             ),
                           ],
                         ),
@@ -243,8 +259,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-                Expanded(
-                  flex: 1,
+                SizedBox(
+                  height: height / 7,
+                  width: double.infinity,
+                  //flex: 1,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

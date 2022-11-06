@@ -18,22 +18,31 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double statusbarHeight = MediaQuery.of(context).padding.top;
+    double bottomHeight = MediaQuery.of(context).padding.bottom;
+    double height = screenHeight - statusbarHeight - bottomHeight;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      //resizeToAvoidBottomInset: false,
       //backgroundColor: const Color.fromRGBO(238, 238, 238, 0),
       body: SafeArea(
         child: Center(
-          child: Padding(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  flex: 6,
+                SizedBox(
+                  // fit: FlexFit.loose,
+                  // flex: 6,
+                  height: (height - 30) * 6 / 7,
+                  width: double.infinity,
                   child: Column(
                     children: [
-                      Expanded(
-                        flex: 3,
+                      SizedBox(
+                        height: ((height - 30) * 6 / 7) * 3 / 11,
+                        width: double.infinity,
+                        //flex: 3,
                         child: Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.zero,
@@ -51,14 +60,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 8,
+                      SizedBox(
+                        height: ((height - 30) * 6 / 7) * 8 / 11,
+                        width: double.infinity,
+                        //flex: 8,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Expanded(
-                              flex: 1,
-                              child: Text(
+                            Container(
+                              alignment: Alignment.center,
+                              height: (((height - 30) * 6 / 7) * 8 / 11) / 14,
+                              width: double.infinity,
+                              //flex: 1,
+                              child: const Text(
                                 'Welcome Back!',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -67,8 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            Expanded(
-                              flex: 7,
+                            SizedBox(
+                              height:
+                                  (((height - 30) * 6 / 7) * 8 / 11) * 7 / 14,
+                              width: double.infinity,
+                              //flex: 7,
                               child: Container(
                                 padding: const EdgeInsets.only(
                                   bottom: 24,
@@ -79,14 +96,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            Expanded(
-                              flex: 6,
+                            SizedBox(
+                              height:
+                                  (((height - 30) * 6 / 7) * 8 / 11) * 6 / 14,
+                              width: double.infinity,
+                              //flex: 6,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
-                                    flex: 5,
+                                  SizedBox(
+                                    height:
+                                        ((((height - 30) * 6 / 7) * 8 / 11) *
+                                                6 /
+                                                14) *
+                                            5 /
+                                            8,
+                                    width: double.infinity,
+                                    //flex: 5,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -192,8 +219,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ],
                                     ),
                                   ),
-                                  Expanded(
-                                    flex: 3,
+                                  SizedBox(
+                                    height:
+                                        ((((height - 30) * 6 / 7) * 8 / 11) *
+                                                6 /
+                                                14) *
+                                            3 /
+                                            8,
+                                    width: double.infinity,
+                                    //flex: 3,
                                     child: Container(
                                       alignment: Alignment.bottomCenter,
                                       child: const TextButton(
@@ -219,8 +253,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                Expanded(
-                  flex: 1,
+                SizedBox(
+                  // flex: 1,
+                  height: (height - 30) / 7,
+                  width: double.infinity,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
