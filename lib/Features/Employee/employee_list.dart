@@ -49,13 +49,13 @@ class EmployeeList extends StatelessWidget {
                   "Đang làm việc",
                   style: titleStyle.copyWith(color: Colors.black),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Container(
                   width: 25,
                   height: 25,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: primaryColor,
                   ),
@@ -67,7 +67,7 @@ class EmployeeList extends StatelessWidget {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   "1h",
                   style: subTitleStyle.copyWith(color: Colors.black),
@@ -122,12 +122,12 @@ class EmployeeList extends StatelessWidget {
                                     Container(
                                       width: 15,
                                       height: 15,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Colors.green,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       "Đang làm việc",
                                       style: whiteSubHeadingTextStyle.copyWith(
@@ -136,7 +136,7 @@ class EmployeeList extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Expanded(
+                              const Expanded(
                                 child: Icon(
                                   Icons.phone_sharp,
                                   color: blueColor,
