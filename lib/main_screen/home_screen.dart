@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,9 +9,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   double iconSize = 62;
   double paddingContainer = 16;
   double borderRadius = 16;
+
+  String fullName = "VU BAO CHAU";
+  String position = "BACK-END DEVELOPER";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,518 +24,266 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding: const EdgeInsets.only(bottom: 8, top: 8),
-                width: double.infinity,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(215, 24, 167, 176),
-                      Color.fromARGB(115, 24, 167, 176),
+            Container(
+              width: double.infinity,
+              color: themeColor,
+              alignment: Alignment.centerLeft,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: 10,
+                        ),
+                        height: 64,
+                        width: 64,
+                        child: const CircleAvatar(
+                          backgroundImage: AssetImage('images/avatar.jpg'),
+                        ),
+                      ),
+                      Container(
+                        height: 64,
+                        margin: const EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Good morning!',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 16,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              fullName,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
                   ),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+                  const SizedBox(
+                    height: 12,
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: ClipOval(
-                        child: Image.asset(
-                          'images/user.png',
-                          fit: BoxFit.contain,
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Divider(
+                      color: Colors.white,
+                      height: 1,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.person_pin_circle_sharp,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          position,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 30,
+                bottom: 30,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        splashColor: themeColor,
+                        borderRadius: BorderRadius.circular(12),
+                        child: const OperationButton(
+                            'Employee', Icons.manage_accounts_outlined),
+                        onTap: () {},
+                      ),
+                      InkWell(
+                        splashColor: themeColor,
+                        borderRadius: BorderRadius.circular(12),
+                        child:
+                            const OperationButton('Salary', Icons.attach_money),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        splashColor: themeColor,
+                        borderRadius: BorderRadius.circular(12),
+                        child: const OperationButton(
+                            'Task', Icons.checklist_rounded),
+                        onTap: () {},
+                      ),
+                      InkWell(
+                        splashColor: themeColor,
+                        borderRadius: BorderRadius.circular(12),
+                        child: const OperationButton(
+                            'Attendance', Icons.library_add_check_outlined),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Material(
+                    color: themeColor,
+                    borderRadius: BorderRadius.circular(12),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      splashColor: Colors.white70,
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                          right: 8,
+                          top: 12,
+                          bottom: 12,
+                        ),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: themeColor,
+                          ),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(
+                              Icons.request_page_rounded,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'View salary report',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Expanded(
+                              child: SizedBox(),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: Colors.white,
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            'Pao Chou',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Material(
+                    color: themeColor,
+                    borderRadius: BorderRadius.circular(12),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      splashColor: Colors.white70,
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                          right: 8,
+                          top: 12,
+                          bottom: 12,
+                        ),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: themeColor,
                           ),
-                          Text(
-                            'HR Manager',
-                            style: TextStyle(
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(
+                              Icons.task,
                               color: Colors.white,
-                              fontSize: 16,
                             ),
-                          )
-                        ],
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'View task report',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Expanded(
+                              child: SizedBox(),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
-            Expanded(
-              flex: 7,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 20,
-                  bottom: 20,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ClipPath(
-                          clipper: ShapeBorderClipper(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(borderRadius)),
-                            ),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              top: 14,
-                              bottom: 14,
-                              left: 6,
-                              right: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.all(
-                              //   Radius.circular(borderRadius),
-                              // ),
-                              border: const Border(
-                                bottom: BorderSide(
-                                    color: Color.fromRGBO(144, 202, 249, 1),
-                                    width: 6),
-                                left: BorderSide(
-                                  color: Color.fromRGBO(144, 202, 249, 1),
-                                  width: 6,
-                                ),
-                              ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: borderRadius,
-                                  offset: const Offset(0, 0),
-                                  color: Colors.cyan,
-                                  spreadRadius: -10,
-                                )
-                              ],
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(paddingContainer),
-                                    margin: const EdgeInsets.only(bottom: 6),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: Colors.cyan,
-                                    ),
-                                    child: Icon(
-                                      Icons.people_alt_outlined,
-                                      color: Colors.white,
-                                      size: iconSize,
-                                    ),
-                                  ),
-                                  const Text(
-                                    'Employee',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        ClipPath(
-                          clipper: ShapeBorderClipper(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(borderRadius)),
-                            ),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              top: 14,
-                              bottom: 14,
-                              left: 6,
-                              right: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.all(
-                              //   Radius.circular(borderRadius),
-                              // ),
-                              border: const Border(
-                                  bottom: BorderSide(
-                                    color: Color.fromRGBO(255, 224, 130, 1),
-                                    width: 6,
-                                  ),
-                                  left: BorderSide(
-                                    color: Color.fromRGBO(255, 224, 130, 1),
-                                    width: 6,
-                                  )),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: borderRadius,
-                                    offset: const Offset(0, 0),
-                                    color:
-                                        const Color.fromRGBO(144, 202, 249, 1),
-                                    spreadRadius: -10)
-                              ],
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(paddingContainer),
-                                    margin: const EdgeInsets.only(bottom: 6),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: Colors.amber[300],
-                                    ),
-                                    child: Icon(
-                                      Icons.list_alt_outlined,
-                                      color: Colors.white,
-                                      size: iconSize,
-                                    ),
-                                  ),
-                                  const Text(
-                                    'Task',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ClipPath(
-                          clipper: ShapeBorderClipper(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(borderRadius)),
-                            ),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              top: 14,
-                              bottom: 14,
-                              left: 6,
-                              right: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.all(
-                              //   Radius.circular(borderRadius),
-                              // ),
-                              border: const Border(
-                                  bottom: BorderSide(
-                                    color: Color.fromRGBO(255, 171, 145, 1),
-                                    width: 6,
-                                  ),
-                                  left: BorderSide(
-                                    color: Color.fromRGBO(255, 171, 145, 1),
-                                    width: 6,
-                                  )),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: borderRadius,
-                                    offset: const Offset(0, 0),
-                                    color:
-                                        const Color.fromRGBO(144, 202, 249, 1),
-                                    spreadRadius: -10)
-                              ],
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(paddingContainer),
-                                    margin: const EdgeInsets.only(bottom: 6),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: Colors.deepOrange[200],
-                                    ),
-                                    child: Icon(
-                                      Icons.groups_rounded,
-                                      color: Colors.white,
-                                      size: iconSize,
-                                    ),
-                                  ),
-                                  const Text(
-                                    'Group',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        ClipPath(
-                          clipper: ShapeBorderClipper(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(borderRadius)),
-                            ),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              top: 14,
-                              bottom: 14,
-                              left: 6,
-                              right: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.all(
-                              //   Radius.circular(borderRadius),
-                              // ),
-                              border: const Border(
-                                bottom: BorderSide(
-                                  color: Colors.green,
-                                  width: 6,
-                                ),
-                                left: BorderSide(
-                                  color: Colors.green,
-                                  width: 6,
-                                ),
-                              ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: borderRadius,
-                                    offset: const Offset(0, 0),
-                                    color:
-                                        const Color.fromRGBO(144, 202, 249, 1),
-                                    spreadRadius: -10)
-                              ],
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(paddingContainer),
-                                    margin: const EdgeInsets.only(bottom: 6),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: Colors.green,
-                                    ),
-                                    child: Icon(
-                                      Icons.payments_outlined,
-                                      color: Colors.white,
-                                      size: iconSize,
-                                    ),
-                                  ),
-                                  const Text(
-                                    'Payroll',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ClipPath(
-                          clipper: ShapeBorderClipper(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(borderRadius)),
-                            ),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              top: 14,
-                              bottom: 14,
-                              left: 6,
-                              right: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.all(
-                              //   Radius.circular(borderRadius),
-                              // ),
-                              border: const Border(
-                                  bottom: BorderSide(
-                                    color: Color.fromRGBO(129, 212, 250, 1),
-                                    width: 6,
-                                  ),
-                                  left: BorderSide(
-                                    color: Color.fromRGBO(129, 212, 250, 1),
-                                    width: 6,
-                                  )),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: borderRadius,
-                                    offset: const Offset(0, 0),
-                                    color:
-                                        const Color.fromRGBO(144, 202, 249, 1),
-                                    spreadRadius: -10)
-                              ],
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(paddingContainer),
-                                    margin: const EdgeInsets.only(bottom: 6),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: Colors.lightBlue[200],
-                                    ),
-                                    child: Icon(
-                                      Icons.calendar_month_outlined,
-                                      color: Colors.white,
-                                      size: iconSize,
-                                    ),
-                                  ),
-                                  const Text(
-                                    'Attendance',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        ClipPath(
-                          clipper: ShapeBorderClipper(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(borderRadius)),
-                            ),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              top: 14,
-                              bottom: 14,
-                              left: 6,
-                              right: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.all(
-                              //   Radius.circular(borderRadius),
-                              // ),
-                              border: const Border(
-                                  bottom: BorderSide(
-                                    color: Color.fromRGBO(244, 143, 177, 1),
-                                    width: 6,
-                                  ),
-                                  left: BorderSide(
-                                    color: Color.fromRGBO(244, 143, 177, 1),
-                                    width: 6,
-                                  )),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: borderRadius,
-                                  offset: const Offset(0, 0),
-                                  color: const Color.fromRGBO(144, 202, 249, 1),
-                                  spreadRadius: -10,
-                                ),
-                              ],
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(paddingContainer),
-                                    margin: const EdgeInsets.only(bottom: 6),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: Colors.pink[200],
-                                    ),
-                                    child: Icon(
-                                      Icons.list_alt_outlined,
-                                      color: Colors.white,
-                                      size: iconSize,
-                                    ),
-                                  ),
-                                  const Text(
-                                    'Task',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            )
           ],
         ),
       ),

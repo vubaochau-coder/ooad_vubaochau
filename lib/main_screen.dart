@@ -22,6 +22,8 @@ class _MainScreenState extends State<MainScreen> {
     'Statistical',
   ];
   int bottomNavIndex = 0;
+  Color themeColor = const Color.fromARGB(215, 24, 167, 176);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +45,7 @@ class _MainScreenState extends State<MainScreen> {
             gradient: LinearGradient(
               colors: [
                 Color.fromARGB(215, 24, 167, 176),
-                Color.fromARGB(115, 24, 167, 176),
-                // Colors.blue,
-                // Color.fromRGBO(144, 202, 249, 1),
+                Color.fromARGB(215, 24, 167, 176),
               ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
@@ -58,7 +58,8 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: false,
-        selectedItemColor: const Color.fromARGB(215, 24, 167, 176),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        selectedItemColor: themeColor,
         unselectedItemColor: Colors.black38,
         currentIndex: bottomNavIndex,
         items: const [
