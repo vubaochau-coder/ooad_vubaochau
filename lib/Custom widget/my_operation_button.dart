@@ -40,7 +40,7 @@ class _OperationButtonState extends State<OperationButton> {
             widget.name,
             style: TextStyle(
               color: themeColor,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
               fontSize: 16,
             ),
           ),

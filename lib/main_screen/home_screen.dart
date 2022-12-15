@@ -8,8 +8,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+Color themeColor = const Color.fromARGB(215, 24, 167, 176);
+
 class _HomeScreenState extends State<HomeScreen> {
-  Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   double iconSize = 62;
   double paddingContainer = 16;
   double borderRadius = 16;
@@ -21,6 +22,33 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        title: const Text(
+          'Home',
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.settings),
+          )
+        ],
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(215, 24, 167, 176),
+                Color.fromARGB(215, 24, 167, 176),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
+        ),
+        elevation: 0,
+      ),
+      drawer: const NavigationDrawer(),
       body: SafeArea(
         child: Column(
           children: [
@@ -133,6 +161,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    children: [
+                      Icon(
+                        Icons.app_registration,
+                        color: themeColor,
+                      ),
+                      Text(
+                        'Staff',
+                        style: TextStyle(
+                          color: themeColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
@@ -176,6 +223,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 32,
                   ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.app_registration,
+                        color: themeColor,
+                      ),
+                      Text(
+                        'Manager',
+                        style: TextStyle(
+                          color: themeColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
                   Material(
                     color: themeColor,
                     borderRadius: BorderRadius.circular(12),
@@ -211,8 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               'View salary report',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 17,
                               ),
                             ),
                             Expanded(
@@ -265,8 +331,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               'View task report',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 17,
                               ),
                             ),
                             Expanded(
@@ -287,6 +353,96 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class NavigationDrawer extends StatelessWidget {
+  const NavigationDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) => Drawer(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              buildHeader(context),
+              buildMenuItems(context),
+            ],
+          ),
+        ),
+      );
+
+  Widget buildHeader(BuildContext context) {
+    return Container(
+      color: const Color.fromARGB(215, 24, 167, 176),
+      padding: EdgeInsets.only(
+        top: 24 + MediaQuery.of(context).padding.top,
+        bottom: 24,
+      ),
+      child: Column(
+        children: const [
+          CircleAvatar(
+            radius: 44,
+            backgroundImage: AssetImage('images/avatar.jpg'),
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Text(
+            'Vu Bao Chau',
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          Text(
+            'baochau@gmail.com',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.white,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildMenuItems(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          leading: Icon(
+            Icons.person_outline,
+            color: themeColor,
+          ),
+          title: const Text(
+            'My profile',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black54,
+            ),
+          ),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.logout_rounded,
+            color: themeColor,
+          ),
+          title: const Text(
+            'Log out',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black54,
+            ),
+          ),
+          onTap: () {},
+        )
+      ],
     );
   }
 }
