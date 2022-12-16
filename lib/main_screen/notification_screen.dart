@@ -23,8 +23,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
             title: const Text(
               'Notifications',
             ),
-            centerTitle: true,
+            centerTitle: false,
             backgroundColor: Colors.transparent,
+            leading: const Icon(Icons.notifications_active),
             actions: [
               IconButton(
                 onPressed: () {},
@@ -48,12 +49,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
               labelColor: Colors.white,
               indicatorColor: Colors.white,
               unselectedLabelColor: Colors.white54,
+              labelStyle: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+              unselectedLabelStyle: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.normal,
+              ),
               tabs: [
                 Tab(
-                  text: 'General',
+                  text: "GENERAL",
                 ),
                 Tab(
-                  text: 'Request',
+                  text: 'REQUEST',
                 ),
               ],
             ),

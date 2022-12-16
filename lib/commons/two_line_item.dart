@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/styleguide/colors.dart';
 import 'package:ooad_vubaochau/styleguide/text_style.dart';
 
 class TwoLineItem extends StatelessWidget {

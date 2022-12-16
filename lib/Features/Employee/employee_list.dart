@@ -4,11 +4,13 @@ import 'package:ooad_vubaochau/styleguide/text_style.dart';
 import 'package:ooad_vubaochau/commons/narrow_app_bar.dart';
 
 class EmployeeList extends StatelessWidget {
+  const EmployeeList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NarrowAppBar(
-        leading: Icon(Icons.arrow_back),
+        leading: const Icon(Icons.arrow_back),
         trailing: Text(
           "SELECT",
           style: actionMenuStyle,
@@ -34,7 +36,7 @@ class EmployeeList extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     hintText: "Search",
                     hintStyle: whiteSubHeadingTextStyle.copyWith(
                         color: hintTextColor)),
@@ -85,65 +87,68 @@ class EmployeeList extends StatelessWidget {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: ListTile(
-                      title: Text(
-                        "Nguyễn Trương Đình Du",
-                        style: titleStyle,
-                      ),
-                      subtitle: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Image.asset(
-                              "images/task.jpg",
-                              width: 15.0,
-                              height: 15.0,
-                              color: Colors.black,
-                            ),
-                            Text(
-                              "  Fron-end Developer",
-                              style: whiteSubHeadingTextStyle.copyWith(
-                                  color: Colors.black, fontSize: 14),
-                            ),
-                          ]),
-                      leading: ClipOval(
-                        child: Image.asset(
-                          "images/employee.jpg",
-                          width: 50,
-                          height: 50,
+                    title: Text(
+                      "Nguyễn Trương Đình Du",
+                      style: titleStyle,
+                    ),
+                    subtitle: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Image.asset(
+                          "images/task.jpg",
+                          width: 15.0,
+                          height: 15.0,
+                          color: Colors.black,
                         ),
+                        Text(
+                          "  Fron-end Developer",
+                          style: whiteSubHeadingTextStyle.copyWith(
+                              color: Colors.black, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    leading: ClipOval(
+                      child: Image.asset(
+                        "images/employee.jpg",
+                        width: 50,
+                        height: 50,
                       ),
-                      trailing: SizedBox(
-                          width: 75,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Expanded(
-                                child: Row(
-                                  children: <Widget>[
-                                    Container(
-                                      width: 15,
-                                      height: 15,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      "Đang làm việc",
-                                      style: whiteSubHeadingTextStyle.copyWith(
-                                          color: Colors.green, fontSize: 14),
-                                    ),
-                                  ],
+                    ),
+                    trailing: SizedBox(
+                      width: 75,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Expanded(
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 15,
+                                  height: 15,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.green,
+                                  ),
                                 ),
-                              ),
-                              const Expanded(
-                                child: Icon(
-                                  Icons.phone_sharp,
-                                  color: blueColor,
+                                const Spacer(),
+                                Text(
+                                  "Đang làm việc",
+                                  style: whiteSubHeadingTextStyle.copyWith(
+                                      color: Colors.green, fontSize: 14),
                                 ),
-                              ),
-                            ],
-                          ))),
+                              ],
+                            ),
+                          ),
+                          const Expanded(
+                            child: Icon(
+                              Icons.phone_sharp,
+                              color: blueColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               },
               itemCount: 10,
