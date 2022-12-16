@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 class OpaqueImage extends StatelessWidget {
@@ -14,10 +12,10 @@ class OpaqueImage extends StatelessWidget {
           imageUrl,
           width: double.maxFinite,
           height: double.maxFinite,
-          fit: BoxFit.fill,
+          fit: BoxFit.contain,
         ),
         Container(
-          color: Color.fromARGB(215, 24, 167, 176),
+          color: const Color.fromARGB(215, 24, 167, 176),
         ),
       ],
     );

@@ -27,7 +27,7 @@ class _RadialProgressState extends State<RadialProgress>
   late AnimationController _radialProgressAnimationController;
   late Animation<double> _progressAnimation;
   final Duration fadeInDuration = const Duration(milliseconds: 500);
-  final Duration fillDuration = Duration(seconds: 2);
+  final Duration fillDuration = const Duration(seconds: 2);
 
   double progressDegrees = 0;
   var count = 0;
@@ -57,15 +57,15 @@ class _RadialProgressState extends State<RadialProgress>
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: widget.child,
-      ),
       painter: RadialPainter(
         progressDegrees,
         widget.progressColor,
         widget.progressBackgroundColor,
         widget.width,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: widget.child,
       ),
     );
   }

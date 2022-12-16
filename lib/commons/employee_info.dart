@@ -23,7 +23,7 @@ class MyInfo extends StatelessWidget {
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -39,8 +39,8 @@ class MyInfo extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 10,
+          const SizedBox(
+            height: 8,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

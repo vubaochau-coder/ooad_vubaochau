@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/commons/employee_info.dart';
 import 'package:ooad_vubaochau/commons/opaque_image.dart';
-import 'package:ooad_vubaochau/commons/employee_info.dart';
 import 'package:ooad_vubaochau/commons/profile_info_big_card.dart';
 import 'package:ooad_vubaochau/commons/profile_info_card.dart';
 import 'package:ooad_vubaochau/styleguide/colors.dart';
 
 class EmployeeProfile extends StatelessWidget {
+  const EmployeeProfile({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -20,8 +21,8 @@ class EmployeeProfile extends StatelessWidget {
                 flex: 4,
                 child: Stack(
                   children: <Widget>[
-                    OpaqueImage(
-                      imageUrl: "images\employee.jpg",
+                    const OpaqueImage(
+                      imageUrl: "images/employee.jpg",
                     ),
                     SafeArea(
                       child: Padding(
@@ -128,36 +129,55 @@ class EmployeeProfile extends StatelessWidget {
             ],
           ),
           Positioned(
-            top: screenHeight *(4/9),
+            top: screenHeight * (4 / 9),
             left: 16,
             right: 16,
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  ProfileInfoCard(
-                    firstText: "54%",
-                    secondText: "Progress", imagePath: null,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ProfileInfoCard(
-                      hasImage: true,
-                      imagePath: "images/pulse_icon.png", firstText: null, secondText: null,
-                  ),
-                  SizedBox(
+            child: SizedBox(
+                height: 80,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Card(
+                      child: Column(
+                        children: const [
+                          Text(
+                            '54%',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Text(
+                            'Progress',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
                       width: 10,
                     ),
-                  ProfileInfoCard(
-                      firstText: "Leader team Back-end App",
-                      secondText: "Level", imagePath: null,
+                    ProfileInfoCard(
+                      hasImage: true,
+                      imagePath: "images/pulse_icon.png",
+                      firstText: null,
+                      secondText: null,
                     ),
-                ],
-              )
-            ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ProfileInfoCard(
+                      firstText: "Leader team Back-end App",
+                      secondText: "Level",
+                      imagePath: null,
+                    ),
+                  ],
+                )),
           ),
         ],
       ),

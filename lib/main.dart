@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ooad_vubaochau/get_started.dart';
+import 'package:ooad_vubaochau/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +12,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -33,7 +38,7 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       resizeToAvoidBottomInset: false,
-      body: GetStarted(),
+      body: MainScreen(),
     );
   }
 }
