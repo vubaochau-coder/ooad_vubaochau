@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ooad_vubaochau/get_started.dart';
 import 'package:ooad_vubaochau/main_screen.dart';
 
 void main() {

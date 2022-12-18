@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ooad_vubaochau/Features/Employee/employee_detail.dart';
 import 'package:ooad_vubaochau/styleguide/colors.dart';
 import 'package:ooad_vubaochau/styleguide/text_style.dart';
 import 'package:ooad_vubaochau/commons/narrow_app_bar.dart';
@@ -8,19 +9,31 @@ class EmployeeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color themeColor = const Color.fromARGB(215, 24, 167, 176);
     return Scaffold(
-      appBar: NarrowAppBar(
-        leading: const Icon(Icons.arrow_back),
-        trailing: Text(
-          "SELECT",
-          style: actionMenuStyle,
-        ),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: themeColor,
+        actions: [
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              'SELECT',
+              style: actionMenuStyle,
+            ),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              bottom: 8,
+            ),
             child: Text(
               "Employee's List",
               style: headingTextStyle.copyWith(color: Colors.black),
@@ -28,18 +41,25 @@ class EmployeeList extends StatelessWidget {
           ),
           Card(
             elevation: 4,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: TextField(
+                cursorColor: themeColor,
                 decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.search),
-                    hintText: "Search",
-                    hintStyle: whiteSubHeadingTextStyle.copyWith(
-                        color: hintTextColor)),
+                  border: InputBorder.none,
+                  prefixIcon: const Icon(
+                    Icons.search,
+                  ),
+                  prefixIconColor: themeColor,
+                  focusColor: themeColor,
+                  hintText: "Search",
+                  hintStyle:
+                      whiteSubHeadingTextStyle.copyWith(color: hintTextColor),
+                ),
               ),
             ),
           ),
@@ -80,69 +100,93 @@ class EmployeeList extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
-                return Card(
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: ListTile(
-                    title: Text(
-                      "Nguyễn Trương Đình Du",
-                      style: titleStyle,
-                    ),
-                    subtitle: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Image.asset(
-                          "images/task.jpg",
-                          width: 15.0,
-                          height: 15.0,
-                          color: Colors.black,
-                        ),
-                        Text(
-                          "  Fron-end Developer",
-                          style: whiteSubHeadingTextStyle.copyWith(
-                              color: Colors.black, fontSize: 14),
-                        ),
-                      ],
-                    ),
-                    leading: ClipOval(
-                      child: Image.asset(
-                        "images/employee.jpg",
-                        width: 50,
-                        height: 50,
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const EmployeeProfile();
+                        },
                       ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    margin: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      bottom: 12,
                     ),
-                    trailing: SizedBox(
-                      width: 75,
-                      child: Column(
+                    child: ListTile(
+                      title: const Padding(
+                        padding: EdgeInsets.only(bottom: 8.0, top: 8),
+                        child: Text(
+                          "Nguyễn Trương Đình Du",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: primaryTextColor,
+                          ),
+                        ),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const Icon(
+                              Icons.content_paste,
+                              size: 15,
+                              color: Colors.black,
+                            ),
+                            const SizedBox(
+                              width: 6,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Front-end Developer",
+                                softWrap: true,
+                                style: whiteSubHeadingTextStyle.copyWith(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      leading: ClipOval(
+                        child: Image.asset(
+                          "images/employee.jpg",
+                          width: 50,
+                          height: 50,
+                        ),
+                      ),
+                      trailing: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Expanded(
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 15,
-                                  height: 15,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.green,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  "Đang làm việc",
-                                  style: whiteSubHeadingTextStyle.copyWith(
-                                      color: Colors.green, fontSize: 14),
-                                ),
-                              ],
+                          Container(
+                            width: 10,
+                            height: 10,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.green,
                             ),
                           ),
-                          const Expanded(
-                            child: Icon(
-                              Icons.phone_sharp,
-                              color: blueColor,
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.phone_sharp,
+                                color: blueColor,
+                              ),
                             ),
                           ),
                         ],

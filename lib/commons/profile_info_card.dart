@@ -1,35 +1,41 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/commons/two_line_item.dart';
-import 'package:ooad_vubaochau/styleguide/colors.dart';
 
-class ProfileInfoCard extends StatelessWidget {
-  final firstText, secondText, hasImage, imagePath;
+class IntroduceCard extends StatelessWidget {
+  final String firstText, secondText;
 
-  const ProfileInfoCard(
-      {super.key,
-      required this.firstText,
-      required this.secondText,
-      this.hasImage = false,
-      required this.imagePath});
+  const IntroduceCard({
+    super.key,
+    required this.firstText,
+    required this.secondText,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height: 60,
       child: Card(
-        elevation: 12,
-        child: hasImage
-            ? Image.asset(
-                imagePath,
-                color: primaryColor,
-                width: 25,
-                height: 25,
-              )
-            : TwoLineItem(
-                firstText: firstText,
-                secondText: secondText,
+        elevation: 2,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              firstText,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
+            ),
+            Text(
+              secondText,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

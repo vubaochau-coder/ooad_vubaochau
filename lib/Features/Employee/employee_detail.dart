@@ -3,183 +3,175 @@ import 'package:ooad_vubaochau/commons/employee_info.dart';
 import 'package:ooad_vubaochau/commons/opaque_image.dart';
 import 'package:ooad_vubaochau/commons/profile_info_big_card.dart';
 import 'package:ooad_vubaochau/commons/profile_info_card.dart';
-import 'package:ooad_vubaochau/styleguide/colors.dart';
 
 class EmployeeProfile extends StatelessWidget {
   const EmployeeProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Expanded(
-                flex: 4,
-                child: Stack(
-                  children: <Widget>[
-                    const OpaqueImage(
-                      imageUrl: "images/employee.jpg",
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "My Profile",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.edit),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 334 + MediaQuery.of(context).padding.top,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 300 + MediaQuery.of(context).padding.top,
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(
+                      children: [
+                        const OpaqueImage(
+                          imageUrl: "images/employee.jpg",
+                        ),
+                        SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              bottom: 16,
+                            ),
+                            child: Column(
+                              children: const [
+                                MyInfo(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          children: const [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Employee's profile",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                  ),
+                  Positioned(
+                    left: 16,
+                    right: 16,
+                    bottom: 0,
+                    child: SizedBox(
+                      height: 60,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          const Expanded(
+                            flex: 2,
+                            child: IntroduceCard(
+                              firstText: '54%',
+                              secondText: 'Progress',
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Card(
+                              child: Image.asset(
+                                "images/pulse_icon.png",
+                                color: const Color.fromARGB(255, 26, 218, 224),
+                                width: 25,
+                                height: 40,
+                                fit: BoxFit.contain,
                               ),
                             ),
-                            MyInfo(),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Expanded(
+                            flex: 2,
+                            child: IntroduceCard(
+                              firstText: 'Senior',
+                              secondText: 'Level',
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Expanded(
-                flex: 5,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 50),
-                  color: Colors.white,
-                  child: Table(
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
                     children: const [
-                      TableRow(
-                        children: [
-                          ProfileInfoBigCard(
-                            firstText: "25",
-                            secondText: "Dự án đã làm qua",
-                            icon: Icon(
-                              Icons.star,
-                              color: blueColor,
-                              size: 32,
-                            ),
-                          ),
-                          ProfileInfoBigCard(
-                            firstText: "57 Quang Trung",
-                            secondText: "TP Hồ Chí Minh - Việt Nam",
-                            icon: Icon(
-                              Icons.add_reaction,
-                              color: blueColor,
-                              size: 32,
-                            ),
-                          ),
-                        ],
+                      ProfileInfoBigCard(
+                        firstText: '25',
+                        secondText: 'Dự án đã làm',
+                        icon: Icons.star_purple500_outlined,
+                        height: 100,
                       ),
-                      TableRow(
-                        children: [
-                          ProfileInfoBigCard(
-                            firstText: "2",
-                            secondText: "Ngày nghỉ",
-                            icon: Icon(
-                              Icons.heart_broken,
-                              color: blueColor,
-                              size: 32,
-                            ),
-                          ),
-                          ProfileInfoBigCard(
-                            firstText: "208",
-                            secondText: "Số ngày đã đi làm",
-                            icon: Icon(
-                              Icons.favorite,
-                              color: blueColor,
-                              size: 32,
-                            ),
-                          ),
-                        ],
+                      ProfileInfoBigCard(
+                        firstText: '02',
+                        secondText: 'Ngày nghỉ',
+                        icon: Icons.free_cancellation_rounded,
+                        height: 100,
                       ),
-                      TableRow(
-                        children: [
-                          ProfileInfoBigCard(
-                            firstText: "20520159@gm.uit.edu.vn",
-                            secondText: "Email",
-                            icon: Icon(
-                              Icons.email,
-                              color: blueColor,
-                              size: 32,
-                            ),
-                          ),
-                          ProfileInfoBigCard(
-                            firstText: "0336114707",
-                            secondText: "Số điện thoại liên lạc",
-                            icon: Icon(
-                              Icons.headphones,
-                              color: blueColor,
-                              size: 32,
-                            ),
-                          ),
-                        ],
+                      ProfileInfoBigCard(
+                        firstText: 'Email',
+                        secondText: '20521128@gm.uit.edu.vn',
+                        icon: Icons.email,
+                        height: 120,
                       ),
                     ],
                   ),
                 ),
-              ),
-            ],
-          ),
-          Positioned(
-            top: screenHeight * (4 / 9),
-            left: 16,
-            right: 16,
-            child: SizedBox(
-                height: 80,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Card(
-                      child: Column(
-                        children: const [
-                          Text(
-                            '54%',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            'Progress',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          )
-                        ],
+                Expanded(
+                  child: Column(
+                    children: const [
+                      ProfileInfoBigCard(
+                        firstText: '256',
+                        secondText: 'Ngày đi làm',
+                        icon: Icons.free_cancellation_rounded,
+                        height: 100,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    ProfileInfoCard(
-                      hasImage: true,
-                      imagePath: "images/pulse_icon.png",
-                      firstText: null,
-                      secondText: null,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ProfileInfoCard(
-                      firstText: "Leader team Back-end App",
-                      secondText: "Level",
-                      imagePath: null,
-                    ),
-                  ],
-                )),
-          ),
-        ],
+                      ProfileInfoBigCard(
+                        firstText: 'Địa chỉ',
+                        secondText: '57 Quang Trung, TP Hồ Chí Minh',
+                        icon: Icons.location_on,
+                        height: 120,
+                      ),
+                      ProfileInfoBigCard(
+                        firstText: 'Phone',
+                        secondText: '1900.xxx.xxx',
+                        icon: Icons.phone,
+                        height: 100,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
