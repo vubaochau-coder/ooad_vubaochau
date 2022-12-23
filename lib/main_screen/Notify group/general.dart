@@ -12,7 +12,7 @@ String demo =
     "Flutter is an open source framework by Google for building beautiful, natively compiled, multi-platform applications from a single codebase.";
 
 class _GeneralNotifyScreenState extends State<GeneralNotifyScreen> {
-  List<MyNotification> notifies = getListNotifies();
+  List<NotificationModel> notifies = getListNotifies();
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   bool allSelected = true;
   bool unReadSelected = false;
@@ -140,7 +140,7 @@ class _GeneralNotifyScreenState extends State<GeneralNotifyScreen> {
 
   Widget buildListView(BuildContext context, int index) {
     return Card(
-      child: Container(
+      child: Padding(
         padding: const EdgeInsets.only(
           left: 4,
           right: 4,
@@ -228,18 +228,18 @@ class _GeneralNotifyScreenState extends State<GeneralNotifyScreen> {
   }
 }
 
-List<MyNotification> getListNotifies() {
-  List<MyNotification> myNotifies = [
-    MyNotification('Notify 1', demo, '24/12'),
-    MyNotification('Notify 2', demo, '12/12'),
-    MyNotification('Notify 3', demo, '11/12'),
-    MyNotification('Notify 4', demo, '10/11'),
-    MyNotification('Notify 5', demo, '09/11'),
-    MyNotification('Notify 6', demo, '31/10'),
-    MyNotification('Notify 7', demo, '23/10'),
-    MyNotification('Notify 8', demo, '22/10'),
-    MyNotification('Notify 9', demo, '22/10'),
-    MyNotification('Notify 10', demo, '20/10'),
+List<NotificationModel> getListNotifies() {
+  List<NotificationModel> myNotifies = [
+    NotificationModel('Notify 1', demo, '24/12'),
+    NotificationModel('Notify 2', demo, '12/12'),
+    NotificationModel('Notify 3', demo, '11/12'),
+    NotificationModel('Notify 4', demo, '10/11'),
+    NotificationModel('Notify 5', demo, '09/11'),
+    NotificationModel('Notify 6', demo, '31/10'),
+    NotificationModel('Notify 7', demo, '23/10'),
+    NotificationModel('Notify 8', demo, '22/10'),
+    NotificationModel('Notify 9', demo, '22/10'),
+    NotificationModel('Notify 10', demo, '20/10'),
   ];
   return myNotifies;
 }

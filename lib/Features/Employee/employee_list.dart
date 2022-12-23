@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Features/Employee/employee_detail.dart';
+import 'package:ooad_vubaochau/Features/Employee/emplyee_item.dart';
+import 'package:ooad_vubaochau/Models/Employee_Models/employee_item.dart';
 import 'package:ooad_vubaochau/styleguide/colors.dart';
 import 'package:ooad_vubaochau/styleguide/text_style.dart';
-import 'package:ooad_vubaochau/commons/narrow_app_bar.dart';
 
 class EmployeeList extends StatelessWidget {
   const EmployeeList({super.key});
@@ -10,6 +11,7 @@ class EmployeeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color themeColor = const Color.fromARGB(215, 24, 167, 176);
+    List<EmployeeItemModel> listEmployee = getListEmployee();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -110,88 +112,8 @@ class EmployeeList extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    margin: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                      bottom: 12,
-                    ),
-                    child: ListTile(
-                      title: const Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, top: 8),
-                        child: Text(
-                          "Nguyễn Trương Đình Du",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: primaryTextColor,
-                          ),
-                        ),
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.content_paste,
-                              size: 15,
-                              color: Colors.black,
-                            ),
-                            const SizedBox(
-                              width: 6,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Front-end Developer",
-                                softWrap: true,
-                                style: whiteSubHeadingTextStyle.copyWith(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      leading: ClipOval(
-                        child: Image.asset(
-                          "images/employee.jpg",
-                          width: 50,
-                          height: 50,
-                        ),
-                      ),
-                      trailing: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: 10,
-                            height: 10,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.green,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.phone_sharp,
-                                color: blueColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  child: EmployeeItem(
+                    employee: listEmployee[index],
                   ),
                 );
               },
@@ -201,5 +123,31 @@ class EmployeeList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<EmployeeItemModel> getListEmployee() {
+    List<EmployeeItemModel> list = [
+      EmployeeItemModel("Nguyễn Trương Đình Du", "images/employee.jpg",
+          'Front-end Developer'),
+      EmployeeItemModel(
+          "Vũ Bảo Châu", "images/employee.jpg", 'Mobile Developer'),
+      EmployeeItemModel(
+          "Phạm Minh Nhật", "images/employee.jpg", 'Business Analyst'),
+      EmployeeItemModel(
+          "Nguyễn Tuấn Khôi", "images/employee.jpg", 'Back-end Developer'),
+      EmployeeItemModel(
+          "Nguyễn Hoàng Nam", "images/employee.jpg", 'Back-end Developer'),
+      EmployeeItemModel(
+          "XiaoChauMeng", "images/employee.jpg", 'Front-end Developer'),
+      EmployeeItemModel(
+          "Huỳnh Trung Hiếu", "images/employee.jpg", 'Mobile Developer'),
+      EmployeeItemModel(
+          "Nguyễn Đình Đức Đại", "images/employee.jpg", 'Front-end Developer'),
+      EmployeeItemModel(
+          "Trần Trung Trực", "images/employee.jpg", 'Back-end Developer'),
+      EmployeeItemModel(
+          "Võ Quy Nguyên", "images/employee.jpg", 'Business Analyst'),
+    ];
+    return list;
   }
 }
