@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class OpaqueImage extends StatelessWidget {
   final String imageUrl;
-  const OpaqueImage({Key? key, required this.imageUrl}) : super(key: key);
+  const OpaqueImage({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
+    return buildWithoutHero();
+  }
+
+  Widget buildWithoutHero() {
     return Stack(
       children: <Widget>[
         Image.asset(

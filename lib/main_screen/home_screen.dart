@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
-import 'package:ooad_vubaochau/Features/Employee/employee_detail.dart';
-import 'package:ooad_vubaochau/Features/Employee/employee_list.dart';
+import 'package:ooad_vubaochau/Features/Task/task_list_4_employee.dart';
 import 'package:ooad_vubaochau/commons/opaque_image.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/admin_feature.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
@@ -63,7 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Stack(
                 children: [
-                  const OpaqueImage(imageUrl: 'images/logo.png'),
+                  const OpaqueImage(
+                    imageUrl: 'images/logo.png',
+                  ),
                   Column(
                     children: [
                       const SizedBox(
@@ -203,7 +204,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           name: 'Task',
                           icon: Icons.content_paste,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return const EmployeeTaskList();
+                              },
+                            ),
+                          );
+                        },
                       ),
                       InkWell(
                         splashColor: themeColor,
