@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class NarrowAppBar extends StatelessWidget with PreferredSizeWidget {
   final Widget leading, trailing;
 
-  const NarrowAppBar(
-      {super.key, required this.leading, required this.trailing});
+  
 
   @override
   Widget build(BuildContext context) {
