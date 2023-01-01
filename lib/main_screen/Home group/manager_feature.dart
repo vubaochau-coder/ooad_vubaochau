@@ -36,13 +36,15 @@ class ManagerFeatures extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             splashColor: themeColor,
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const EmployeeList();
-                  },
-                ),
-              );
+              Future.delayed(const Duration(milliseconds: 150), () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const EmployeeList();
+                    },
+                  ),
+                );
+              });
             },
             child: const ManagerOperations(
               text: 'Employee management',
@@ -68,13 +70,15 @@ class ManagerFeatures extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             splashColor: themeColor,
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const ManagerTaskList();
-                  },
-                ),
-              );
+              Future.delayed(const Duration(milliseconds: 150), () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const ManagerTaskList();
+                    },
+                  ),
+                );
+              });
             },
             child: const ManagerOperations(
               text: 'Task management',
