@@ -97,8 +97,8 @@ List<ManagerTaskModel> getTaskList() {
         MyLabelModel('Mobi', Colors.cyan),
       ],
       'This is subtitle of task item',
-      'Nov 20',
-      2,
+      'Nov 20, 2022',
+      ["", "", ""],
     ),
     ManagerTaskModel(
       'Testing UI Mobile',
@@ -108,8 +108,8 @@ List<ManagerTaskModel> getTaskList() {
         MyLabelModel('Mobi', Colors.cyan),
       ],
       'This is subtitle of task item\nThis is subtitle of task item\nThis is subtitle of task item',
-      'Nov 30',
-      3,
+      'Nov 30, 2022',
+      ["", "", ""],
     ),
     ManagerTaskModel(
       'Design UI Web',
@@ -119,8 +119,8 @@ List<ManagerTaskModel> getTaskList() {
         MyLabelModel('Web', Colors.deepOrange),
       ],
       'This is subtitle of task item',
-      'Nov 20',
-      2,
+      'Nov 20, 2022',
+      ["", "", ""],
     ),
     ManagerTaskModel(
       'Testing UI Web',
@@ -130,8 +130,8 @@ List<ManagerTaskModel> getTaskList() {
         MyLabelModel('Web', Colors.deepOrange),
       ],
       'This is subtitle of task item',
-      'Nov 30',
-      3,
+      'Nov 30, 2022',
+      ["", "", ""],
     ),
     ManagerTaskModel(
       'Design Database',
@@ -140,8 +140,8 @@ List<ManagerTaskModel> getTaskList() {
         MyLabelModel('BE', Colors.deepPurple),
       ],
       'This is subtitle of task item\nThis is subtitle of task item',
-      'Nov 30',
-      3,
+      'Nov 30, 2022',
+      ["", "", ""],
     ),
     ManagerTaskModel(
       'Testing Database',
@@ -150,8 +150,8 @@ List<ManagerTaskModel> getTaskList() {
         MyLabelModel('BE', Colors.deepPurple),
       ],
       'This is subtitle of task item\nThis is subtitle of task item\nThis is subtitle of task item',
-      'Nov 30',
-      3,
+      'Nov 30, 2022',
+      ["", "", ""],
     ),
     ManagerTaskModel(
       'Update Some Feature',
@@ -161,8 +161,8 @@ List<ManagerTaskModel> getTaskList() {
         MyLabelModel('Mobi', Colors.cyan),
       ],
       'This is subtitle of task item',
-      'Dec 30',
-      4,
+      'Dec 30, 2022',
+      ["", "", "", ""],
     ),
     ManagerTaskModel(
       'Update UI Web',
@@ -172,8 +172,8 @@ List<ManagerTaskModel> getTaskList() {
         MyLabelModel('UI', Colors.amber),
       ],
       'This is subtitle of task item\nThis is subtitle of task item',
-      'Dec 30',
-      4,
+      'Dec 30, 2022',
+      ["", "", "", ""],
     ),
   ];
   for (var task in list) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/manager_operation_button.dart';
+import 'package:ooad_vubaochau/Features/Permission/manage_permission.dart';
+import 'package:ooad_vubaochau/Features/Department/manage_department.dart';
 
 class AdminFeatures extends StatelessWidget {
   const AdminFeatures({super.key});
@@ -33,16 +35,46 @@ class AdminFeatures extends StatelessWidget {
           const SizedBox(
             height: 6,
           ),
-          const ManagerOperations(
-            text: 'Account management',
-            icon: Icons.manage_accounts_outlined,
+          InkWell(
+            borderRadius: BorderRadius.circular(12),
+            splashColor: themeColor,
+            onTap: () {
+              Future.delayed(const Duration(milliseconds: 150), () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const ManagePermissionScreen();
+                    },
+                  ),
+                );
+              });
+            },
+            child: const ManagerOperations(
+              text: 'Permission management',
+              icon: Icons.manage_accounts_outlined,
+            ),
           ),
           const SizedBox(
             height: 4,
           ),
-          const ManagerOperations(
-            text: 'Permission management',
-            icon: Icons.admin_panel_settings_outlined,
+          InkWell(
+            borderRadius: BorderRadius.circular(12),
+            splashColor: themeColor,
+            onTap: () {
+              Future.delayed(const Duration(milliseconds: 150), () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const ManageDepartmentScreen();
+                    },
+                  ),
+                );
+              });
+            },
+            child: const ManagerOperations(
+              text: 'Position management',
+              icon: Icons.person_pin,
+            ),
           ),
         ],
       ),

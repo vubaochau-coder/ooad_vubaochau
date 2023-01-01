@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ooad_vubaochau/Features/Task/add_label_dialog.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/label.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
 
 import 'hastag_task.dart';
 
-class MyBottomSheet extends StatefulWidget {
+class MyCreateBottomSheet extends StatefulWidget {
   final void Function(ManagerTaskModel) callback;
-  const MyBottomSheet({super.key, required this.callback});
+  const MyCreateBottomSheet({super.key, required this.callback});
 
   @override
-  State<MyBottomSheet> createState() => _MyBottomSheetState();
+  State<MyCreateBottomSheet> createState() => _MyCreateBottomSheetState();
 }
 
-class _MyBottomSheetState extends State<MyBottomSheet> {
+class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   List<MyLabelModel> listLabel = [];
   List<String> listMembers = [];
   TextEditingController titleControl = TextEditingController();
   TextEditingController descControl = TextEditingController();
+  DateFormat dateFormat = DateFormat('MMM d, yyyy');
+  DateTime myDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,8 +53,12 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
               ElevatedButton(
                 onPressed: () {
                   widget.callback(
-                    ManagerTaskModel(titleControl.text, listLabel,
-                        descControl.text, 'Dec 30', 3),
+                    ManagerTaskModel(
+                        titleControl.text,
+                        listLabel,
+                        descControl.text,
+                        dateFormat.format(myDate),
+                        listMembers),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -64,7 +72,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                       style: TextStyle(
                         color: themeColor,
                         fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Icon(
@@ -133,6 +141,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
           SizedBox(
             height: 24 * 5,
             child: TextField(
+              textInputAction: TextInputAction.done,
               controller: descControl,
               cursorColor: themeColor,
               maxLines: 5,
@@ -188,22 +197,45 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
               bottom: 6,
             ),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                showDatePicker(
+                  builder: (context, child) {
+                    return Theme(
+                      data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                        primary: themeColor,
+                        onPrimary: Colors.white,
+                      )),
+                      child: child!,
+                    );
+                  },
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2022),
+                  lastDate: DateTime(2100),
+                ).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      myDate = value;
+                    });
+                  }
+                });
+              },
               style: ElevatedButton.styleFrom(
                 elevation: 0,
                 backgroundColor: Colors.grey[300],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
-                    'Dec 30',
-                    style: TextStyle(
+                    dateFormat.format(myDate),
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 15,
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.keyboard_arrow_down,
                     color: Colors.black,
                   ),
@@ -229,7 +261,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
           ),
           Container(
             margin: const EdgeInsets.only(top: 4, bottom: 6),
-            height: 24,
+            height: 38,
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return index == listLabel.length
@@ -261,9 +293,40 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                           },
                         ),
                       )
-                    : TaskHastag(label: listLabel[index]);
+                    : index == listLabel.length + 1
+                        ? listLabel.isNotEmpty
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.grey[350],
+                                ),
+                                alignment: Alignment.center,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  icon: const Icon(
+                                    Icons.close,
+                                    size: 20,
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AddLabelDialog(
+                                          callback: (p0) {
+                                            setState(() {
+                                              listLabel.clear();
+                                            });
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              )
+                            : Container()
+                        : TaskHastag(label: listLabel[index]);
               },
-              itemCount: listLabel.length + 1,
+              itemCount: listLabel.length + 2,
               scrollDirection: Axis.horizontal,
             ),
           ),
@@ -284,7 +347,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
             ],
           ),
           Container(
-            height: 102,
+            height: 124,
             margin: const EdgeInsets.only(top: 4, bottom: 6),
             child: GridView.builder(
               itemCount: listMembers.length + 1,
@@ -303,7 +366,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                         alignment: Alignment.center,
                         child: IconButton(
                           padding: EdgeInsets.zero,
-                          icon: const Icon(Icons.add_rounded),
+                          icon: const Icon(Icons.person_add_alt_1_rounded),
                           onPressed: () {
                             setState(() {
                               listMembers.add("New employee");
@@ -311,28 +374,57 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                           },
                         ),
                       )
-                    : Container(
-                        margin: const EdgeInsets.only(left: 4, right: 4),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: themeColor,
-                            width: 1,
+                    : GestureDetector(
+                        onTapDown: (details) {
+                          showMenu(
+                            shape: const CircleBorder(),
+                            context: context,
+                            position: RelativeRect.fromLTRB(
+                              details.globalPosition.dx - 20,
+                              details.globalPosition.dy,
+                              details.globalPosition.dx,
+                              details.globalPosition.dy,
+                            ),
+                            items: [
+                              PopupMenuItem(
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.delete_outline,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    listMembers.removeAt(index);
+                                  });
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 4, right: 4),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: themeColor,
+                              width: 1,
+                            ),
+                            shape: BoxShape.circle,
                           ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: ClipOval(
-                          child: Image.asset(
-                            'images/employee.jpg',
-                            fit: BoxFit.contain,
-                            width: 47,
-                            height: 47,
+                          child: ClipOval(
+                            child: Image.asset(
+                              'images/employee.jpg',
+                              fit: BoxFit.contain,
+                              width: 47,
+                              height: 47,
+                            ),
                           ),
                         ),
                       );
               },
             ),
-          )
+          ),
         ],
       ),
     );

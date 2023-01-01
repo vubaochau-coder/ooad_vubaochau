@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
 import 'package:ooad_vubaochau/Features/Task/task_list_4_employee.dart';
-import 'package:ooad_vubaochau/commons/opaque_image.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/admin_feature.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/manager_feature.dart';
@@ -62,104 +61,125 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Stack(
                 children: [
-                  const OpaqueImage(
-                    imageUrl: 'images/logo.png',
+                  Container(
+                    width: double.infinity,
+                    height: 125 +
+                        MediaQuery.of(context).padding.top +
+                        kToolbarHeight,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('images/admin_background.jpg'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: kToolbarHeight,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                              left: 10,
-                            ),
-                            height: 64,
-                            width: 64,
-                            child: const CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('images/employee.jpg'),
-                            ),
-                          ),
-                          Container(
-                            height: 64,
-                            margin: const EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Good morning!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  fullName,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        child: Divider(
-                          color: Colors.white,
-                          height: 1,
+                  // const OpaqueImage(
+                  //   imageUrl: 'images/logo.png',
+                  // ),
+                  Container(
+                    width: double.infinity,
+                    height: 125 +
+                        MediaQuery.of(context).padding.top +
+                        kToolbarHeight,
+                    decoration: BoxDecoration(
+                      color: themeColor.withOpacity(0.8),
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: kToolbarHeight,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 10,
-                          right: 10,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        Row(
                           children: [
-                            const Icon(
-                              Icons.person_pin_circle_sharp,
-                              color: Colors.white,
+                            Container(
+                              margin: const EdgeInsets.only(
+                                left: 10,
+                              ),
+                              height: 64,
+                              width: 64,
+                              child: const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('images/employee.jpg'),
+                              ),
                             ),
-                            const SizedBox(
-                              width: 6,
-                            ),
-                            Text(
-                              position,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 15,
+                            Container(
+                              height: 64,
+                              margin: const EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Good morning!',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    fullName,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
                               ),
                             )
                           ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: Divider(
+                            color: Colors.white,
+                            height: 1,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(
+                                Icons.person_pin_circle_sharp,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(
+                                width: 6,
+                              ),
+                              Text(
+                                position,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

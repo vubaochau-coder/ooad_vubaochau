@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Features/Employee/employee_detail.dart';
-import 'package:ooad_vubaochau/Features/Employee/emplyee_item.dart';
-import 'package:ooad_vubaochau/Models/Employee_Models/employee_item.dart';
+import 'package:ooad_vubaochau/Features/Employee/employee_item.dart';
+import 'package:ooad_vubaochau/Models/Employee_Models/employee_item_model.dart';
 import 'package:ooad_vubaochau/styleguide/colors.dart';
 import 'package:ooad_vubaochau/styleguide/text_style.dart';
 
