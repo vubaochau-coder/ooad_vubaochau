@@ -5,8 +5,8 @@ class ManagerTaskModel {
   final List<MyLabelModel> label;
   final String subTitle;
   final String date;
-  final int numMember;
+  final List<String> members;
 
   ManagerTaskModel(
-      this.title, this.label, this.subTitle, this.date, this.numMember);
+      this.title, this.label, this.subTitle, this.date, this.members);
 }

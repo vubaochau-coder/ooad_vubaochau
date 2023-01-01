@@ -111,17 +111,16 @@ class TaskItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Expanded(
-                  child: SizedBox(),
-                ),
-                SizedBox(
-                  width: (task.numMember * 36),
+                const Spacer(),
+                Container(
+                  alignment: Alignment.centerRight,
+                  width: 33 * 3 + 20,
                   height: 30,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Container(
-                        margin: const EdgeInsets.only(left: 3, right: 3),
+                        margin: const EdgeInsets.only(right: 3),
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
@@ -134,7 +133,7 @@ class TaskItem extends StatelessWidget {
                             imagePath: "images/employee.jpg"),
                       );
                     },
-                    itemCount: task.numMember,
+                    itemCount: task.members.length,
                   ),
                 ),
               ],

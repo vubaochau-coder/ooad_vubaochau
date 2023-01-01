@@ -37,6 +37,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 gradient: LinearGradient(
                   colors: [
                     Color.fromARGB(215, 24, 167, 176),
+                    Color.fromARGB(185, 24, 167, 176),
                     Color.fromARGB(215, 24, 167, 176),
                   ],
                   begin: Alignment.centerLeft,
@@ -44,14 +45,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
               ),
             ),
-            elevation: 0,
+            elevation: 4,
             bottom: const TabBar(
               labelColor: Colors.white,
               indicatorColor: Colors.white,
               unselectedLabelColor: Colors.white54,
               labelStyle: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 1.2,
               ),
               unselectedLabelStyle: TextStyle(
                 fontSize: 13,
