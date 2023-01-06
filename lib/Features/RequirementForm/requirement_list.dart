@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:ooad_vubaochau/Features/RequirementForm/bottom_sheet.dart';
 import 'package:ooad_vubaochau/Features/RequirementForm/required_item.dart';
 import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
@@ -18,27 +18,6 @@ class _ManagerRequiredListState extends State<ManagerRequiredList> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: themeColor,
-        title: const Text(
-          'Requirement',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert),
-          ),
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: themeColor,
         child: const Icon(
@@ -66,109 +45,163 @@ class _ManagerRequiredListState extends State<ManagerRequiredList> {
           );
         },
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+      body: Container(
+        decoration: BoxDecoration(
+          color: themeColor,
+          image: const DecorationImage(
+            image: AssetImage('images/demo.jpg'),
+            fit: BoxFit.cover,
+            opacity: 0.2,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SafeArea(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white70,
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(top: 8, bottom: 12),
+              child: const Text(
+                'Requirement',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 32,
+                  color: Colors.white70,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 22),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Requirement Form Management',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                  Expanded(
+                    flex: 5,
+                    child: TextField(
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.5,
+                      ),
+                      cursorColor: Colors.white54,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.search,
+                      decoration: InputDecoration(
+                        hintText: 'Title of Requirement',
+                        hintStyle: const TextStyle(
+                          color: Colors.black38,
+                        ),
+                        fillColor: Colors.transparent,
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 18, vertical: 16),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide: const BorderSide(
+                            color: Colors.white70,
+                            width: 2,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide: const BorderSide(
+                            color: Colors.white70,
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide: const BorderSide(
+                            color: Colors.white70,
+                            width: 2,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.sort,
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white70,
+                          width: 2,
+                        ),
+                      ),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.sort,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {},
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 11,
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                final ManagerRequiredModel task = taskList[index];
-                return Slidable(
-                  startActionPane: ActionPane(
-                    motion: const StretchMotion(),
-                    extentRatio: 2 / 3,
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Task... deleted!"),
-                            ),
-                          );
-                          setState(() {
-                            taskList.removeAt(index);
-                          });
-                        },
-                        icon: Icons.delete,
-                        label: "Delete",
-                        backgroundColor: Colors.red,
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: GroupedListView(
+                  elements: taskList,
+                  groupBy: (element) => element.date,
+                  padding: const EdgeInsets.only(top: 8),
+                  groupSeparatorBuilder: (value) {
+                    return Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(
+                        left: 12,
                       ),
-                      SlidableAction(
-                        onPressed: (context) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Task... Edited!"),
-                            ),
-                          );
-                        },
-                        icon: Icons.edit,
-                        label: "Edit",
-                        backgroundColor: Colors.blue,
+                      margin: const EdgeInsets.only(
+                          left: 4, right: 4, bottom: 2, top: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      SlidableAction(
-                        onPressed: (context) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Task... done!"),
-                            ),
-                          );
-                        },
-                        icon: Icons.done_outline_rounded,
-                        label: "Done",
-                        backgroundColor: themeColor.withAlpha(200),
+                      child: Text(
+                        value,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ],
-                  ),
-                  child: buildTaskList(task),
-                );
-              },
-              itemCount: taskList.length,
+                    );
+                  },
+                  itemBuilder: (context, element) {
+                    return buildTaskList(element);
+                  },
+                ),
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget buildTaskList(ManagerRequiredModel task) {
-    return Builder(
-      builder: (context) => GestureDetector(
-        onTap: () {
-          final slidable = Slidable.of(context)!;
-          final isClosed = slidable.actionPaneType.value == ActionPaneType.none;
-          if (isClosed) {
-            slidable.openStartActionPane();
-          } else {
-            slidable.close();
-          }
-        },
-        child: RequiredItem(query: task),
-      ),
-    );
+    return RequiredItem(query: task);
   }
 
   static List<ManagerRequiredModel> getTaskList() {
@@ -210,11 +243,6 @@ class _ManagerRequiredListState extends State<ManagerRequiredList> {
         3,
       ),
     ];
-    for (var task in list) {
-      task.label.sort((a, b) {
-        return a.text.length.compareTo(b.text.length);
-      });
-    }
     return list;
   }
 }

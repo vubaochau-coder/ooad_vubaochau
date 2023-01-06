@@ -16,7 +16,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   String checkIn = "--/--";
   String checkOut = "--/--";
 
-  Color primary = const Color(0xffeef444c);
+  Color primary = const Color(0xFEEF444C);
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;

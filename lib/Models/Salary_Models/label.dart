@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SalaryLabelModel {
-  final String Text;
+  final String text;
   final Color color;
 
-  SalaryLabelModel(this.Text, this.color);
+  SalaryLabelModel(this.text, this.color);
 }

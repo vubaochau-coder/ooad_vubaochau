@@ -28,7 +28,7 @@ class _RequiredBottomSheetState extends State<RequiredBottomSheet> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "ADD NEW REQUIREMENT FORM",
+                "REQUIREMENT FORM",
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

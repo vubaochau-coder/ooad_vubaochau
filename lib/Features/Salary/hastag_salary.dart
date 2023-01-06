@@ -17,7 +17,7 @@ class SalaryHastag extends StatelessWidget {
       ),
       constraints: const BoxConstraints(minWidth: 28),
       child: Text(
-        labelModel.Text,
+        labelModel.text,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 13,

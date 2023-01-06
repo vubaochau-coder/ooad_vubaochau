@@ -86,7 +86,7 @@ class MyCustomSlidableAction extends StatelessWidget {
         }
       },
       child: Card(
-        elevation: 2,
+        elevation: 4,
         margin: margin,
         shape: RoundedRectangleBorder(
           borderRadius: borderRadius,

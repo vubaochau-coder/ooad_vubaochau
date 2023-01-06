@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/manager_operation_button.dart';
+import 'package:ooad_vubaochau/Features/Create%20Notification/create_notification.dart';
 import 'package:ooad_vubaochau/Features/Employee/employee_list.dart';
 import 'package:ooad_vubaochau/Features/Task/task_list_4_manager.dart';
 
@@ -57,18 +58,6 @@ class ManagerFeatures extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(12),
             splashColor: themeColor,
-            onTap: () {},
-            child: const ManagerOperations(
-              text: 'Salary management',
-              icon: Icons.request_quote,
-            ),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          InkWell(
-            borderRadius: BorderRadius.circular(12),
-            splashColor: themeColor,
             onTap: () {
               Future.delayed(const Duration(milliseconds: 150), () {
                 Navigator.of(context).push(
@@ -91,7 +80,17 @@ class ManagerFeatures extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(12),
             splashColor: themeColor,
-            onTap: () {},
+            onTap: () {
+              Future.delayed(const Duration(milliseconds: 150), () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const CreateNotificationScreen();
+                    },
+                  ),
+                );
+              });
+            },
             child: const ManagerOperations(
               text: 'Create notification',
               icon: Icons.notification_add,

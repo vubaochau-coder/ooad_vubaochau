@@ -187,8 +187,8 @@ class _ManagerTaskListState extends State<ManagerTaskList> {
       ),
     ];
     for (var task in list) {
-      task.Label.sort((a, b) {
-        return a.Text.length.compareTo(b.Text.length);
+      task.label.sort((a, b) {
+        return a.text.length.compareTo(b.text.length);
       });
     }
     return list;

@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Features/Permission/manager_accounts.dart';
 import 'package:ooad_vubaochau/Features/Permission/staff_accounts.dart';
 
-class ManagePermissionScreen extends StatelessWidget {
+class ManagePermissionScreen extends StatefulWidget {
   const ManagePermissionScreen({super.key});
 
   @override
+  State<ManagePermissionScreen> createState() => _ManagePermissionScreenState();
+}
+
+class _ManagePermissionScreenState extends State<ManagePermissionScreen> {
+  @override
   Widget build(BuildContext context) {
-    Color themeColor = const Color.fromARGB(255, 18, 189, 184);
+    Color themeColor = const Color.fromARGB(215, 24, 167, 176);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -19,9 +24,6 @@ class ManagePermissionScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: const [
-                    SizedBox(
-                      height: 180,
-                    ),
                     Expanded(
                       child: TabBarView(
                         children: [
@@ -39,24 +41,9 @@ class ManagePermissionScreen extends StatelessWidget {
                   children: [
                     Container(
                       height: 210,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.elliptical(200, 30),
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage('images/account.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
                     ),
-                    Container(
+                    SizedBox(
                       height: 210,
-                      decoration: BoxDecoration(
-                        color: themeColor.withOpacity(0.8),
-                        borderRadius: const BorderRadius.vertical(
-                          bottom: Radius.elliptical(200, 30),
-                        ),
-                      ),
                       child: SafeArea(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,19 +54,7 @@ class ManagePermissionScreen extends StatelessWidget {
                               },
                               icon: const Icon(
                                 Icons.arrow_back,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              alignment: Alignment.center,
-                              child: const Text(
-                                'Accounts',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                color: Colors.black54,
                               ),
                             ),
                           ],
@@ -97,21 +72,35 @@ class ManagePermissionScreen extends StatelessWidget {
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Colors.grey[300],
+                            color: themeColor.withAlpha(50),
                             borderRadius: BorderRadius.circular(40),
                           ),
                           child: TabBar(
                             indicator: BoxDecoration(
                               borderRadius: BorderRadius.circular(40),
-                              color: Colors.white,
+                              color: themeColor,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2,
+                              ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  spreadRadius: -3.0,
+                                  blurRadius: 3.0,
+                                ),
+                              ],
                             ),
                             unselectedLabelColor: Colors.black45,
-                            labelColor: Colors.black,
+                            labelColor: Colors.white,
                             labelStyle: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
-                              letterSpacing: 1.2,
-                              color: Colors.black,
+                              letterSpacing: 1.1,
+                              color: Colors.white,
                             ),
                             unselectedLabelStyle: const TextStyle(
                               fontSize: 13,
