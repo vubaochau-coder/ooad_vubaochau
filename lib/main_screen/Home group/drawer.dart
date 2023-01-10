@@ -72,11 +72,11 @@ class NavigationDrawer extends StatelessWidget {
       children: [
         ListTile(
           leading: Icon(
-            Icons.person_outline,
+            Icons.vpn_key_outlined,
             color: themeColor,
           ),
           title: const Text(
-            'My profile',
+            'Change password',
             style: TextStyle(
               fontSize: 16,
               color: Colors.black54,

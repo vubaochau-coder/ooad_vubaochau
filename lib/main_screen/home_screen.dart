@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
+import 'package:ooad_vubaochau/Features/Attendance/attendance_screen.dart';
+import 'package:ooad_vubaochau/Features/RequirementForm/requirement_list.dart';
 import 'package:ooad_vubaochau/Features/Task/task_list_4_employee.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/admin_feature.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
@@ -66,24 +68,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 125 +
                         MediaQuery.of(context).padding.top +
                         kToolbarHeight,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
+                    decoration: BoxDecoration(
+                      color: themeColor,
+                      image: const DecorationImage(
                         image: AssetImage('images/admin_background.jpg'),
                         fit: BoxFit.cover,
+                        opacity: 0.3,
                       ),
                     ),
                   ),
-                  // const OpaqueImage(
-                  //   imageUrl: 'images/logo.png',
-                  // ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 125 +
                         MediaQuery.of(context).padding.top +
                         kToolbarHeight,
-                    decoration: BoxDecoration(
-                      color: themeColor.withOpacity(0.8),
-                    ),
                     child: Column(
                       children: [
                         const SizedBox(
@@ -225,21 +223,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           icon: Icons.content_paste,
                         ),
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const EmployeeTaskList();
-                              },
-                            ),
-                          );
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const EmployeeTaskList();
+                                },
+                              ),
+                            );
+                          });
                         },
                       ),
                       InkWell(
                         splashColor: themeColor,
                         borderRadius: BorderRadius.circular(12),
                         child: const OperationButton(
-                          name: 'Salary',
-                          icon: Icons.currency_exchange_sharp,
+                          name: 'Profile',
+                          icon: Icons.person_outline,
                         ),
                         onTap: () {},
                       ),
@@ -258,7 +258,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           name: 'Requirement',
                           icon: Icons.contact_mail_outlined,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const ManagerRequiredList();
+                                },
+                              ),
+                            );
+                          });
+                        },
                       ),
                       InkWell(
                         splashColor: themeColor,
@@ -266,7 +276,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: const OperationButton(
                             name: 'Attendance',
                             icon: Icons.library_add_check_outlined),
-                        onTap: () {},
+                        onTap: () {
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const AttendanceScreen();
+                                },
+                              ),
+                            );
+                          });
+                        },
                       ),
                     ],
                   ),

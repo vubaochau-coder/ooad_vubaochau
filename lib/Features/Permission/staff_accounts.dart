@@ -12,13 +12,16 @@ class StaffAccountListScreen extends StatefulWidget {
   State<StaffAccountListScreen> createState() => _StaffAccountListScreenState();
 }
 
-class _StaffAccountListScreenState extends State<StaffAccountListScreen> {
+class _StaffAccountListScreenState extends State<StaffAccountListScreen>
+    with AutomaticKeepAliveClientMixin {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   List<AccountInfoModel> listAcc = getListAccount();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        heroTag: 'fab_staff_acc',
         backgroundColor: themeColor,
         onPressed: () {},
         child: const Icon(
@@ -26,48 +29,149 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen> {
           color: Colors.white,
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          const SizedBox(
-            height: 8,
-          ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.only(top: 50),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 2),
-                  child: Slidable(
-                    startActionPane: ActionPane(
-                      extentRatio: 0.25,
-                      motion: const ScrollMotion(),
-                      children: [
-                        MyCustomSlidableAction(
-                          height: 72,
-                          width: 72,
-                          margin: const EdgeInsets.only(left: 10),
-                          backgroundColor: listAcc[index].isActive
-                              ? Colors.red
-                              : const Color.fromRGBO(129, 199, 132, 1),
-                          icon: listAcc[index].isActive
-                              ? Icons.disabled_by_default_rounded
-                              : Icons.check_box,
-                          label: listAcc[index].isActive ? 'Disable' : 'Enable',
-                          borderRadius: BorderRadius.circular(36),
-                          onPressed: (context) {
-                            setState(() {
-                              listAcc[index].isActive =
-                                  !listAcc[index].isActive;
-                            });
-                          },
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 180,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(top: 50),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 2),
+                        child: Slidable(
+                          startActionPane: ActionPane(
+                            extentRatio: 0.25,
+                            motion: const ScrollMotion(),
+                            children: [
+                              MyCustomSlidableAction(
+                                height: 72,
+                                width: 72,
+                                margin: const EdgeInsets.only(left: 10),
+                                backgroundColor: listAcc[index].isActive
+                                    ? Colors.red
+                                    : const Color.fromRGBO(129, 199, 132, 1),
+                                icon: listAcc[index].isActive
+                                    ? Icons.disabled_by_default_rounded
+                                    : Icons.check_box,
+                                label: listAcc[index].isActive
+                                    ? 'Disable'
+                                    : 'Enable',
+                                borderRadius: BorderRadius.circular(36),
+                                onPressed: (context) {
+                                  setState(() {
+                                    listAcc[index].isActive =
+                                        !listAcc[index].isActive;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          child: buildAccList(context, index),
                         ),
-                      ],
-                    ),
-                    child: buildAccList(context, index),
+                      );
+                    },
+                    itemCount: listAcc.length,
                   ),
-                );
-              },
-              itemCount: listAcc.length,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 234,
+            child: Stack(
+              children: [
+                Container(
+                  height: 210,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.elliptical(200, 30),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black87,
+                        blurRadius: 14,
+                        blurStyle: BlurStyle.normal,
+                        spreadRadius: -14,
+                        offset: Offset(7, 12),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 210,
+                  decoration: BoxDecoration(
+                    color: themeColor,
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.elliptical(200, 30),
+                    ),
+                    image: const DecorationImage(
+                      image: AssetImage('images/account.jpg'),
+                      fit: BoxFit.cover,
+                      opacity: 0.1,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 210,
+                  alignment: Alignment.center,
+                  color: Colors.transparent,
+                  padding: const EdgeInsets.only(left: 22, right: 22, top: 18),
+                  child: TextField(
+                    style: const TextStyle(
+                      color: Colors.black54,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.5,
+                    ),
+                    cursorColor: Colors.black54,
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.search,
+                    decoration: InputDecoration(
+                      hintText: '"Name" of employee',
+                      hintStyle: const TextStyle(
+                        color: Colors.black38,
+                      ),
+                      fillColor: Colors.white24,
+                      filled: true,
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 18),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -162,4 +266,7 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen> {
     ];
     return listAcc;
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

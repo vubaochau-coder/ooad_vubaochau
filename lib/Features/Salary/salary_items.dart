@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Features/Salary/hastag_salary.dart';
 import 'package:ooad_vubaochau/Models/Salary_Models/manager_salary.dart';
-import 'package:ooad_vubaochau/commons/rounded_image.dart';
 
 class SalaryItem extends StatelessWidget {
   final ManagerSalaryModel salary;
@@ -23,7 +22,7 @@ class SalaryItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  salary.Name,
+                  salary.name,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -59,10 +58,10 @@ class SalaryItem extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index1) {
                   return SalaryHastag(
-                    labelModel: salary.Label[index1],
+                    labelModel: salary.label[index1],
                   );
                 },
-                itemCount: salary.Label.length,
+                itemCount: salary.label.length,
               ),
             ),
             const SizedBox(

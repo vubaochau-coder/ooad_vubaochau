@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "286368890983",
+    "project_id": "incognito-f6854",
+    "storage_bucket": "incognito-f6854.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286368890983:android:86d18ea9983fa03ba614c2",
+        "android_client_info": {
+          "package_name": "com.example.ooad_vubaochau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286368890983-uq3vbdb8acj9gl81h34ai39n5b1on2tg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwl3TJ-wQsdLKwaE_70LrQ7aoJk8gzZtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286368890983-uq3vbdb8acj9gl81h34ai39n5b1on2tg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

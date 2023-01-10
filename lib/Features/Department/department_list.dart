@@ -9,11 +9,13 @@ class DepartmentListScreen extends StatefulWidget {
   State<DepartmentListScreen> createState() => _DepartmentListScreenState();
 }
 
-class _DepartmentListScreenState extends State<DepartmentListScreen> {
+class _DepartmentListScreenState extends State<DepartmentListScreen>
+    with AutomaticKeepAliveClientMixin {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   List<DepartmentModel> listDepartment = getListDepartment();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -23,12 +25,82 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
           color: Colors.white,
         ),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.only(top: 50),
-        itemBuilder: (context, index) {
-          return buildDepartmentItem(listDepartment[index]);
-        },
-        itemCount: listDepartment.length,
+      body: Stack(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 180,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(top: 50),
+                    itemBuilder: (context, index) {
+                      return buildDepartmentItem(listDepartment[index]);
+                    },
+                    itemCount: listDepartment.length,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 234,
+            child: Stack(
+              children: [
+                Container(
+                  height: 210,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.elliptical(200, 30),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black87,
+                        blurRadius: 14,
+                        blurStyle: BlurStyle.normal,
+                        spreadRadius: -14,
+                        offset: Offset(7, 12),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 210,
+                  decoration: BoxDecoration(
+                    color: themeColor,
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.elliptical(200, 30),
+                    ),
+                    image: const DecorationImage(
+                      image: AssetImage('images/position_left.png'),
+                      fit: BoxFit.cover,
+                      opacity: 0.5,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 210,
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  color: Colors.transparent,
+                  child: const Text(
+                    'Departments',
+                    style: TextStyle(
+                      color: Colors.black38,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -53,4 +125,7 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
     ];
     return list;
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

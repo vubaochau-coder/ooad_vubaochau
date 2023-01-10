@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Features/RequirementForm/hastag_required.dart';
 import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
-import 'package:ooad_vubaochau/commons/rounded_image.dart';
 
 class RequiredItem extends StatelessWidget {
   final ManagerRequiredModel query;
@@ -22,122 +20,92 @@ class RequiredItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(
-                  query.title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    query.title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
-                const Expanded(
-                  child: SizedBox(),
-                ),
-                Container(
-                  width: 6,
-                  height: 6,
-                  margin: const EdgeInsets.only(right: 4),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey,
+                const Spacer(),
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        margin: const EdgeInsets.only(right: 4),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const Text(
+                        '3 days left',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                const Text(
-                  '3 days left',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                  ),
-                )
               ],
             ),
             const SizedBox(
               height: 4,
             ),
-            SizedBox(
-              height: 18,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index1) {
-                  return RequiredHastag(
-                    label: query.label[index1],
-                  );
-                },
-                itemCount: query.label.length,
-              ),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              query.subTitle,
-              style: const TextStyle(
+            const Text(
+              // query.subTitle,
+              'Nằm nghe sóng vỗ từng lớp xaBọt tràn theo từng làn gió đưaMột vầng trăng sáng với tình yêu chúng taVượt ngàn hải lý cũng không xaBiển rộng đất trời chỉ có taThì dòng ngân hà mình cũng quaBiển không biên giới, như tình anh với emHơn cả những vì sao đêmTrăng nhô lên cao, trăng gác trên đầu núiMây xanh xanh lơ vì đắm say tình mớiĐến đây với em mà ngỡ trong giấc mơMắt em âu sầu là cả một trời thơKhông gian im nghe nhịp đôi tim hẹn ướcMong sao tương lai đường trắng ta cùng bướcXiết tay dắt nhau mình lánh xa thế nhânLánh xa ưu phiền đắng cay trần gianĐời anh sẽ đẹp vì có emNgày dài sẽ làm mình nhớ thêmBiển xanh cát trắng, sóng hòa nhịp ái ânKhông còn những chiều bâng khuâng',
+              style: TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: 15,
                 color: Colors.black54,
               ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 4,
             ),
             const SizedBox(
               height: 4,
             ),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 2,
+            Container(
+              width: 84,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 4,
+                vertical: 2,
+              ),
+              decoration: BoxDecoration(
+                color: themeColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.access_time,
+                    color: Colors.white,
+                    size: 18,
                   ),
-                  decoration: BoxDecoration(
-                    color: themeColor,
-                    borderRadius: BorderRadius.circular(4),
+                  const SizedBox(
+                    width: 4,
                   ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.access_time,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        query.date,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    query.date,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                const Expanded(
-                  child: SizedBox(),
-                ),
-                SizedBox(
-                  width: (query.numMember * 36),
-                  height: 30,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(left: 3, right: 3),
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(
-                            color: themeColor,
-                          ),
-                        ),
-                        child: const RoundedImage(
-                            imagePath: "images/employee.jpg"),
-                      );
-                    },
-                    itemCount: query.numMember,
-                  ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),

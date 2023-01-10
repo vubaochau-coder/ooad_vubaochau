@@ -1,3 +1,8 @@
 {
-  "cSpell.words": ["ARGB", "Chau", "Mobi"]
+  "cSpell.words": [
+    "ARGB",
+    "Chau",
+    "Mobi"
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

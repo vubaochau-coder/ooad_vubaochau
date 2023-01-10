@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Features/Department/employee_deparment_list.dart';
-import 'package:ooad_vubaochau/Features/Permission/staff_accounts.dart';
 import 'package:ooad_vubaochau/Features/Department/department_list.dart';
 
 class ManageDepartmentScreen extends StatelessWidget {
@@ -19,19 +18,10 @@ class ManageDepartmentScreen extends StatelessWidget {
             children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: const [
-                    SizedBox(
-                      height: 180,
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          DepartmentListScreen(),
-                          DepartmentEmpListScreen(),
-                        ],
-                      ),
-                    ),
+                child: const TabBarView(
+                  children: [
+                    DepartmentListScreen(),
+                    DepartmentEmpListScreen(),
                   ],
                 ),
               ),
@@ -41,24 +31,9 @@ class ManageDepartmentScreen extends StatelessWidget {
                   children: [
                     Container(
                       height: 210,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.elliptical(200, 30),
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage('images/position.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
                     ),
-                    Container(
+                    SizedBox(
                       height: 210,
-                      decoration: BoxDecoration(
-                        color: themeColor.withOpacity(0.8),
-                        borderRadius: const BorderRadius.vertical(
-                          bottom: Radius.elliptical(200, 30),
-                        ),
-                      ),
                       child: SafeArea(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,19 +44,7 @@ class ManageDepartmentScreen extends StatelessWidget {
                               },
                               icon: const Icon(
                                 Icons.arrow_back,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              alignment: Alignment.center,
-                              child: const Text(
-                                'Departments',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                color: Colors.black54,
                               ),
                             ),
                           ],
@@ -106,6 +69,20 @@ class ManageDepartmentScreen extends StatelessWidget {
                             indicator: BoxDecoration(
                               borderRadius: BorderRadius.circular(40),
                               color: themeColor,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2,
+                              ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  spreadRadius: -3.0,
+                                  blurRadius: 3.0,
+                                ),
+                              ],
                             ),
                             unselectedLabelColor: Colors.black45,
                             labelColor: Colors.white,

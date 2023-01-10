@@ -12,13 +12,16 @@ class ManagerAccountListScreen extends StatefulWidget {
       _ManagerAccountListScreenState();
 }
 
-class _ManagerAccountListScreenState extends State<ManagerAccountListScreen> {
+class _ManagerAccountListScreenState extends State<ManagerAccountListScreen>
+    with AutomaticKeepAliveClientMixin {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   List<AccountInfoModel> listAcc = getListAccount();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        heroTag: 'fab_manager_acc',
         onPressed: () {},
         backgroundColor: themeColor,
         child: const Icon(
@@ -26,48 +29,110 @@ class _ManagerAccountListScreenState extends State<ManagerAccountListScreen> {
           color: Colors.white,
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          const SizedBox(
-            height: 8,
-          ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.only(top: 50),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 2),
-                  child: Slidable(
-                    startActionPane: ActionPane(
-                      extentRatio: 0.25,
-                      motion: const ScrollMotion(),
-                      children: [
-                        MyCustomSlidableAction(
-                          height: 72,
-                          width: 72,
-                          margin: const EdgeInsets.only(left: 10),
-                          backgroundColor: listAcc[index].isActive
-                              ? Colors.red
-                              : const Color.fromRGBO(129, 199, 132, 1),
-                          icon: listAcc[index].isActive
-                              ? Icons.disabled_by_default_rounded
-                              : Icons.check_box,
-                          label: listAcc[index].isActive ? 'Disable' : 'Enable',
-                          borderRadius: BorderRadius.circular(36),
-                          onPressed: (context) {
-                            setState(() {
-                              listAcc[index].isActive =
-                                  !listAcc[index].isActive;
-                            });
-                          },
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 180,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(top: 50),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 2),
+                        child: Slidable(
+                          startActionPane: ActionPane(
+                            extentRatio: 0.25,
+                            motion: const ScrollMotion(),
+                            children: [
+                              MyCustomSlidableAction(
+                                height: 72,
+                                width: 72,
+                                margin: const EdgeInsets.only(left: 10),
+                                backgroundColor: listAcc[index].isActive
+                                    ? Colors.red
+                                    : const Color.fromRGBO(129, 199, 132, 1),
+                                icon: listAcc[index].isActive
+                                    ? Icons.disabled_by_default_rounded
+                                    : Icons.check_box,
+                                label: listAcc[index].isActive
+                                    ? 'Disable'
+                                    : 'Enable',
+                                borderRadius: BorderRadius.circular(36),
+                                onPressed: (context) {
+                                  setState(() {
+                                    listAcc[index].isActive =
+                                        !listAcc[index].isActive;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          child: buildAccList(context, index),
                         ),
-                      ],
-                    ),
-                    child: buildAccList(context, index),
+                      );
+                    },
+                    itemCount: listAcc.length,
                   ),
-                );
-              },
-              itemCount: listAcc.length,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 234,
+            child: Stack(
+              children: [
+                Container(
+                  height: 210,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.elliptical(200, 30),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black87,
+                        blurRadius: 14,
+                        blurStyle: BlurStyle.normal,
+                        spreadRadius: -14,
+                        offset: Offset(7, 12),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 210,
+                  decoration: BoxDecoration(
+                    color: themeColor,
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.elliptical(200, 30),
+                    ),
+                    image: const DecorationImage(
+                      image: AssetImage('images/account.jpg'),
+                      fit: BoxFit.cover,
+                      opacity: 0.1,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 210,
+                  alignment: Alignment.center,
+                  color: Colors.transparent,
+                  child: const Text(
+                    'Accounts',
+                    style: TextStyle(
+                      color: Colors.black38,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -153,4 +218,7 @@ class _ManagerAccountListScreenState extends State<ManagerAccountListScreen> {
     ];
     return listAcc;
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
