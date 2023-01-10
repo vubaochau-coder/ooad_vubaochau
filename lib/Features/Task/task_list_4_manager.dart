@@ -31,14 +31,11 @@ class _ManagerTaskListState extends State<ManagerTaskList> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: themeColor,
-        title: const Text(
-          'In Progress',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.black54,
         actions: [
           IconButton(
             onPressed: () {},
@@ -48,7 +45,9 @@ class _ManagerTaskListState extends State<ManagerTaskList> {
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(
+              Icons.sort,
+            ),
           ),
         ],
       ),
@@ -60,6 +59,7 @@ class _ManagerTaskListState extends State<ManagerTaskList> {
         ),
         onPressed: () {
           showModalBottomSheet(
+            backgroundColor: Colors.transparent,
             isScrollControlled: true,
             context: context,
             shape: const RoundedRectangleBorder(
@@ -69,110 +69,124 @@ class _ManagerTaskListState extends State<ManagerTaskList> {
               ),
             ),
             builder: (BuildContext context) {
-              return MyCreateBottomSheet(callback: (p0) {
-                setState(() {
-                  taskList.insert(0, p0);
+              return MyCreateBottomSheet(
+                onComplete: (p0) {
+                  setState(() {
+                    taskList.insert(0, p0);
+                    Navigator.pop(context);
+                    showSuccessToast('Task has been created');
+                  });
+                },
+                onExit: () {
                   Navigator.pop(context);
-                  showSuccessToast('Task has been created');
-                });
-              });
+                },
+              );
             },
           );
         },
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Padding(
+      body: Container(
+        decoration: BoxDecoration(
+          color: themeColor,
+          image: const DecorationImage(
+            image: AssetImage('images/position_right.png'),
+            fit: BoxFit.cover,
+            opacity: 0.4,
+          ),
+        ),
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top +
+                AppBar().preferredSize.height),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Task management',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.sort,
-                    ),
-                  ),
-                ],
+              margin: const EdgeInsets.only(bottom: 20),
+              child: const Text(
+                'Task management',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  color: Colors.black54,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 11,
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                final ManagerTaskModel task = taskList[index];
-                return Slidable(
-                  startActionPane: ActionPane(
-                    motion: const StretchMotion(),
-                    extentRatio: 2 / 3,
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {
-                          setState(() {
-                            taskList.removeAt(index);
-                          });
-                          showSuccessToast('Task has been deleted');
-                        },
-                        icon: Icons.delete,
-                        label: "Delete",
-                        backgroundColor: Colors.red,
-                      ),
-                      SlidableAction(
-                        onPressed: (context) {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(22),
-                                topRight: Radius.circular(22),
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  final ManagerTaskModel task = taskList[index];
+                  return Slidable(
+                    startActionPane: ActionPane(
+                      motion: const StretchMotion(),
+                      extentRatio: 2 / 3,
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            setState(() {
+                              taskList.removeAt(index);
+                            });
+                            showSuccessToast('Task has been deleted');
+                          },
+                          icon: Icons.delete_outline,
+                          label: "Delete",
+                          backgroundColor: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        SlidableAction(
+                          onPressed: (context) {
+                            showModalBottomSheet(
+                              backgroundColor: Colors.transparent,
+                              isScrollControlled: true,
+                              context: context,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(22),
+                                  topRight: Radius.circular(22),
+                                ),
                               ),
-                            ),
-                            builder: (BuildContext context) {
-                              return MyEditBottomSheet(
-                                callback: (p0) {
-                                  setState(() {
-                                    taskList[index] = p0;
+                              builder: (BuildContext context) {
+                                return MyEditBottomSheet(
+                                  onComplete: (p0) {
+                                    setState(() {
+                                      taskList[index] = p0;
+                                      Navigator.pop(context);
+                                      showSuccessToast('Task has been edited');
+                                    });
+                                  },
+                                  item: taskList[index],
+                                  onExit: () {
                                     Navigator.pop(context);
-                                    showSuccessToast('Task has been edited');
-                                  });
-                                },
-                                item: taskList[index],
-                              );
-                            },
-                          );
-                        },
-                        icon: Icons.edit,
-                        label: "Edit",
-                        backgroundColor: Colors.blue,
-                      ),
-                      SlidableAction(
-                        onPressed: (context) {
-                          showSuccessToast('Task completed');
-                        },
-                        icon: Icons.done_outline_rounded,
-                        label: "Done",
-                        backgroundColor: themeColor.withAlpha(200),
-                      ),
-                    ],
-                  ),
-                  child: buildTaskList(task),
-                );
-              },
-              itemCount: taskList.length,
-            ),
-          )
-        ],
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          icon: Icons.edit_outlined,
+                          label: "Edit",
+                          backgroundColor: Colors.blue,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        SlidableAction(
+                          onPressed: (context) {
+                            showSuccessToast('Task completed');
+                          },
+                          icon: Icons.done_outline_rounded,
+                          label: "Done",
+                          backgroundColor: themeColor.withAlpha(200),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ],
+                    ),
+                    child: buildTaskList(task),
+                  );
+                },
+                itemCount: taskList.length,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -220,7 +234,7 @@ class _ManagerTaskListState extends State<ManagerTaskList> {
           MyLabelModel('UI', Colors.amber),
           MyLabelModel('Mobi', Colors.cyan),
         ],
-        'This is subtitle of task item\nThis is subtitle of task item\nThis is subtitle of task item',
+        'This is subtitle of task itemThis is subtitle of task itemThis is subtitle of task item',
         'Nov 30, 2022',
         ["", "", ""],
       ),

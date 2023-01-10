@@ -16,7 +16,11 @@ class TaskItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 18, right: 8, top: 12, bottom: 12),
+        padding: const EdgeInsets.only(
+          left: 18,
+          right: 8,
+          top: 12,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -80,6 +84,7 @@ class TaskItem extends StatelessWidget {
               height: 4,
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -112,32 +117,98 @@ class TaskItem extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Container(
-                  alignment: Alignment.centerRight,
-                  width: 33 * 3 + 20,
-                  height: 30,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(right: 3),
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(
-                            color: themeColor,
-                          ),
-                        ),
-                        child: const RoundedImage(
-                            imagePath: "images/employee.jpg"),
-                      );
-                    },
-                    itemCount: task.members.length,
+                const Text(
+                  '6.0',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
+                Icon(
+                  Icons.star,
+                  color: Colors.yellow[600],
+                ),
               ],
-            )
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            const Divider(
+              color: Colors.black54,
+              height: 0,
+            ),
+            ListTileTheme(
+              contentPadding: EdgeInsets.zero,
+              dense: true,
+              selectedTileColor: Colors.transparent,
+              child: Theme(
+                data: Theme.of(context)
+                    .copyWith(dividerColor: Colors.transparent),
+                child: ExpansionTile(
+                  childrenPadding: EdgeInsets.zero,
+                  tilePadding: EdgeInsets.zero,
+                  title: Row(
+                    children: [
+                      Text(
+                        "${task.members.length} members in Task.",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black45,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const Spacer(),
+                      const Text(
+                        'Details',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                      )
+                    ],
+                  ),
+                  children: [
+                    SizedBox(
+                      height: 80,
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(right: 8, bottom: 2),
+                                width: 28,
+                                height: 28,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  border: Border.all(
+                                    color: themeColor,
+                                  ),
+                                ),
+                                child: const RoundedImage(
+                                    imagePath: "images/employee.jpg"),
+                              ),
+                              const Text(
+                                'Name of member',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        itemCount: task.members.length,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

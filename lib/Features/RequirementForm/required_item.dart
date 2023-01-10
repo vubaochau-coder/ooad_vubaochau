@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
-import 'package:ooad_vubaochau/commons/rounded_image.dart';
 
 class RequiredItem extends StatelessWidget {
   final ManagerRequiredModel query;
