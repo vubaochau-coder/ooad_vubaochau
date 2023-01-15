@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ooad_vubaochau/main_screen.dart';
-// ignore: depend_on_referenced_packages
+import 'package:ooad_vubaochau/Login/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:ooad_vubaochau/main_screen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,9 +45,17 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: MainScreen(),
-    );
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const MainScreen();
+          } else {
+            return const Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: LoginScreen(),
+            );
+          }
+        });
   }
 }

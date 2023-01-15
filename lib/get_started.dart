@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/login.dart';
+import 'package:ooad_vubaochau/Login/login_view.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class GetStarted extends StatefulWidget {
