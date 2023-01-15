@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ooad_vubaochau/Login/abstract_login_view.dart';
+import 'package:ooad_vubaochau/Login/login_presenter.dart';
 import 'package:ooad_vubaochau/main_screen.dart';
 import 'package:ooad_vubaochau/signup.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -10,10 +13,22 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> implements LoginView {
   bool isNotShowPass = true;
   double borderRadius = 26;
   bool loadingLogIn = false;
+  bool isClickedLoginBtn = false;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+
+  late LoginPresenter presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = LoginPresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
     double bottomHeight = MediaQuery.of(context).padding.bottom;
     double height = screenHeight - statusbarHeight - bottomHeight;
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
-      //backgroundColor: const Color.fromRGBO(238, 238, 238, 0),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -33,8 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  // fit: FlexFit.loose,
-                  // flex: 6,
                   height: (height - 30) * 6 / 7,
                   width: double.infinity,
                   child: Column(
@@ -42,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: ((height - 30) * 6 / 7) * 3 / 11,
                         width: double.infinity,
-                        //flex: 3,
                         child: Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.zero,
@@ -63,7 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: ((height - 30) * 6 / 7) * 8 / 11,
                         width: double.infinity,
-                        //flex: 8,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -71,7 +80,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               alignment: Alignment.center,
                               height: (((height - 30) * 6 / 7) * 8 / 11) / 14,
                               width: double.infinity,
-                              //flex: 1,
                               child: const Text(
                                 'Welcome Back!',
                                 style: TextStyle(
@@ -85,7 +93,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               height:
                                   (((height - 30) * 6 / 7) * 8 / 11) * 7 / 14,
                               width: double.infinity,
-                              //flex: 7,
                               child: Container(
                                 padding: const EdgeInsets.only(
                                   bottom: 24,
@@ -100,7 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               height:
                                   (((height - 30) * 6 / 7) * 8 / 11) * 6 / 14,
                               width: double.infinity,
-                              //flex: 6,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -113,25 +119,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                             5 /
                                             8,
                                     width: double.infinity,
-                                    //flex: 5,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         TextField(
+                                          controller: emailController,
+                                          textInputAction: TextInputAction.next,
+                                          keyboardType:
+                                              TextInputType.emailAddress,
                                           decoration: InputDecoration(
                                             hintText: 'E-mail or Username',
                                             prefixIcon: const Icon(
                                               Icons.person,
                                               color: Color.fromARGB(
                                                   215, 24, 167, 176),
-                                            ),
-                                            border: const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color.fromARGB(
-                                                    215, 24, 167, 176),
-                                                width: 3,
-                                              ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
@@ -160,22 +162,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                         TextField(
+                                          controller: passController,
                                           obscureText: isNotShowPass,
                                           enableSuggestions: false,
                                           autocorrect: false,
+                                          keyboardType:
+                                              TextInputType.visiblePassword,
                                           decoration: InputDecoration(
                                             hintText: 'Password',
                                             prefixIcon: const Icon(
                                               Icons.vpn_key,
                                               color: Color.fromARGB(
                                                   215, 24, 167, 176),
-                                            ),
-                                            border: const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color.fromARGB(
-                                                    215, 24, 167, 176),
-                                                width: 3,
-                                              ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
@@ -227,7 +225,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                             3 /
                                             8,
                                     width: double.infinity,
-                                    //flex: 3,
                                     child: Container(
                                       alignment: Alignment.bottomCenter,
                                       child: const TextButton(
@@ -254,7 +251,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(
-                  // flex: 1,
                   height: (height - 30) / 7,
                   width: double.infinity,
                   child: Column(
@@ -280,26 +276,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             minimumSize: Size(
                                 double.infinity, (screenHeight * 2.5 / 10 / 4)),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              loadingLogIn = true;
-                            });
-                            Future.delayed(
-                              const Duration(seconds: 3),
-                              () {
-                                setState(() {
-                                  loadingLogIn = false;
-                                });
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return const MainScreen();
-                                    },
-                                  ),
-                                );
-                              },
-                            );
-                          },
+                          onPressed: !isClickedLoginBtn
+                              ? () {
+                                  setState(() {
+                                    loadingLogIn = true;
+                                  });
+                                  isClickedLoginBtn = true;
+                                  presenter.login(emailController.text,
+                                      passController.text);
+                                }
+                              : null,
                           child: loadingLogIn
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -371,6 +357,37 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  @override
+  void onLoginSuccess() {
+    setState(() {
+      loadingLogIn = false;
+    });
+    Fluttertoast.showToast(
+      msg: 'Login successfully',
+      gravity: ToastGravity.BOTTOM,
+      toastLength: Toast.LENGTH_LONG,
+    );
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) {
+        return const MainScreen();
+      },
+    ));
+  }
+
+  @override
+  void onLoginError(int errorCode, String message) {
+    setState(() {
+      loadingLogIn = false;
+      isClickedLoginBtn = false;
+    });
+
+    Fluttertoast.showToast(
+      msg: message,
+      gravity: ToastGravity.BOTTOM,
+      toastLength: Toast.LENGTH_LONG,
     );
   }
 }

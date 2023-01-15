@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ooad_vubaochau/Login/login_view.dart';
 import 'package:ooad_vubaochau/commons/opaque_image.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -96,7 +98,14 @@ class NavigationDrawer extends StatelessWidget {
               color: Colors.black54,
             ),
           ),
-          onTap: () {},
+          onTap: () async {
+            await FirebaseAuth.instance.signOut().whenComplete(
+                  () => Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) {
+                    return const LoginScreen();
+                  }), (route) => false),
+                );
+          },
         )
       ],
     );
