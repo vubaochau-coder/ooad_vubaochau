@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ooad_vubaochau/login.dart';
 import 'package:ooad_vubaochau/main_screen.dart';
+// ignore: depend_on_referenced_packages
+import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+import 'Models/Information/User.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
+
+// void main() {
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,6 +45,25 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  late SharedPreferences sharedPreferences;
+
+  bool userAvailable = false;
+  @override
+  void initState() {
+    super.initState();
+
+    _getCurrentUser();
+  }
+
+  void _getCurrentUser() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      User.username = sharedPreferences.getString('userName')!;
+      userAvailable = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
