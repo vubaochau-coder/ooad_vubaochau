@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ooad_vubaochau/Attendance/abstract_attendance_view.dart';
+import 'package:ooad_vubaochau/Attendance/attendance_presenter.dart';
 import 'package:ooad_vubaochau/commons/radial_progress.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
@@ -10,10 +13,19 @@ class AttendanceScreen extends StatefulWidget {
   State<AttendanceScreen> createState() => _AttendanceScreenState();
 }
 
-class _AttendanceScreenState extends State<AttendanceScreen> {
+class _AttendanceScreenState extends State<AttendanceScreen>
+    implements AttendanceView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   final GlobalKey<SlideActionState> key = GlobalKey();
-  bool checkedIn = false;
+  String checkIn = "--/--";
+  String checkOut = "--/--";
+  late AttendancePresenter presenter;
+  @override
+  void initState() {
+    super.initState();
+    presenter = AttendancePresenter(this);
+    presenter.getRecord(checkIn, checkOut);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,9 +156,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                   color: themeColor,
                                 ),
                               ),
-                              const Text(
-                                "9:30 AM",
-                                style: TextStyle(
+                              Text(
+                                checkIn,
+                                style: const TextStyle(
                                   fontFamily: "NexaBold",
                                   fontSize: 30,
                                   color: Colors.black54,
@@ -165,8 +177,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 "Check Out",
                                 style: TextStyle(
                                   fontFamily: "NexaRegular",
@@ -175,8 +187,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                 ),
                               ),
                               Text(
-                                " --/-- --",
-                                style: TextStyle(
+                                checkOut,
+                                style: const TextStyle(
                                   fontFamily: "NexaBold",
                                   fontSize: 30,
                                   color: Colors.black54,
@@ -293,36 +305,56 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             ),
           ),
           const Spacer(),
-          Container(
-            padding:
-                const EdgeInsets.only(top: 4, left: 24, right: 24, bottom: 42),
-            child: SlideAction(
-              text: checkedIn ? "Swipe to Check out" : "Swipe to Check in",
-              textStyle: const TextStyle(
-                color: Colors.white70,
-                fontSize: 20,
-                fontFamily: "NexaRegular",
-              ),
-              outerColor: const Color.fromARGB(215, 24, 167, 176),
-              innerColor: Colors.green.shade100,
-              animationDuration: const Duration(milliseconds: 500),
-              submittedIcon: const Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
-              key: key,
-              onSubmit: () {
-                setState(() {
-                  checkedIn = !checkedIn;
-                });
-                if (key.currentState != null) {
-                  key.currentState!.reset();
-                }
-              },
-            ),
-          ),
+          checkOut == "--/--"
+              ? Container(
+                  padding: const EdgeInsets.only(
+                      top: 4, left: 24, right: 24, bottom: 42),
+                  child: SlideAction(
+                    text: checkIn == "--/--"
+                        ? "Swipe to Check In"
+                        : "Swipe to Check Out",
+                    textStyle: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 20,
+                      fontFamily: "NexaRegular",
+                    ),
+                    outerColor: const Color.fromARGB(215, 24, 167, 176),
+                    innerColor: Colors.green.shade100,
+                    animationDuration: const Duration(milliseconds: 500),
+                    submittedIcon: const Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                    key: key,
+                    onSubmit: () async {
+                      presenter.checkAttendance(checkIn, checkOut);
+                    },
+                  ),
+                )
+              : Container(
+                  margin: const EdgeInsets.only(
+                      top: 4, left: 24, right: 24, bottom: 42),
+                  child: Text(
+                    "You have completed this day!",
+                    style: TextStyle(
+                      fontFamily: "NexaRegular",
+                      fontSize: 20,
+                      color: themeColor,
+                    ),
+                  ),
+                )
         ],
       ),
     );
+  }
+
+  @override
+  void getRecord() {
+    // TODO: implement getRecord
+  }
+
+  @override
+  void getAttendance(String checkIn, String checkOut) {
+    // TODO: implement getAttendance
   }
 }
