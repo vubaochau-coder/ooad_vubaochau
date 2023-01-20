@@ -3,6 +3,8 @@ import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
 import 'package:ooad_vubaochau/Features/Attendance/attendance_screen.dart';
 import 'package:ooad_vubaochau/Features/RequirementForm/requirement_list.dart';
 import 'package:ooad_vubaochau/Features/Task/task_list_4_employee.dart';
+import 'package:ooad_vubaochau/Home%20Screen/abstract_home_view.dart';
+import 'package:ooad_vubaochau/Home%20Screen/home_screen_presenter.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/admin_feature.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/manager_feature.dart';
@@ -14,14 +16,22 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> implements HomeView {
   double iconSize = 62;
   double paddingContainer = 16;
   double borderRadius = 16;
 
-  String fullName = "VU BAO CHAU";
-  String position = "BACK-END DEVELOPER";
+  String fullName = "";
+  String viewPosition = "BACK-END DEVELOPER";
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
+
+  late HomePresenter homePresenter;
+
+  @override
+  void initState() {
+    super.initState();
+    homePresenter = HomePresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               width: double.infinity,
               height: 125 + MediaQuery.of(context).padding.top + kToolbarHeight,
-              alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
               decoration: BoxDecoration(
                 color: themeColor,
@@ -134,18 +143,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
                         const Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 12, bottom: 12),
                           child: Divider(
                             color: Colors.white,
                             height: 1,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 12,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -163,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 6,
                               ),
                               Text(
-                                position,
+                                viewPosition.toUpperCase(),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -217,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       InkWell(
                         splashColor: themeColor,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(16),
                         child: const OperationButton(
                           name: 'Task',
                           icon: Icons.content_paste,
@@ -236,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       InkWell(
                         splashColor: themeColor,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(16),
                         child: const OperationButton(
                           name: 'Profile',
                           icon: Icons.person_outline,
@@ -253,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       InkWell(
                         splashColor: themeColor,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(16),
                         child: const OperationButton(
                           name: 'Requirement',
                           icon: Icons.contact_mail_outlined,
@@ -272,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       InkWell(
                         splashColor: themeColor,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(16),
                         child: const OperationButton(
                             name: 'Attendance',
                             icon: Icons.library_add_check_outlined),
@@ -305,5 +309,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void updateData(String name, String position) {
+    if (mounted) {
+      setState(() {
+        fullName = name;
+        viewPosition = position;
+      });
+    }
   }
 }

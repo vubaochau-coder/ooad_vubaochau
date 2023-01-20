@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginModel {
@@ -24,14 +23,5 @@ class LoginModel {
       }
       return 105;
     }
-  }
-
-  Future<Map<String, dynamic>> retrieveData(String email) async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
-        .instance
-        .collection('Account')
-        .where('userName', isEqualTo: email)
-        .get();
-    return Future.value(querySnapshot.docs.first.data());
   }
 }
