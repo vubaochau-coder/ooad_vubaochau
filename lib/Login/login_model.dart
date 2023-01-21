@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ooad_vubaochau/Models/user_singleton.dart';
 
 class LoginModel {
   Future<int> onLogin(String userName, String password) async {
@@ -23,5 +25,29 @@ class LoginModel {
       }
       return 105;
     }
+  }
+
+  Future<UserSingleton?> futureUser() async {
+    late String id;
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String uid = user.uid;
+
+      final ref =
+          await FirebaseFirestore.instance.collection("Account").doc(uid).get();
+      id = ref.get("idEmp");
+
+      final userReference =
+          FirebaseFirestore.instance.collection("Users").doc(id);
+
+      final snapshot = await userReference.get();
+
+      if (snapshot.exists) {
+        return UserSingleton.fromJson(snapshot.data()!);
+      } else {
+        return null;
+      }
+    }
+    return null;
   }
 }
