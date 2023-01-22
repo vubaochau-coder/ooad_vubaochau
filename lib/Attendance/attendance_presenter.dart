@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:ooad_vubaochau/Attendance/abstract_attendance_view.dart';
 import 'package:ooad_vubaochau/Attendance/attendance_model.dart';
+import 'package:ooad_vubaochau/Attendance/attendance_view.dart';
 
 class AttendancePresenter {
   final AttendanceModel _attendanceModel = AttendanceModel();
@@ -19,10 +20,14 @@ class AttendancePresenter {
 
   void checkAttendance(String checkIn, String checkOut) async {
     //_attendanceView.getAttendance(checkIn, checkOut);
-    try {
-      _attendanceModel.getAttendance(checkIn, checkOut);
-    } catch (e) {
-      _attendanceModel.getAttendanceError(checkIn, checkOut);
-    }
+    _attendanceModel.checkExistsRecord().then((value) {
+      value = true;
+      try {
+        _attendanceModel.getAttendance(checkIn, checkOut);
+      } catch (e) {
+        _attendanceModel.getAttendanceError(checkIn, checkOut);
+      }
+    });
+    _attendanceView.showRecord(checkIn, checkOut);
   }
 }
