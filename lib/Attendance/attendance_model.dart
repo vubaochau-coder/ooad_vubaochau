@@ -97,6 +97,16 @@ class AttendanceModel {
       'checkIn': DateFormat('hh:mm').format(DateTime.now()),
     });
   }
+
+  Future<bool> checkExistsRecord() async {
+    final snapshot =
+        await FirebaseFirestore.instance.collection('Record').get();
+
+    if (snapshot.size == 0) {
+      return false;
+    }
+    return true;
+  }
 }
 
 void setState(Null Function() param0) {}

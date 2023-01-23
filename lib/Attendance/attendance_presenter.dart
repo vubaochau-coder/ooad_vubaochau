@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:ooad_vubaochau/Attendance/abstract_attendance_view.dart';
 import 'package:ooad_vubaochau/Attendance/attendance_model.dart';
-import 'package:ooad_vubaochau/Attendance/attendance_view.dart';
 
 class AttendancePresenter {
   final AttendanceModel _attendanceModel = AttendanceModel();
