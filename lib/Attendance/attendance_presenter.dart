@@ -19,10 +19,14 @@ class AttendancePresenter {
 
   void checkAttendance(String checkIn, String checkOut) async {
     //_attendanceView.getAttendance(checkIn, checkOut);
-    try {
-      _attendanceModel.getAttendance(checkIn, checkOut);
-    } catch (e) {
-      _attendanceModel.getAttendanceError(checkIn, checkOut);
-    }
+    _attendanceModel.checkExistsRecord().then((value) {
+      value = true;
+      try {
+        _attendanceModel.getAttendance(checkIn, checkOut);
+      } catch (e) {
+        _attendanceModel.getAttendanceError(checkIn, checkOut);
+      }
+    });
+    _attendanceView.showRecord(checkIn, checkOut);
   }
 }
