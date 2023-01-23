@@ -82,14 +82,14 @@ class AttendanceModel {
 
   Future<void> getAttendanceError(String checkIn, String checkOut) async {
     QuerySnapshot snap = await FirebaseFirestore.instance
-        .collection("Account")
+        .collection("Users")
         .where('email', isEqualTo: User.username)
         .get();
     setState(() {
       checkIn = DateFormat('hh:mm').format(DateTime.now());
     });
     await FirebaseFirestore.instance
-        .collection("Account")
+        .collection("Users")
         .doc(snap.docs[0].id)
         .collection("Record")
         .doc(DateFormat('dd MMMM yyyy').format(DateTime.now()))
