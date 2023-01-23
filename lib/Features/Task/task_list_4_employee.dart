@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Features/Task/task_item.dart';
+import 'package:ooad_vubaochau/Task%20Manager/task_item.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
-
-import '../../Models/Task_Models/label.dart';
 
 class EmployeeTaskList extends StatefulWidget {
   const EmployeeTaskList({super.key});
@@ -17,8 +15,11 @@ class _EmployeeTaskListState extends State<EmployeeTaskList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: themeColor,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.black54,
         title: const Text(
           'My Task',
           style: TextStyle(
@@ -28,60 +29,57 @@ class _EmployeeTaskListState extends State<EmployeeTaskList> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.search),
+            icon: const Icon(
+              Icons.search,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.sort,
+            ),
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black54,
-                    blurRadius: 15.0,
-                    offset: Offset(0.0, 0.75),
-                  ),
-                ],
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Need to do',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.sort,
-                      ),
-                    ),
-                  ],
+      body: Container(
+        decoration: BoxDecoration(
+          color: themeColor,
+          image: const DecorationImage(
+            image: AssetImage('images/position_right.png'),
+            fit: BoxFit.cover,
+            opacity: 0.4,
+          ),
+        ),
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top +
+                AppBar().preferredSize.height),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              margin: const EdgeInsets.only(bottom: 20),
+              child: const Text(
+                'Need to do',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  color: Colors.black54,
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 11,
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return TaskItem(
-                  task: taskList[index],
-                );
-              },
-              itemCount: taskList.length,
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  return TaskItem(
+                    task: taskList[index],
+                  );
+                },
+                itemCount: taskList.length,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -89,92 +87,102 @@ class _EmployeeTaskListState extends State<EmployeeTaskList> {
 
 List<ManagerTaskModel> getTaskList() {
   List<ManagerTaskModel> list = [
-    ManagerTaskModel(
-      'Design UI Mobile',
-      [
-        MyLabelModel('Dev', Colors.lightBlue),
-        MyLabelModel('UI', Colors.amber),
-        MyLabelModel('Mobi', Colors.cyan),
-      ],
-      'This is subtitle of task item',
-      'Nov 20, 2022',
-      ["", "", ""],
-    ),
-    ManagerTaskModel(
-      'Testing UI Mobile',
-      [
-        MyLabelModel('Test', Colors.pink),
-        MyLabelModel('UI', Colors.amber),
-        MyLabelModel('Mobi', Colors.cyan),
-      ],
-      'This is subtitle of task item\nThis is subtitle of task item\nThis is subtitle of task item',
-      'Nov 30, 2022',
-      ["", "", ""],
-    ),
-    ManagerTaskModel(
-      'Design UI Web',
-      [
-        MyLabelModel('Dev', Colors.lightBlue),
-        MyLabelModel('UI', Colors.amber),
-        MyLabelModel('Web', Colors.deepOrange),
-      ],
-      'This is subtitle of task item',
-      'Nov 20, 2022',
-      ["", "", ""],
-    ),
-    ManagerTaskModel(
-      'Testing UI Web',
-      [
-        MyLabelModel('Test', Colors.pink),
-        MyLabelModel('UI', Colors.amber),
-        MyLabelModel('Web', Colors.deepOrange),
-      ],
-      'This is subtitle of task item',
-      'Nov 30, 2022',
-      ["", "", ""],
-    ),
-    ManagerTaskModel(
-      'Design Database',
-      [
-        MyLabelModel('Dev', Colors.lightBlue),
-        MyLabelModel('BE', Colors.deepPurple),
-      ],
-      'This is subtitle of task item\nThis is subtitle of task item',
-      'Nov 30, 2022',
-      ["", "", ""],
-    ),
-    ManagerTaskModel(
-      'Testing Database',
-      [
-        MyLabelModel('Test', Colors.pink),
-        MyLabelModel('BE', Colors.deepPurple),
-      ],
-      'This is subtitle of task item\nThis is subtitle of task item\nThis is subtitle of task item',
-      'Nov 30, 2022',
-      ["", "", ""],
-    ),
-    ManagerTaskModel(
-      'Update Some Feature',
-      [
-        MyLabelModel('Dev', Colors.lightBlue),
-        MyLabelModel('Web', Colors.deepOrange),
-        MyLabelModel('Mobi', Colors.cyan),
-      ],
-      'This is subtitle of task item',
-      'Dec 30, 2022',
-      ["", "", "", ""],
-    ),
-    ManagerTaskModel(
-      'Update UI Web',
-      [
-        MyLabelModel('Dev', Colors.lightBlue),
-        MyLabelModel('Web', Colors.deepOrange),
-        MyLabelModel('UI', Colors.amber),
-      ],
-      'This is subtitle of task item\nThis is subtitle of task item',
-      'Dec 30, 2022',
-      ["", "", "", ""],
-    ),
+    // ManagerTaskModel(
+    //   title: 'Design UI Mobile',
+    //   label: [
+    //     MyLabelModel('Dev', Colors.lightBlue),
+    //     MyLabelModel('UI', Colors.amber),
+    //     MyLabelModel('Mobi', Colors.cyan),
+    //   ],
+    //   subTitle: 'This is subtitle of task item',
+    //   date: 'Nov 20, 2022',
+    //   members: ["", "", ""],
+    //   score: 6,
+    // ),
+    // ManagerTaskModel(
+    //   title: 'Testing UI Mobile',
+    //   label: [
+    //     MyLabelModel('Test', Colors.pink),
+    //     MyLabelModel('UI', Colors.amber),
+    //     MyLabelModel('Mobi', Colors.cyan),
+    //   ],
+    //   subTitle:
+    //       'This is subtitle of task itemThis is subtitle of task itemThis is subtitle of task item',
+    //   date: 'Nov 30, 2022',
+    //   members: ["", "", ""],
+    //   score: 5,
+    // ),
+    // ManagerTaskModel(
+    //   title: 'Design UI Web',
+    //   label: [
+    //     MyLabelModel('Dev', Colors.lightBlue),
+    //     MyLabelModel('UI', Colors.amber),
+    //     MyLabelModel('Web', Colors.deepOrange),
+    //   ],
+    //   subTitle: 'This is subtitle of task item',
+    //   date: 'Nov 20, 2022',
+    //   members: ["", "", ""],
+    //   score: 9,
+    // ),
+    // ManagerTaskModel(
+    //   title: 'Testing UI Web',
+    //   label: [
+    //     MyLabelModel('Test', Colors.pink),
+    //     MyLabelModel('UI', Colors.amber),
+    //     MyLabelModel('Web', Colors.deepOrange),
+    //   ],
+    //   subTitle: 'This is subtitle of task item',
+    //   date: 'Nov 30, 2022',
+    //   members: ["", "", ""],
+    //   score: 7,
+    // ),
+    // ManagerTaskModel(
+    //   title: 'Design Database',
+    //   label: [
+    //     MyLabelModel('Dev', Colors.lightBlue),
+    //     MyLabelModel('BE', Colors.deepPurple),
+    //   ],
+    //   subTitle: 'This is subtitle of task item\nThis is subtitle of task item',
+    //   date: 'Nov 30, 2022',
+    //   members: ["", "", ""],
+    //   score: 6,
+    // ),
+    // ManagerTaskModel(
+    //   title: 'Testing Database',
+    //   label: [
+    //     MyLabelModel('Test', Colors.pink),
+    //     MyLabelModel('BE', Colors.deepPurple),
+    //   ],
+    //   subTitle:
+    //       'This is subtitle of task item\nThis is subtitle of task item\nThis is subtitle of task item',
+    //   date: 'Nov 30, 2022',
+    //   members: ["", "", ""],
+    //   score: 4,
+    // ),
+    // ManagerTaskModel(
+    //   title: 'Update Some Feature',
+    //   label: [
+    //     MyLabelModel('Dev', Colors.lightBlue),
+    //     MyLabelModel('Web', Colors.deepOrange),
+    //     MyLabelModel('Mobi', Colors.cyan),
+    //   ],
+    //   subTitle: 'This is subtitle of task item',
+    //   date: 'Dec 30, 2022',
+    //   members: ["", "", "", ""],
+    //   score: 8,
+    // ),
+    // ManagerTaskModel(
+    //   title: 'Update UI Web',
+    //   label: [
+    //     MyLabelModel('Dev', Colors.lightBlue),
+    //     MyLabelModel('Web', Colors.deepOrange),
+    //     MyLabelModel('UI', Colors.amber),
+    //   ],
+    //   subTitle: 'This is subtitle of task item\nThis is subtitle of task item',
+    //   date: 'Dec 30, 2022',
+    //   members: ["", "", "", ""],
+    //   score: 5,
+    // ),
   ];
   for (var task in list) {
     task.label.sort((a, b) {

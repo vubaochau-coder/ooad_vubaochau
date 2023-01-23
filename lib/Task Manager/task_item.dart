@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Features/Task/hastag_task.dart';
+import 'package:intl/intl.dart';
+import 'package:ooad_vubaochau/Task%20Manager/hastag_task.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
 import 'package:ooad_vubaochau/commons/rounded_image.dart';
 
@@ -10,6 +13,8 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color themeColor = const Color.fromARGB(215, 24, 167, 176);
+    int dayLeft = daysBetween(convertStringToDate(task.date), DateTime.now());
+    String dayLeftString = countDayString(dayLeft);
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -40,15 +45,15 @@ class TaskItem extends StatelessWidget {
                   width: 6,
                   height: 6,
                   margin: const EdgeInsets.only(right: 4),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.grey,
+                    color: dayLeft >= 0 ? Colors.grey : Colors.red[300],
                   ),
                 ),
-                const Text(
-                  '3 days left',
+                Text(
+                  dayLeftString,
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: dayLeft >= 0 ? Colors.grey : Colors.red[300],
                     fontSize: 14,
                   ),
                 )
@@ -117,9 +122,9 @@ class TaskItem extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                const Text(
-                  '6.0',
-                  style: TextStyle(
+                Text(
+                  task.score.toStringAsFixed(1),
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -213,5 +218,29 @@ class TaskItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  DateTime convertStringToDate(String dateString) {
+    return DateFormat("MMM dd, yyyy").parse(dateString);
+  }
+
+  int daysBetween(DateTime end, DateTime now) {
+    return end.difference(now).inDays;
+  }
+
+  String countDayString(int value) {
+    if (value >= 0) {
+      if (value == 1) {
+        return "1 day left";
+      } else {
+        return "$value days left";
+      }
+    } else {
+      if (value == -1) {
+        return "1 day ago";
+      } else {
+        return "${value.abs()} days ago";
+      }
+    }
   }
 }

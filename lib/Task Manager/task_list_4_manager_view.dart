@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:ooad_vubaochau/Features/Task/bottom_sheet.dart';
-import 'package:ooad_vubaochau/Features/Task/edit_bottom_sheet.dart';
-import 'package:ooad_vubaochau/Features/Task/task_item.dart';
-import 'package:ooad_vubaochau/Models/Task_Models/label.dart';
+import 'package:ooad_vubaochau/Task%20Manager/abstract_task_view.dart';
+import 'package:ooad_vubaochau/Task%20Manager/bottom_sheet.dart';
+import 'package:ooad_vubaochau/Task%20Manager/edit_bottom_sheet.dart';
+import 'package:ooad_vubaochau/Task%20Manager/task_item.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
+import 'package:ooad_vubaochau/Task%20Manager/task_list_4_manager_presenter.dart';
 
 class ManagerTaskList extends StatefulWidget {
   const ManagerTaskList({super.key});
@@ -14,16 +15,18 @@ class ManagerTaskList extends StatefulWidget {
   State<ManagerTaskList> createState() => _ManagerTaskListState();
 }
 
-class _ManagerTaskListState extends State<ManagerTaskList> {
+class _ManagerTaskListState extends State<ManagerTaskList>
+    with AbstractTaskView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-  List<ManagerTaskModel> taskList = getTaskList();
+  List<ManagerTaskModel> taskList = [];
 
   final toast = FToast();
+  late TaskManagerScreenPresenter presenter;
 
   @override
   void initState() {
     super.initState();
-
+    presenter = TaskManagerScreenPresenter(this);
     toast.init(context);
   }
 
@@ -70,12 +73,10 @@ class _ManagerTaskListState extends State<ManagerTaskList> {
             ),
             builder: (BuildContext context) {
               return MyCreateBottomSheet(
-                onComplete: (p0) {
-                  setState(() {
-                    taskList.insert(0, p0);
-                    Navigator.pop(context);
-                    showSuccessToast('Task has been created');
-                  });
+                onComplete: (p0) async {
+                  await presenter.addNewTask(p0).whenComplete(
+                        () => Navigator.pop(context),
+                      );
                 },
                 onExit: () {
                   Navigator.pop(context);
@@ -208,106 +209,19 @@ class _ManagerTaskListState extends State<ManagerTaskList> {
     );
   }
 
+  @override
   void showSuccessToast(String title) => Fluttertoast.showToast(
         msg: title,
         fontSize: 18,
         gravity: ToastGravity.BOTTOM,
       );
 
-  static List<ManagerTaskModel> getTaskList() {
-    List<ManagerTaskModel> list = [
-      ManagerTaskModel(
-        'Design UI Mobile',
-        [
-          MyLabelModel('Dev', Colors.lightBlue),
-          MyLabelModel('UI', Colors.amber),
-          MyLabelModel('Mobi', Colors.cyan),
-        ],
-        'This is subtitle of task item',
-        'Nov 20, 2022',
-        ["", "", ""],
-      ),
-      ManagerTaskModel(
-        'Testing UI Mobile',
-        [
-          MyLabelModel('Test', Colors.pink),
-          MyLabelModel('UI', Colors.amber),
-          MyLabelModel('Mobi', Colors.cyan),
-        ],
-        'This is subtitle of task itemThis is subtitle of task itemThis is subtitle of task item',
-        'Nov 30, 2022',
-        ["", "", ""],
-      ),
-      ManagerTaskModel(
-        'Design UI Web',
-        [
-          MyLabelModel('Dev', Colors.lightBlue),
-          MyLabelModel('UI', Colors.amber),
-          MyLabelModel('Web', Colors.deepOrange),
-        ],
-        'This is subtitle of task item',
-        'Nov 20, 2022',
-        ["", "", ""],
-      ),
-      ManagerTaskModel(
-        'Testing UI Web',
-        [
-          MyLabelModel('Test', Colors.pink),
-          MyLabelModel('UI', Colors.amber),
-          MyLabelModel('Web', Colors.deepOrange),
-        ],
-        'This is subtitle of task item',
-        'Nov 30, 2022',
-        ["", "", ""],
-      ),
-      ManagerTaskModel(
-        'Design Database',
-        [
-          MyLabelModel('Dev', Colors.lightBlue),
-          MyLabelModel('BE', Colors.deepPurple),
-        ],
-        'This is subtitle of task item\nThis is subtitle of task item',
-        'Nov 30, 2022',
-        ["", "", ""],
-      ),
-      ManagerTaskModel(
-        'Testing Database',
-        [
-          MyLabelModel('Test', Colors.pink),
-          MyLabelModel('BE', Colors.deepPurple),
-        ],
-        'This is subtitle of task item\nThis is subtitle of task item\nThis is subtitle of task item',
-        'Nov 30, 2022',
-        ["", "", ""],
-      ),
-      ManagerTaskModel(
-        'Update Some Feature',
-        [
-          MyLabelModel('Dev', Colors.lightBlue),
-          MyLabelModel('Web', Colors.deepOrange),
-          MyLabelModel('Mobi', Colors.cyan),
-        ],
-        'This is subtitle of task item',
-        'Dec 30, 2022',
-        ["", "", "", ""],
-      ),
-      ManagerTaskModel(
-        'Update UI Web',
-        [
-          MyLabelModel('Dev', Colors.lightBlue),
-          MyLabelModel('Web', Colors.deepOrange),
-          MyLabelModel('UI', Colors.amber),
-        ],
-        'This is subtitle of task item\nThis is subtitle of task item',
-        'Dec 30, 2022',
-        ["", "", "", ""],
-      ),
-    ];
-    for (var task in list) {
-      task.label.sort((a, b) {
-        return a.text.length.compareTo(b.text.length);
+  @override
+  void updateListView(List<ManagerTaskModel> task) {
+    if (mounted) {
+      setState(() {
+        taskList = task;
       });
     }
-    return list;
   }
 }
