@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ooad_vubaochau/Features/Task/add_label_dialog.dart';
-import 'package:ooad_vubaochau/Models/Task_Models/label.dart';
+import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
+import 'package:ooad_vubaochau/Models/Task_Models/test_label_model.dart';
+import 'package:ooad_vubaochau/Task%20Manager/add_label_dialog.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
 
 import 'hastag_task.dart';
@@ -22,12 +23,13 @@ class MyEditBottomSheet extends StatefulWidget {
 
 class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-  late List<MyLabelModel> newListLabel = [];
-  late List<String> newListMembers = [];
+  late List<TestLabel> newListLabel = [];
+  late List<MemberInTask> newListMembers = [];
   late TextEditingController titleControl;
   late TextEditingController descControl;
   DateFormat dateFormat = DateFormat('MMM d, yyyy');
   late DateTime newDate;
+  late int newScore;
 
   @override
   void initState() {
@@ -35,8 +37,9 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
     titleControl = TextEditingController(text: widget.item.title);
     descControl = TextEditingController(text: widget.item.subTitle);
     newDate = DateFormat('MMM d, yyy').parse(widget.item.date);
-    newListLabel = List<MyLabelModel>.from(widget.item.label);
-    newListMembers = List<String>.from(widget.item.members);
+    newListLabel = List<TestLabel>.from(widget.item.label);
+    newListMembers = List<MemberInTask>.from(widget.item.members);
+    newScore = widget.item.score;
   }
 
   @override
@@ -92,11 +95,13 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
                           onPressed: () {
                             widget.onComplete(
                               ManagerTaskModel(
-                                titleControl.text,
-                                newListLabel,
-                                descControl.text,
-                                dateFormat.format(newDate),
-                                newListMembers,
+                                id: widget.item.id,
+                                title: titleControl.text,
+                                label: newListLabel,
+                                subTitle: descControl.text,
+                                date: dateFormat.format(newDate),
+                                members: newListMembers,
+                                score: newScore,
                               ),
                             );
                           },
@@ -421,7 +426,7 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
                                     const Icon(Icons.person_add_alt_1_rounded),
                                 onPressed: () {
                                   setState(() {
-                                    newListMembers.add("New employee");
+                                    newListMembers.add(MemberInTask(id: ""));
                                   });
                                 },
                               ),
@@ -495,16 +500,16 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
                   ],
                 ),
                 Slider(
-                  value: 5,
+                  value: newScore.toDouble(),
                   onChanged: (value) {
                     setState(() {
-                      //rating = value;
+                      newScore = value.toInt();
                     });
                   },
                   max: 10,
                   min: 1,
                   divisions: 9,
-                  label: '5',
+                  label: newScore.toString(),
                   activeColor: themeColor,
                   inactiveColor: themeColor.withAlpha(100),
                   thumbColor: themeColor,
@@ -515,5 +520,13 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
         ],
       ),
     );
+  }
+
+  String colorToString(Color color) {
+    return color.toString().split('(0x')[1].split(')')[0];
+  }
+
+  Color stringToColor(String string) {
+    return Color(int.parse(string, radix: 16));
   }
 }

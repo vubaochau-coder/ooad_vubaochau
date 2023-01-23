@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ooad_vubaochau/Features/Task/add_label_dialog.dart';
-import 'package:ooad_vubaochau/Models/Task_Models/label.dart';
+import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
+import 'package:ooad_vubaochau/Models/Task_Models/test_label_model.dart';
+import 'package:ooad_vubaochau/Task%20Manager/add_label_dialog.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
 
 import 'hastag_task.dart';
@@ -18,8 +19,8 @@ class MyCreateBottomSheet extends StatefulWidget {
 
 class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-  List<MyLabelModel> listLabel = [];
-  List<String> listMembers = [];
+  List<TestLabel> listLabel = [];
+  List<MemberInTask> listMembers = [];
   TextEditingController titleControl = TextEditingController();
   TextEditingController descControl = TextEditingController();
   DateFormat dateFormat = DateFormat('MMM d, yyyy');
@@ -81,11 +82,14 @@ class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
                           onPressed: () {
                             widget.onComplete(
                               ManagerTaskModel(
-                                  titleControl.text,
-                                  listLabel,
-                                  descControl.text,
-                                  dateFormat.format(myDate),
-                                  listMembers),
+                                id: "",
+                                title: titleControl.text,
+                                label: listLabel,
+                                subTitle: descControl.text,
+                                date: dateFormat.format(myDate),
+                                members: listMembers,
+                                score: rating.toInt(),
+                              ),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -409,7 +413,7 @@ class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
                                     const Icon(Icons.person_add_alt_1_rounded),
                                 onPressed: () {
                                   setState(() {
-                                    listMembers.add("New employee");
+                                    listMembers.add(MemberInTask(id: ""));
                                   });
                                 },
                               ),

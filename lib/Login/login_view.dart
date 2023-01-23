@@ -362,9 +362,11 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
 
   @override
   void onLoginSuccess() {
-    setState(() {
-      loadingLogIn = false;
-    });
+    if (mounted) {
+      setState(() {
+        loadingLogIn = false;
+      });
+    }
     Fluttertoast.showToast(
       msg: 'Login successfully',
       gravity: ToastGravity.BOTTOM,

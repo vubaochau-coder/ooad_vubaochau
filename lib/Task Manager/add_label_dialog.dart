@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Models/Task_Models/label.dart';
+import 'package:ooad_vubaochau/Models/Task_Models/test_label_model.dart';
 
 class AddLabelDialog extends StatelessWidget {
-  final void Function(MyLabelModel) callback;
+  final void Function(TestLabel) callback;
   const AddLabelDialog({super.key, required this.callback});
 
   @override
@@ -154,9 +154,9 @@ class AddLabelDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             if (labelControl.text != '') {
-              MyLabelModel newLabel = MyLabelModel(
-                labelControl.text,
-                colors[colorSelected],
+              TestLabel newLabel = TestLabel(
+                text: labelControl.text,
+                color: colorToString(colors[colorSelected]),
               );
               callback(newLabel);
               labelControl.clear();
@@ -170,5 +170,13 @@ class AddLabelDialog extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String colorToString(Color color) {
+    return color.toString().split('(0x')[1].split(')')[0];
+  }
+
+  Color stringToColor(String string) {
+    return Color(int.parse(string, radix: 16));
   }
 }

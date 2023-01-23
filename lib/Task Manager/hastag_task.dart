@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Models/Task_Models/label.dart';
+import 'package:ooad_vubaochau/Models/Task_Models/test_label_model.dart';
 
 class TaskHastag extends StatelessWidget {
-  final MyLabelModel label;
+  final TestLabel label;
   const TaskHastag({super.key, required this.label});
 
   @override
@@ -13,7 +13,7 @@ class TaskHastag extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        color: label.color,
+        color: stringToColor(label.color),
       ),
       constraints: const BoxConstraints(minWidth: 28),
       child: Text(
@@ -25,5 +25,9 @@ class TaskHastag extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color stringToColor(String string) {
+    return Color(int.parse(string, radix: 16));
   }
 }

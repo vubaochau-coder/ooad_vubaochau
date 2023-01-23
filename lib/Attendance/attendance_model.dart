@@ -21,12 +21,6 @@ class AttendanceModel {
       checkIn = snap2['checkIn'];
       checkOut = snap2['checkOut'];
     });
-    /*} catch (e) {
-      setState(() {
-        checkIn = "--/--";
-        checkOut = "--/--";
-      });
-    }*/
   }
 
   Future<void> getRecordError(String checkIn, String checkOut) async {
