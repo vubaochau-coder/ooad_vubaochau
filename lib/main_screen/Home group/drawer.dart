@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Login/login_view.dart';
 import 'package:ooad_vubaochau/commons/opaque_image.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({super.key});
+class Navigationdrawer extends StatelessWidget {
+  const Navigationdrawer({super.key});
 
   @override
   Widget build(BuildContext context) => Drawer(
