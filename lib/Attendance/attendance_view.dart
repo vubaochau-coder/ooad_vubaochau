@@ -24,6 +24,7 @@ class _AttendanceScreenState extends State<AttendanceScreen>
   void initState() {
     super.initState();
     presenter = AttendancePresenter(this);
+    presenter.getRecord(checkIn, checkOut);
   }
 
   @override
@@ -359,9 +360,5 @@ class _AttendanceScreenState extends State<AttendanceScreen>
   @override
   void showRecord(String checkIn, String checkOut) {
     // TODO: implement getAttendance
-    setState(() {
-      checkIn = "--/--";
-      checkOut = "--/--";
-    });
   }
 }
