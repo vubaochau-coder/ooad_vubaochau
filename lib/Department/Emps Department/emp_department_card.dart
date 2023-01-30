@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ooad_vubaochau/Models/Department_Models/emps_depart_model.dart';
 
 class EmpDepartmentCard extends StatelessWidget {
-  const EmpDepartmentCard({super.key});
+  final EmpsDepartInfo emp;
+  const EmpDepartmentCard({super.key, required this.emp});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,8 @@ class EmpDepartmentCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Container(
-        height: 76,
-        padding: const EdgeInsets.symmetric(vertical: 3),
+        height: 71,
+        padding: const EdgeInsets.symmetric(vertical: 0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,10 +50,10 @@ class EmpDepartmentCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'Employee\'s name',
-                        style: TextStyle(
+                        emp.name,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
@@ -60,7 +62,11 @@ class EmpDepartmentCard extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Manager',
+                        emp.levelPermission == 1
+                            ? "Admin"
+                            : emp.levelPermission == 2
+                                ? "Manager"
+                                : "Staff",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -80,7 +86,7 @@ class EmpDepartmentCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Marketing department',
+                            emp.department,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

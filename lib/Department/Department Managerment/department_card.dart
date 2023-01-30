@@ -15,35 +15,12 @@ class DepartmentCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 22, top: 10, right: 2),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  departmentModel.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 17,
-                  ),
-                ),
-                const Spacer(),
-                InkWell(
-                  splashColor: Colors.blue[100],
-                  onTap: () {},
-                  borderRadius: BorderRadius.circular(3),
-                  child: Container(
-                    width: 40,
-                    //height: 28,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                    child: const Icon(
-                      Icons.more_vert,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ],
+            child: Text(
+              departmentModel.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
             ),
           ),
           Padding(
@@ -64,7 +41,7 @@ class DepartmentCard extends StatelessWidget {
                       width: 8,
                     ),
                     Text(
-                      "Manager: ${departmentModel.owner}",
+                      "Manager: ${departmentModel.manager}",
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -88,7 +65,7 @@ class DepartmentCard extends StatelessWidget {
                       width: 8,
                     ),
                     Text(
-                      "${departmentModel.taskCount} tasks succeeded",
+                      "${departmentModel.taskSuccess} tasks succeeded",
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -97,7 +74,7 @@ class DepartmentCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      '80% of the total',
+                      '${(departmentModel.taskSuccess / departmentModel.taskTotal * 100).toStringAsFixed(0)}% of the total',
                       style: TextStyle(
                         color: themeColor,
                         fontWeight: FontWeight.w400,
@@ -116,55 +93,60 @@ class DepartmentCard extends StatelessWidget {
                 const SizedBox(
                   height: 2,
                 ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.people_alt_outlined,
-                      color: Colors.grey,
-                      size: 18,
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      "${departmentModel.staffCount} members",
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const Spacer(),
-                    InkWell(
-                      splashColor: Colors.blue[200],
-                      borderRadius: BorderRadius.circular(4),
-                      onTap: () {},
-                      child: Container(
-                        height: 30,
-                        padding: const EdgeInsets.only(left: 2, right: 2),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'Details',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 3,
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios_rounded,
+                ListTileTheme(
+                  contentPadding: EdgeInsets.zero,
+                  dense: true,
+                  selectedTileColor: Colors.transparent,
+                  child: Theme(
+                    data: Theme.of(context)
+                        .copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      tilePadding: const EdgeInsets.only(right: 20),
+                      childrenPadding: EdgeInsets.zero,
+                      collapsedIconColor: themeColor,
+                      collapsedTextColor: Colors.black,
+                      iconColor: themeColor,
+                      textColor: Colors.black,
+                      title: Row(
+                        children: [
+                          const Icon(
+                            Icons.people_alt_outlined,
+                            color: Colors.grey,
+                            size: 18,
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            "${departmentModel.idEmps.length} members",
+                            style: const TextStyle(
                               color: Colors.grey,
-                              size: 14,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
                             ),
-                          ],
-                        ),
+                          ),
+                          const Spacer(),
+                        ],
                       ),
-                    )
-                  ],
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(bottom: 6),
+                          itemBuilder: (context, index) {
+                            return Text(
+                              departmentModel.idEmps[index],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: Colors.black54,
+                              ),
+                            );
+                          },
+                          itemCount: departmentModel.idEmps.length,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

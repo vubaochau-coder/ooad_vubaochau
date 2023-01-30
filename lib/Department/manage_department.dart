@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Features/Department/employee_deparment_list.dart';
-import 'package:ooad_vubaochau/Features/Department/department_list.dart';
+import 'package:ooad_vubaochau/Department/Emps%20Department/employee_deparment_view.dart';
+import 'package:ooad_vubaochau/Department/Department%20Managerment/department_list_view.dart';
 
 class ManageDepartmentScreen extends StatelessWidget {
   const ManageDepartmentScreen({super.key});

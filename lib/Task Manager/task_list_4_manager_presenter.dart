@@ -15,6 +15,16 @@ class TaskManagerScreenPresenter {
   Future<void> addNewTask(ManagerTaskModel task) async {
     await taskScreenModel
         .addTask(task)
-        .whenComplete(() => taskView.showSuccessToast("Add success."));
+        .whenComplete(() => taskView.showSuccessToast("Add Success."));
+  }
+
+  Future<void> removeTask(String id) async {
+    await taskScreenModel.deleteTask(id).whenComplete(
+        () => taskView.deleteSuccessful("Task has been Deleted!"));
+  }
+
+  Future<void> updateTask(ManagerTaskModel task) async {
+    await taskScreenModel.updateTask(task).whenComplete(
+        () => taskView.showSuccessToast("Update Task Successfully."));
   }
 }

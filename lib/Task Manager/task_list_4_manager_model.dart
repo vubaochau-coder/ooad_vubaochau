@@ -13,8 +13,6 @@ class TaskScreenModel {
   }
 
   Future<List<ManagerTaskModel>> getData() async {
-    List<TestLabel> labels = [];
-    List<MemberInTask> members = [];
     List<ManagerTaskModel> fullTasks = [];
     var query = await firestore.collection("Task").get();
     for (var doc in query.docs) {
@@ -25,7 +23,6 @@ class TaskScreenModel {
           .get();
       final hastagData =
           hastags.docs.map((e) => TestLabel.fromSnapshot(e)).toList();
-      labels = hastagData;
 
       final emps = await firestore
           .collection("Task")
@@ -34,9 +31,8 @@ class TaskScreenModel {
           .get();
       final empsData =
           emps.docs.map((e) => MemberInTask.fromSnapshot(e)).toList();
-      members = empsData;
 
-      final myTask = ManagerTaskModel.fromSnapshot(doc, labels, members);
+      final myTask = ManagerTaskModel.fromSnapshot(doc, hastagData, empsData);
       fullTasks.add(myTask);
     }
     return fullTasks;
@@ -59,5 +55,48 @@ class TaskScreenModel {
           .collection("Members")
           .add(people.toJson());
     }
+  }
+
+  Future<void> deleteTask(String taskID) async {
+    var hastagSnapshot = await firestore
+        .collection("Task")
+        .doc(taskID)
+        .collection("Hastag")
+        .get();
+    for (var snapshot in hastagSnapshot.docs) {
+      await snapshot.reference.delete();
+    }
+    var empSnapshot = await firestore
+        .collection("Task")
+        .doc(taskID)
+        .collection("Members")
+        .get();
+    for (var snapshot in empSnapshot.docs) {
+      await snapshot.reference.delete();
+    }
+    await firestore.collection("Task").doc(taskID).delete();
+  }
+
+  Future<void> updateTask(ManagerTaskModel newTask) async {
+    DocumentReference docRef = firestore.collection("Task").doc(newTask.id);
+    //Remove old Hastag
+    var hastagSnapshot = await docRef.collection("Hastag").get();
+    for (var snapshot in hastagSnapshot.docs) {
+      await snapshot.reference.delete();
+    }
+    //Remove old Member in Task
+    var empSnapshot = await docRef.collection("Members").get();
+    for (var snapshot in empSnapshot.docs) {
+      await snapshot.reference.delete();
+    }
+    //Add new Hastag
+    for (TestLabel item in newTask.label) {
+      docRef.collection("Hastag").add(item.toJson());
+    }
+    //Add new Member
+    for (MemberInTask item in newTask.members) {
+      docRef.collection("Members").add(item.toJson());
+    }
+    await docRef.update(newTask.toJson());
   }
 }

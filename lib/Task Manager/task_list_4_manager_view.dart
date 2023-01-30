@@ -125,10 +125,7 @@ class _ManagerTaskListState extends State<ManagerTaskList>
                       children: [
                         SlidableAction(
                           onPressed: (context) {
-                            setState(() {
-                              taskList.removeAt(index);
-                            });
-                            showSuccessToast('Task has been deleted');
+                            presenter.removeTask(taskList[index].id);
                           },
                           icon: Icons.delete_outline,
                           label: "Delete",
@@ -150,11 +147,8 @@ class _ManagerTaskListState extends State<ManagerTaskList>
                               builder: (BuildContext context) {
                                 return MyEditBottomSheet(
                                   onComplete: (p0) {
-                                    setState(() {
-                                      taskList[index] = p0;
-                                      Navigator.pop(context);
-                                      showSuccessToast('Task has been edited');
-                                    });
+                                    presenter.updateTask(p0);
+                                    Navigator.pop(context);
                                   },
                                   item: taskList[index],
                                   onExit: () {
@@ -212,7 +206,7 @@ class _ManagerTaskListState extends State<ManagerTaskList>
   @override
   void showSuccessToast(String title) => Fluttertoast.showToast(
         msg: title,
-        fontSize: 18,
+        fontSize: 16,
         gravity: ToastGravity.BOTTOM,
       );
 
@@ -224,4 +218,11 @@ class _ManagerTaskListState extends State<ManagerTaskList>
       });
     }
   }
+
+  @override
+  void deleteSuccessful(String toast) => Fluttertoast.showToast(
+        msg: toast,
+        fontSize: 16,
+        gravity: ToastGravity.BOTTOM,
+      );
 }
