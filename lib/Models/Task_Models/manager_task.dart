@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/test_label_model.dart';
 
@@ -14,9 +13,6 @@ class ManagerTaskModel {
   final String date;
   final List<MemberInTask> members;
   final int score;
-
-  final firestore = FirebaseFirestore.instance;
-  final auth = FirebaseAuth.instance;
 
   ManagerTaskModel({
     required this.id,

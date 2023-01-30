@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Features/Department/emp_department_card.dart';
+import 'package:ooad_vubaochau/Department/Emps%20Department/abstract_view_class.dart';
+import 'package:ooad_vubaochau/Department/Emps%20Department/department_emps_presenter.dart';
+import 'package:ooad_vubaochau/Department/Emps%20Department/emp_department_card.dart';
+import 'package:ooad_vubaochau/Models/Department_Models/emps_depart_model.dart';
 
 class DepartmentEmpListScreen extends StatefulWidget {
   const DepartmentEmpListScreen({super.key});
@@ -10,8 +13,19 @@ class DepartmentEmpListScreen extends StatefulWidget {
 }
 
 class _DepartmentEmpListScreenState extends State<DepartmentEmpListScreen>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, EmpsDepartmentView {
   Color themeColor = const Color.fromARGB(255, 18, 189, 184);
+  List<EmpsDepartInfo> listAllEmps = [];
+  List<EmpsDepartInfo> listEmps = [];
+
+  late EmpsDepartPresenter presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = EmpsDepartPresenter(this);
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -28,9 +42,9 @@ class _DepartmentEmpListScreenState extends State<DepartmentEmpListScreen>
                 child: ListView.builder(
                   padding: const EdgeInsets.only(top: 50),
                   itemBuilder: (context, index) {
-                    return buildEmpDepartment();
+                    return buildEmpDepartment(index);
                   },
-                  itemCount: 12,
+                  itemCount: listEmps.length,
                 ),
               ),
             ],
@@ -123,6 +137,7 @@ class _DepartmentEmpListScreenState extends State<DepartmentEmpListScreen>
                       ),
                     ),
                   ),
+                  onChanged: search,
                 ),
               ),
             ],
@@ -132,10 +147,40 @@ class _DepartmentEmpListScreenState extends State<DepartmentEmpListScreen>
     );
   }
 
-  Widget buildEmpDepartment() {
-    return const EmpDepartmentCard();
+  void search(String query) {
+    final suggestion = listAllEmps.where((element) {
+      final empName = element.name.toLowerCase();
+      final input = query.toLowerCase();
+
+      return empName.contains(input);
+    }).toList();
+
+    setState(() {
+      listEmps = suggestion;
+    });
+  }
+
+  Widget buildEmpDepartment(int index) {
+    return EmpDepartmentCard(
+      emp: listEmps[index],
+    );
   }
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void showListEmp(List<EmpsDepartInfo> list) {
+    if (mounted) {
+      setState(() {
+        listAllEmps = list;
+        listEmps = listAllEmps;
+      });
+    }
+  }
+
+  @override
+  void showSuccess(String message) {
+    // TODO: implement showSuccess
+  }
 }
