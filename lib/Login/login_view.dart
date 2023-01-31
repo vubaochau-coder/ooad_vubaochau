@@ -227,15 +227,27 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                                     width: double.infinity,
                                     child: Container(
                                       alignment: Alignment.bottomCenter,
-                                      child: const TextButton(
+                                      child: TextButton(
                                         onPressed: null,
-                                        child: Text(
-                                          'Forgot Password?',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                            color: Color.fromARGB(
-                                                215, 24, 167, 176),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return ForgotPasswordPage();
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'Forgot Password?',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                              color: Color.fromARGB(
+                                                  215, 24, 167, 176),
+                                            ),
                                           ),
                                         ),
                                       ),

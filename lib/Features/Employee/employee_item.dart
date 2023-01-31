@@ -5,7 +5,7 @@ import 'package:ooad_vubaochau/styleguide/text_style.dart';
 
 class EmployeeItem extends StatelessWidget {
   final EmployeeItemModel employee;
-  const EmployeeItem({super.key, required this.employee});
+   const EmployeeItem({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) {

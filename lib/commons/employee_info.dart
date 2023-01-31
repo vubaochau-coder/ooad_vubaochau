@@ -30,11 +30,11 @@ class MyInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Vu Bao Chau",
+                empItem.name,
                 style: whiteNameTextStyle,
               ),
               Text(
-                ", 20",
+                ", ${empItem.year}",
                 style: whiteNameTextStyle,
               ),
             ],
@@ -46,7 +46,7 @@ class MyInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Back-end Developer",
+                empItem.position,
                 style: whiteSubHeadingTextStyle,
               )
             ],
