@@ -14,7 +14,6 @@ String demo =
 
 class _RequestNotifyScreenState extends State<RequestNotifyScreen> {
   List<RequestNotificationModel> notifies = getListNotifies();
-  List<ManagerRequiredModel> notifiesList = [];
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   bool allSelected = true;
   bool unReadSelected = false;

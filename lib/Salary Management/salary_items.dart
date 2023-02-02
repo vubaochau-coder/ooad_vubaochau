@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Features/Salary/hastag_salary.dart';
+import 'package:intl/intl.dart';
+import 'package:ooad_vubaochau/Salary%20Management/hastag_salary.dart';
 import 'package:ooad_vubaochau/Models/Salary_Models/manager_salary.dart';
+import 'package:ooad_vubaochau/commons/rounded_image.dart';
 
 class SalaryItem extends StatelessWidget {
   final ManagerSalaryModel salary;
@@ -9,20 +11,26 @@ class SalaryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color themeColor = const Color.fromARGB(215, 24, 167, 176);
+    int dayLeft = daysBetween(convertStringToDate(salary.date), DateTime.now());
+    String dayLeftString = countDayString(dayLeft);
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 18, right: 8, top: 12, bottom: 12),
+        padding: const EdgeInsets.only(
+          left: 18,
+          right: 8,
+          top: 12,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Text(
-                  salary.name,
+                  salary.nameEmp,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -35,15 +43,15 @@ class SalaryItem extends StatelessWidget {
                   width: 6,
                   height: 6,
                   margin: const EdgeInsets.only(right: 4),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.grey,
+                    color: dayLeft >= 0 ? Colors.grey : Colors.red[300],
                   ),
                 ),
-                const Text(
-                  '3 days left',
+                Text(
+                  dayLeftString,
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: dayLeft >= 0 ? Colors.grey : Colors.red[300],
                     fontSize: 14,
                   ),
                 )
@@ -58,7 +66,7 @@ class SalaryItem extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index1) {
                   return SalaryHastag(
-                    labelModel: salary.label[index1],
+                    label: salary.label[index1],
                   );
                 },
                 itemCount: salary.label.length,
@@ -68,7 +76,7 @@ class SalaryItem extends StatelessWidget {
               height: 4,
             ),
             Text(
-              salary.subTitle,
+              salary.salaryGain,
               style: const TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: 15,
@@ -79,6 +87,7 @@ class SalaryItem extends StatelessWidget {
               height: 4,
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -110,11 +119,46 @@ class SalaryItem extends StatelessWidget {
                     ],
                   ),
                 ),
+                const Spacer(),
+                Text(
+                  salary.score.toStringAsFixed(1),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.yellow[600],
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
+  }
+
+  DateTime convertStringToDate(String dateString) {
+    return DateFormat("MMM dd, yyyy").parse(dateString);
+  }
+
+  int daysBetween(DateTime end, DateTime now) {
+    return end.difference(now).inDays;
+  }
+
+  String countDayString(int value) {
+    if (value >= 0) {
+      if (value == 1) {
+        return "1 day left";
+      } else {
+        return "$value days left";
+      }
+    } else {
+      if (value == -1) {
+        return "1 day ago";
+      } else {
+        return "${value.abs()} days ago";
+      }
+    }
   }
 }

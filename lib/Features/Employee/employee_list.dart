@@ -11,6 +11,7 @@ class EmployeeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color themeColor = const Color.fromARGB(215, 24, 167, 176);
+    List<EmployeeItemModel> listEmployee = getListEmployee();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -98,23 +99,55 @@ class EmployeeList extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding:  const EdgeInsets.all(16),
+          Expanded(
             child: ListView.builder(
-                itemBuilder: (context, index) {
-                  EmployeeItemModel employeeItemModel = listEmp[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(employeeItemModel.name),
-                      subtitle: Text(
-                          '${employeeItemModel.position}, ${employeeItemModel.year}'),
-                      leading: Image.asset(employeeItemModel.imgPath),
-                    ),
-                  );
-                }),
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const EmployeeProfile();
+                        },
+                      ),
+                    );
+                  },
+                  child: EmployeeItem(
+                    employee: listEmployee[index],
+                  ),
+                );
+              },
+              itemCount: 10,
+            ),
           ),
         ],
       ),
     );
+  }
+
+  List<EmployeeItemModel> getListEmployee() {
+    List<EmployeeItemModel> list = [
+      EmployeeItemModel("Nguyễn Trương Đình Du", "images/employee.jpg",
+          'Front-end Developer'),
+      EmployeeItemModel(
+          "Vũ Bảo Châu", "images/employee.jpg", 'Mobile Developer'),
+      EmployeeItemModel(
+          "Phạm Minh Nhật", "images/employee.jpg", 'Business Analyst'),
+      EmployeeItemModel(
+          "Nguyễn Tuấn Khôi", "images/employee.jpg", 'Back-end Developer'),
+      EmployeeItemModel(
+          "Nguyễn Hoàng Nam", "images/employee.jpg", 'Back-end Developer'),
+      EmployeeItemModel(
+          "XiaoChauMeng", "images/employee.jpg", 'Front-end Developer'),
+      EmployeeItemModel(
+          "Huỳnh Trung Hiếu", "images/employee.jpg", 'Mobile Developer'),
+      EmployeeItemModel(
+          "Nguyễn Đình Đức Đại", "images/employee.jpg", 'Front-end Developer'),
+      EmployeeItemModel(
+          "Trần Trung Trực", "images/employee.jpg", 'Back-end Developer'),
+      EmployeeItemModel(
+          "Võ Quy Nguyên", "images/employee.jpg", 'Business Analyst'),
+    ];
+    return list;
   }
 }
