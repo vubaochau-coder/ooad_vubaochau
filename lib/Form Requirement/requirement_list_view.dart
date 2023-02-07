@@ -5,7 +5,6 @@ import 'package:ooad_vubaochau/Form%20Requirement/abstract_requirement_view.dart
 import 'package:ooad_vubaochau/Form%20Requirement/bottom_sheet.dart';
 import 'package:ooad_vubaochau/Form%20Requirement/edit_bottom_sheet.dart';
 import 'package:ooad_vubaochau/Form%20Requirement/required_item.dart';
-import 'package:ooad_vubaochau/Form%20Requirement/requirement_list_model.dart';
 import 'package:ooad_vubaochau/Form%20Requirement/requirement_list_presenter.dart';
 import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
 

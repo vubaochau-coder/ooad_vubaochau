@@ -1,18 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:ooad_vubaochau/Models/Employee_Models/my_profile_model.dart';
+import 'package:ooad_vubaochau/My%20Profile/abstract_my_profile_view.dart';
+import 'package:ooad_vubaochau/My%20Profile/my_profile_presenter.dart';
 import 'package:ooad_vubaochau/commons/employee_info.dart';
 import 'package:ooad_vubaochau/commons/opaque_image.dart';
 import 'package:ooad_vubaochau/commons/profile_info_big_card.dart';
 import 'package:ooad_vubaochau/commons/profile_info_card.dart';
 
-class EmployeeProfile extends StatefulWidget {
+class MyProfileDetail extends StatefulWidget {
   final String id;
-  const EmployeeProfile({super.key, required this.id});
+  const MyProfileDetail({super.key, required this.id});
 
   @override
-  State<EmployeeProfile> createState() => _EmployeeProfileState();
+  State<MyProfileDetail> createState() => _MyProfileDetailState();
 }
 
-class _EmployeeProfileState extends State<EmployeeProfile> {
+class _MyProfileDetailState extends State<MyProfileDetail>
+    with AbstractProfileView {
+  ProfileDetail myProfile = ProfileDetail(
+    id: "",
+    name: "",
+    position: "",
+    address: "",
+    levelPermission: 0,
+    taskSuccess: 0,
+    taskTotal: 0,
+    dayOff: 0,
+    email: "",
+    phone: "",
+    dayWorked: 0,
+  );
+
+  late MyProfilePresenter presenter;
+  @override
+  void initState() {
+    super.initState();
+    presenter = MyProfilePresenter(this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,14 +87,10 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                               right: 16,
                               bottom: 16,
                             ),
-                            child: Column(
-                              children: [
-                                MyInfo(
-                                  name: "",
-                                  posistion: "",
-                                  yearOld: 0,
-                                ),
-                              ],
+                            child: MyInfo(
+                              name: myProfile.name,
+                              posistion: myProfile.position,
+                              yearOld: 22,
                             ),
                           ),
                         ),
@@ -111,10 +132,16 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                           const SizedBox(
                             width: 10,
                           ),
-                          const Expanded(
+                          Expanded(
                             flex: 2,
                             child: IntroduceCard(
-                              firstText: 'Senior',
+                              firstText: myProfile.levelPermission == 1
+                                  ? 'Admin'
+                                  : myProfile.levelPermission == 2
+                                      ? "Manager"
+                                      : myProfile.levelPermission == 3
+                                          ? "Staff"
+                                          : "None",
                               secondText: 'Level',
                             ),
                           ),
@@ -132,22 +159,22 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
               children: [
                 Expanded(
                   child: Column(
-                    children: const [
+                    children: [
                       ProfileInfoBigCard(
-                        firstText: '25',
+                        firstText: myProfile.taskTotal.toString(),
                         secondText: 'Dự án đã làm',
                         icon: Icons.star_purple500_outlined,
                         height: 100,
                       ),
                       ProfileInfoBigCard(
-                        firstText: '02',
+                        firstText: myProfile.dayOff.toString(),
                         secondText: 'Ngày nghỉ',
                         icon: Icons.free_cancellation_rounded,
                         height: 100,
                       ),
                       ProfileInfoBigCard(
                         firstText: 'Email',
-                        secondText: '20521128@gm.uit.edu.vn',
+                        secondText: myProfile.email,
                         icon: Icons.email,
                         height: 120,
                       ),
@@ -156,24 +183,24 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                 ),
                 Expanded(
                   child: Column(
-                    children: const [
+                    children: [
                       ProfileInfoBigCard(
-                        firstText: '256',
+                        firstText: myProfile.dayWorked.toString(),
                         secondText: 'Ngày đi làm',
                         icon: Icons.free_cancellation_rounded,
                         height: 100,
                       ),
                       ProfileInfoBigCard(
-                        firstText: 'Địa chỉ',
-                        secondText: '57 Quang Trung, TP Hồ Chí Minh',
-                        icon: Icons.location_on,
-                        height: 120,
-                      ),
-                      ProfileInfoBigCard(
                         firstText: 'Phone',
-                        secondText: '1900.xxx.xxx',
+                        secondText: myProfile.phone,
                         icon: Icons.phone,
                         height: 100,
+                      ),
+                      ProfileInfoBigCard(
+                        firstText: 'Địa chỉ',
+                        secondText: myProfile.address,
+                        icon: Icons.location_on,
+                        height: 120,
                       ),
                     ],
                   ),
@@ -184,5 +211,14 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
         ),
       ),
     );
+  }
+
+  @override
+  void getProfile(ProfileDetail data) {
+    if (mounted) {
+      setState(() {
+        myProfile = data;
+      });
+    }
   }
 }

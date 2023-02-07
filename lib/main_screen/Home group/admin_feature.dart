@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/manager_operation_button.dart';
-import 'package:ooad_vubaochau/Features/Permission/manage_permission.dart';
+import 'package:ooad_vubaochau/Permission/manage_permission.dart';
 import 'package:ooad_vubaochau/Department/manage_department.dart';
 
 class AdminFeatures extends StatelessWidget {

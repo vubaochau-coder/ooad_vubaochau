@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Features/Permission/manager_accounts.dart';
-import 'package:ooad_vubaochau/Features/Permission/staff_accounts.dart';
+import 'package:ooad_vubaochau/Permission/Manager%20Account/manager_accounts_view.dart';
+import 'package:ooad_vubaochau/Permission/Staff%20Account/staff_accounts_view.dart';
 
 class ManagePermissionScreen extends StatefulWidget {
   const ManagePermissionScreen({super.key});

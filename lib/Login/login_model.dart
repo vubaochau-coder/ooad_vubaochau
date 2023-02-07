@@ -43,7 +43,7 @@ class LoginModel {
       final snapshot = await userReference.get();
 
       if (snapshot.exists) {
-        return UserSingleton.fromJson(snapshot.data()!);
+        return null;
       } else {
         return null;
       }

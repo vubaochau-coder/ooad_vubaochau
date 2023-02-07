@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/manager_operation_button.dart';
-import 'package:ooad_vubaochau/Features/Create%20Notification/create_notification.dart';
+import 'package:ooad_vubaochau/Create%20Notification/create_notification_view.dart';
 import 'package:ooad_vubaochau/Features/Employee/employee_list.dart';
 import 'package:ooad_vubaochau/Task%20Manager/task_list_4_manager_view.dart';
 

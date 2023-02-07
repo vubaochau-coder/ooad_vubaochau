@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Home%20Screen/home_screen_view.dart';
-import 'package:ooad_vubaochau/main_screen/notification_screen.dart';
+import 'package:ooad_vubaochau/Notification/notification_screen.dart';
 import 'package:ooad_vubaochau/main_screen/statistical_screen.dart';
 
 class MainScreen extends StatefulWidget {

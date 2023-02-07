@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_slidable_action.dart';
 import 'package:ooad_vubaochau/Models/Account_Models/account_info_model.dart';
+import 'package:ooad_vubaochau/Permission/Staff%20Account/abstract_staff_acc_view.dart';
+import 'package:ooad_vubaochau/Permission/Staff%20Account/staff_acc_presenter.dart';
 
-import 'account_info.dart';
+import '../account_info.dart';
 
 class StaffAccountListScreen extends StatefulWidget {
   const StaffAccountListScreen({super.key});
@@ -13,9 +16,18 @@ class StaffAccountListScreen extends StatefulWidget {
 }
 
 class _StaffAccountListScreenState extends State<StaffAccountListScreen>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, AbstractStaffAccView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-  List<AccountInfoModel> listAcc = getListAccount();
+
+  late StaffAccPresenter presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = StaffAccPresenter(this);
+  }
+
+  List<AccountInfoModel> listAcc = [];
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -64,10 +76,11 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen>
                                     : 'Enable',
                                 borderRadius: BorderRadius.circular(36),
                                 onPressed: (context) {
-                                  setState(() {
-                                    listAcc[index].isActive =
-                                        !listAcc[index].isActive;
-                                  });
+                                  if (listAcc[index].isActive) {
+                                    presenter.disableAccount(listAcc[index].id);
+                                  } else {
+                                    presenter.enableAccount(listAcc[index].id);
+                                  }
                                 },
                               ),
                             ],
@@ -198,75 +211,33 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen>
     );
   }
 
-  static List<AccountInfoModel> getListAccount() {
-    List<AccountInfoModel> listAcc = [
-      AccountInfoModel(
-        'EMP001',
-        'Vo Truong Dang Huy',
-        'Jun 01',
-        '31/12/2022 20:49 PM',
-        'vtdhuy@gmail.com',
-        'Java developer',
-        true,
-      ),
-      AccountInfoModel(
-        'EMP002',
-        'Luu Van Luyen',
-        'Jun 01',
-        '31/12/2022 2:49 AM',
-        'lvluyen@gmail.com',
-        'C++ developer',
-        true,
-      ),
-      AccountInfoModel(
-        'EMP003',
-        'Quach Kim Nghia',
-        'Jun 01',
-        '31/12/2022 9:21 AM',
-        'qknghia@gmail.com',
-        'C++ developer',
-        true,
-      ),
-      AccountInfoModel(
-        'EMP004',
-        'Truong Tan Sang',
-        'Jun 01',
-        '31/12/2022 12:30 AM',
-        'ttsang@gmail.com',
-        'C# developer',
-        false,
-      ),
-      AccountInfoModel(
-        'EMP005',
-        'Phung Van Phong',
-        'Jun 01',
-        '31/12/2022 16:01 PM',
-        'pvphong@gmail.com',
-        'Flutter developer',
-        true,
-      ),
-      AccountInfoModel(
-        'EMP006',
-        'Ma Seo Sau',
-        'Jun 01',
-        '31/12/2022 16:01 PM',
-        'mssau@gmail.com',
-        'Python developer',
-        true,
-      ),
-      AccountInfoModel(
-        'EMP007',
-        'Ngo Thanh Nhat',
-        'Jun 01',
-        '31/12/2022 16:01 PM',
-        'ntnhat@gmail.com',
-        'Ruby developer',
-        true,
-      ),
-    ];
-    return listAcc;
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void showListAcc(List<AccountInfoModel> list) {
+    if (mounted) {
+      setState(() {
+        listAcc = list;
+      });
+    }
   }
 
   @override
-  bool get wantKeepAlive => true;
+  void showFailedToast(String message) => Fluttertoast.showToast(
+        msg: message,
+        backgroundColor: Colors.red[300],
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 15,
+      );
+
+  @override
+  void showSuccessToast(String message) => Fluttertoast.showToast(
+        msg: message,
+        backgroundColor: Colors.green[300],
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 15,
+      );
 }

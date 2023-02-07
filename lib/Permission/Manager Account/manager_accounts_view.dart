@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_slidable_action.dart';
-import 'package:ooad_vubaochau/Features/Permission/account_info.dart';
+import 'package:ooad_vubaochau/Permission/Manager%20Account/abstract_manager_acc_view.dart';
+import 'package:ooad_vubaochau/Permission/Manager%20Account/manager_acc_presenter.dart';
+import 'package:ooad_vubaochau/Permission/account_info.dart';
 import 'package:ooad_vubaochau/Models/Account_Models/account_info_model.dart';
 
 class ManagerAccountListScreen extends StatefulWidget {
@@ -13,9 +16,17 @@ class ManagerAccountListScreen extends StatefulWidget {
 }
 
 class _ManagerAccountListScreenState extends State<ManagerAccountListScreen>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, AbstractMngAccView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-  List<AccountInfoModel> listAcc = getListAccount();
+  late MngAccPresenter presenter;
+  List<AccountInfoModel> listAcc = [];
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = MngAccPresenter(this);
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -64,10 +75,11 @@ class _ManagerAccountListScreenState extends State<ManagerAccountListScreen>
                                     : 'Enable',
                                 borderRadius: BorderRadius.circular(36),
                                 onPressed: (context) {
-                                  setState(() {
-                                    listAcc[index].isActive =
-                                        !listAcc[index].isActive;
-                                  });
+                                  if (listAcc[index].isActive) {
+                                    presenter.disableAccount(listAcc[index].id);
+                                  } else {
+                                    presenter.enableAccount(listAcc[index].id);
+                                  }
                                 },
                               ),
                             ],
@@ -159,66 +171,33 @@ class _ManagerAccountListScreenState extends State<ManagerAccountListScreen>
     );
   }
 
-  static List<AccountInfoModel> getListAccount() {
-    List<AccountInfoModel> listAcc = [
-      AccountInfoModel(
-        'MGR001',
-        'Vu Bao Chau',
-        'Jun 01',
-        'Dec 31 20:49',
-        'vbchau@gmail.com',
-        'Personnel manager',
-        true,
-      ),
-      AccountInfoModel(
-        'MGR002',
-        'Nguyen Truong Dinh Du',
-        'Jun 01',
-        'Dec 31 2:49',
-        'ntddu@gmail.com',
-        'Finance Manager',
-        true,
-      ),
-      AccountInfoModel(
-        'MGR003',
-        'Pham Minh Nhat',
-        'Jun 01',
-        'Dec 31 9:21',
-        'pmnhat@gmail.com',
-        'Marketing manager',
-        true,
-      ),
-      AccountInfoModel(
-        'MGR004',
-        'Nguyen Nhat Cuong',
-        'Jun 01',
-        'Dec 31 12:30',
-        'nncuong@gmail.com',
-        'Production manager',
-        false,
-      ),
-      AccountInfoModel(
-        'MGR005',
-        'Tran Thi Hoai Thu',
-        'Jun 01',
-        'Dec 31 16:01',
-        'tththu@gmail.com',
-        'Accounting manager',
-        true,
-      ),
-      AccountInfoModel(
-        'MGR006',
-        'Tran Thi Hoai Thu',
-        'Jun 01',
-        'Dec 31 16:01',
-        'tththu@gmail.com',
-        'Accounting manager',
-        true,
-      ),
-    ];
-    return listAcc;
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void showListMngAcc(List<AccountInfoModel> list) {
+    if (mounted) {
+      setState(() {
+        listAcc = list;
+      });
+    }
   }
 
   @override
-  bool get wantKeepAlive => true;
+  void showFailedToast(String message) => Fluttertoast.showToast(
+        msg: message,
+        backgroundColor: Colors.red[300],
+        gravity: ToastGravity.BOTTOM,
+        fontSize: 15,
+        toastLength: Toast.LENGTH_LONG,
+      );
+
+  @override
+  void showSuccessToast(String message) => Fluttertoast.showToast(
+        msg: message,
+        backgroundColor: Colors.green[300],
+        gravity: ToastGravity.BOTTOM,
+        fontSize: 15,
+        toastLength: Toast.LENGTH_LONG,
+      );
 }
