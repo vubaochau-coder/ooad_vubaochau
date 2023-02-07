@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../Models/Salary_Models/label.dart';
+import 'package:ooad_vubaochau/Models/Salary_Models/test_label_model.dart';
 
 class SalaryHastag extends StatelessWidget {
-  final SalaryLabelModel labelModel;
-  const SalaryHastag({super.key, required this.labelModel});
+  final TestSalaryLabel label;
+  const SalaryHastag({super.key, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,11 @@ class SalaryHastag extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        color: labelModel.color,
+        color: stringToColor(label.color),
       ),
       constraints: const BoxConstraints(minWidth: 28),
       child: Text(
-        labelModel.text,
+        label.text,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 13,
@@ -25,5 +25,9 @@ class SalaryHastag extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color stringToColor(String string) {
+    return Color(int.parse(string, radix: 16));
   }
 }
