@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:ooad_vubaochau/Form%20Requirement/abstract_requirement_view.dart';
-import 'package:ooad_vubaochau/Form%20Requirement/bottom_sheet.dart';
-import 'package:ooad_vubaochau/Form%20Requirement/edit_bottom_sheet.dart';
-import 'package:ooad_vubaochau/Form%20Requirement/required_item.dart';
-import 'package:ooad_vubaochau/Form%20Requirement/requirement_list_presenter.dart';
-import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
+import 'package:ooad_vubaochau/Salary%20Management/abstract_salary_view.dart';
+import 'package:ooad_vubaochau/Salary%20Management/bottom_sheet.dart';
+import 'package:ooad_vubaochau/Salary%20Management/edit_bottom_sheet.dart';
+import 'package:ooad_vubaochau/Salary%20Management/salary_items.dart';
+import 'package:ooad_vubaochau/Models/Salary_Models/manager_salary.dart';
+import 'package:ooad_vubaochau/Salary%20Management/salary_list_model.dart';
+import 'package:ooad_vubaochau/Salary%20Management/salary_list_presenter.dart';
 
-class ManagerRequiredList extends StatefulWidget {
-  const ManagerRequiredList({super.key});
+class ManagerSalaryList extends StatefulWidget {
+  const ManagerSalaryList({super.key});
 
   @override
-  State<ManagerRequiredList> createState() => _ManagerRequiredListState();
+  State<ManagerSalaryList> createState() => _ManagerSalaryListState();
 }
 
-class _ManagerRequiredListState extends State<ManagerRequiredList>
-    with AbstractRequirementView {
+class _ManagerSalaryListState extends State<ManagerSalaryList>
+    with AbstractSalaryView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-  List<ManagerRequiredModel> formList = [];
+  List<ManagerSalaryModel> salaryList = [];
 
   final toast = FToast();
-  late FormManagerScreenPresenter presenter;
+  late SalaryManagementScreenPresenter presenter;
 
   @override
   void initState() {
     super.initState();
-    presenter = FormManagerScreenPresenter(this);
+    presenter = SalaryManagementScreenPresenter(this);
     toast.init(context);
   }
 
@@ -72,9 +73,9 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
               ),
             ),
             builder: (BuildContext context) {
-              return RequiredBottomSheet(
+              return MyCreateBottomSheet(
                 onComplete: (p0) async {
-                  await presenter.addNewForm(p0).whenComplete(
+                  await presenter.addNewTask(p0).whenComplete(
                         () => Navigator.pop(context),
                       );
                 },
@@ -90,9 +91,9 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
         decoration: BoxDecoration(
           color: themeColor,
           image: const DecorationImage(
-            image: AssetImage('images/demo.jpg'),
+            image: AssetImage('images/position_right.png'),
             fit: BoxFit.cover,
-            opacity: 0.2,
+            opacity: 0.4,
           ),
         ),
         padding: EdgeInsets.only(
@@ -105,7 +106,7 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
               padding: const EdgeInsets.symmetric(horizontal: 10),
               margin: const EdgeInsets.only(bottom: 20),
               child: const Text(
-                'Form Management',
+                'Salary management',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
@@ -117,7 +118,7 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
               child: ListView.builder(
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  final ManagerRequiredModel queries = formList[index];
+                  final ManagerSalaryModel task = salaryList[index];
                   return Slidable(
                     startActionPane: ActionPane(
                       motion: const StretchMotion(),
@@ -126,9 +127,9 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
                         SlidableAction(
                           onPressed: (context) {
                             setState(() {
-                              formList.removeAt(index);
+                              salaryList.removeAt(index);
                             });
-                            showSuccessToast('Form has been deleted');
+                            showSuccessToast('Salary has been given');
                           },
                           icon: Icons.delete_outline,
                           label: "Delete",
@@ -148,15 +149,16 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
                                 ),
                               ),
                               builder: (BuildContext context) {
-                                return MyFormEditBottomSheet(
+                                return SalaryEditBottomSheet(
                                   onComplete: (p0) {
                                     setState(() {
-                                      formList[index] = p0;
+                                      salaryList[index] = p0;
                                       Navigator.pop(context);
-                                      showSuccessToast('Form has been edited');
+                                      showSuccessToast(
+                                          'Salary has been edited');
                                     });
                                   },
-                                  item: formList[index],
+                                  item: salaryList[index],
                                   onExit: () {
                                     Navigator.pop(context);
                                   },
@@ -171,7 +173,7 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
                         ),
                         SlidableAction(
                           onPressed: (context) {
-                            showSuccessToast('Form Resolving completed');
+                            showSuccessToast('Salary completed');
                           },
                           icon: Icons.done_outline_rounded,
                           label: "Done",
@@ -180,10 +182,10 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
                         ),
                       ],
                     ),
-                    child: buildFormList(queries),
+                    child: buildTaskList(task),
                   );
                 },
-                itemCount: formList.length,
+                itemCount: salaryList.length,
               ),
             )
           ],
@@ -192,7 +194,7 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
     );
   }
 
-  Widget buildFormList(ManagerRequiredModel queries) {
+  Widget buildTaskList(ManagerSalaryModel salary) {
     return Builder(
       builder: (context) => GestureDetector(
         onTap: () {
@@ -204,7 +206,7 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
             slidable.close();
           }
         },
-        child: RequiredItem(query: queries),
+        child: SalaryItem(salary: salary),
       ),
     );
   }
@@ -217,10 +219,10 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
       );
 
   @override
-  void updateListView(List<ManagerRequiredModel> task) {
+  void updateListView(List<ManagerSalaryModel> salary) {
     if (mounted) {
       setState(() {
-        formList = task;
+        salaryList = salary;
       });
     }
   }
