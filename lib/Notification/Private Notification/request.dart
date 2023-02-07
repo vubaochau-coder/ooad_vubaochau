@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Models/Notification_Models/request_notification.dart';
-import 'package:ooad_vubaochau/main_screen/Notify%20group/request_detail.dart';
+import 'package:ooad_vubaochau/Notification/request_detail.dart';
 
 class RequestNotifyScreen extends StatefulWidget {
   const RequestNotifyScreen({super.key});
@@ -13,7 +13,7 @@ String demo =
     "Flutter is an open source framework by Google for building beautiful, natively compiled, multi-platform applications from a single codebase.";
 
 class _RequestNotifyScreenState extends State<RequestNotifyScreen> {
-  List<RequestNotificationModel> notifies = getListNotifies();
+  List<RequestNotificationModel> notifies = [];
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   bool allSelected = true;
   bool unReadSelected = false;
@@ -137,32 +137,6 @@ class _RequestNotifyScreenState extends State<RequestNotifyScreen> {
         ),
       ],
     );
-  }
-
-  static List<RequestNotificationModel> getListNotifies() {
-    List<RequestNotificationModel> myNotifies = [
-      RequestNotificationModel(
-          'Notify 1', demo, '24/12', 'ID Staff', 'IDBoss', false, false),
-      RequestNotificationModel(
-          'Notify 2', demo, '12/12', 'ID Staff', 'IDBoss', false, true),
-      RequestNotificationModel(
-          'Notify 3', demo, '11/12', 'ID Staff', 'IDBoss', false, false),
-      RequestNotificationModel(
-          'Notify 4', demo, '10/11', 'ID Staff', 'IDBoss', false, false),
-      RequestNotificationModel(
-          'Notify 5', demo, '09/11', 'ID Staff', 'IDBoss', false, true),
-      RequestNotificationModel(
-          'Notify 6', demo, '31/10', 'ID Staff', 'IDBoss', false, true),
-      RequestNotificationModel(
-          'Notify 7', demo, '23/10', 'ID Staff', 'IDBoss', false, true),
-      RequestNotificationModel(
-          'Notify 8', demo, '22/10', 'ID Staff', 'IDBoss', false, true),
-      RequestNotificationModel(
-          'Notify 9', demo, '22/10', 'ID Staff', 'IDBoss', false, false),
-      RequestNotificationModel(
-          'Notify 10', demo, '20/10', 'ID Staff', 'IDBoss', false, false),
-    ];
-    return myNotifies;
   }
 
   Widget buildListView(BuildContext context, int index) {

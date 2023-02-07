@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ooad_vubaochau/Attendance/abstract_attendance_view.dart';
 import 'package:ooad_vubaochau/Attendance/attendance_presenter.dart';
+import 'package:ooad_vubaochau/Models/Attendace_Models/attendace_day.dart';
 import 'package:ooad_vubaochau/commons/radial_progress.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
@@ -17,14 +18,21 @@ class _AttendanceScreenState extends State<AttendanceScreen>
     implements AttendanceView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   final GlobalKey<SlideActionState> key = GlobalKey();
-  String checkIn = "--/--";
-  String checkOut = "--/--";
+  AttendanceDay data = AttendanceDay(
+      id: '',
+      checkIn: '',
+      checkOut: '',
+      userID: '',
+      day: '',
+      totalCheckInDay: 0);
   late AttendancePresenter presenter;
+
+  int totalDayInMonth =
+      DateTime(DateTime.now().year, DateTime.now().month + 1, 0).day;
   @override
   void initState() {
     super.initState();
     presenter = AttendancePresenter(this);
-    presenter.getRecord(checkIn, checkOut);
   }
 
   @override
@@ -157,7 +165,7 @@ class _AttendanceScreenState extends State<AttendanceScreen>
                                 ),
                               ),
                               Text(
-                                checkIn,
+                                data.checkIn == '' ? '--/--' : data.checkIn,
                                 style: const TextStyle(
                                   fontFamily: "NexaBold",
                                   fontSize: 30,
@@ -187,7 +195,7 @@ class _AttendanceScreenState extends State<AttendanceScreen>
                                 ),
                               ),
                               Text(
-                                checkOut,
+                                data.checkOut == '' ? '--/--' : data.checkOut,
                                 style: const TextStyle(
                                   fontFamily: "NexaBold",
                                   fontSize: 30,
@@ -204,11 +212,8 @@ class _AttendanceScreenState extends State<AttendanceScreen>
               ],
             ),
           ),
-          const SizedBox(
-            height: 14,
-          ),
           const Padding(
-            padding: EdgeInsets.only(left: 14),
+            padding: EdgeInsets.only(left: 24, top: 24),
             child: Text(
               'Attendance process',
               style: TextStyle(
@@ -222,7 +227,6 @@ class _AttendanceScreenState extends State<AttendanceScreen>
             width: double.infinity,
             margin: const EdgeInsets.only(top: 6),
             padding: const EdgeInsets.only(top: 16, bottom: 8),
-            //color: Colors.pink,
             child: Row(
               children: [
                 Expanded(
@@ -231,7 +235,7 @@ class _AttendanceScreenState extends State<AttendanceScreen>
                     children: [
                       RadialProgress(
                         width: 14,
-                        goalCompleted: 21 / 30,
+                        goalCompleted: data.totalCheckInDay / totalDayInMonth,
                         progressColor: themeColor,
                         progressBackgroundColor:
                             const Color.fromRGBO(224, 224, 224, 1),
@@ -239,9 +243,9 @@ class _AttendanceScreenState extends State<AttendanceScreen>
                           alignment: Alignment.center,
                           height: 80,
                           width: 80,
-                          child: const Text(
-                            '21/30',
-                            style: TextStyle(
+                          child: Text(
+                            '${data.totalCheckInDay.toString().padLeft(2, "0")}/$totalDayInMonth',
+                            style: const TextStyle(
                               color: Colors.black54,
                               fontSize: 24,
                               fontWeight: FontWeight.w400,
@@ -269,7 +273,9 @@ class _AttendanceScreenState extends State<AttendanceScreen>
                     children: [
                       RadialProgress(
                         width: 14,
-                        goalCompleted: 1 / 30,
+                        goalCompleted:
+                            (DateTime.now().day - data.totalCheckInDay) /
+                                totalDayInMonth,
                         progressColor: Colors.red,
                         progressBackgroundColor:
                             const Color.fromRGBO(224, 224, 224, 1),
@@ -277,9 +283,9 @@ class _AttendanceScreenState extends State<AttendanceScreen>
                           alignment: Alignment.center,
                           height: 80,
                           width: 80,
-                          child: const Text(
-                            '01/30',
-                            style: TextStyle(
+                          child: Text(
+                            '${(DateTime.now().day - data.totalCheckInDay).toString().padLeft(2, "0")}/$totalDayInMonth',
+                            style: const TextStyle(
                               color: Colors.black54,
                               fontSize: 24,
                               fontWeight: FontWeight.w400,
@@ -305,12 +311,12 @@ class _AttendanceScreenState extends State<AttendanceScreen>
             ),
           ),
           const Spacer(),
-          checkOut == "--/--"
+          data.checkOut == ""
               ? Container(
                   padding: const EdgeInsets.only(
                       top: 4, left: 24, right: 24, bottom: 42),
                   child: SlideAction(
-                    text: checkIn == "--/--"
+                    text: data.checkIn == ""
                         ? "Swipe to Check In"
                         : "Swipe to Check Out",
                     textStyle: const TextStyle(
@@ -326,20 +332,27 @@ class _AttendanceScreenState extends State<AttendanceScreen>
                       color: Colors.white,
                     ),
                     key: key,
-                    onSubmit: () async {
-                      presenter.checkAttendance(checkIn, checkOut);
+                    onSubmit: () {
+                      if (data.checkIn == '') {
+                        presenter.checkIn(data.id, data.userID);
+                      } else {
+                        presenter.checkOut(data.id, data.userID);
+                      }
                     },
                   ),
                 )
-              : Container(
-                  margin: const EdgeInsets.only(
-                      top: 4, left: 24, right: 24, bottom: 42),
-                  child: Text(
-                    "You have completed this day!",
-                    style: TextStyle(
-                      fontFamily: "NexaRegular",
-                      fontSize: 20,
-                      color: themeColor,
+              : Center(
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(bottom: 50),
+                    child: Text(
+                      "You have completed this day!",
+                      style: TextStyle(
+                        fontFamily: "NexaRegular",
+                        fontSize: 20,
+                        color: themeColor,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 )
@@ -349,16 +362,11 @@ class _AttendanceScreenState extends State<AttendanceScreen>
   }
 
   @override
-  void getRecord() {
-    // TODO: implement getRecord
-  }
-
-  @override
-  void getAttendance(String checkIn, String checkOut) {
-    // TODO: implement getAttendance
-  }
-  @override
-  void showRecord(String checkIn, String checkOut) {
-    // TODO: implement getAttendance
+  void showRecord(AttendanceDay attendance) {
+    if (mounted) {
+      setState(() {
+        data = attendance;
+      });
+    }
   }
 }

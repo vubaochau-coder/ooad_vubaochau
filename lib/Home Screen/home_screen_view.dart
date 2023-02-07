@@ -5,6 +5,7 @@ import 'package:ooad_vubaochau/Form%20Requirement/requirement_list_view.dart';
 import 'package:ooad_vubaochau/Features/Task/task_list_4_employee.dart';
 import 'package:ooad_vubaochau/Home%20Screen/abstract_home_view.dart';
 import 'package:ooad_vubaochau/Home%20Screen/home_screen_presenter.dart';
+import 'package:ooad_vubaochau/My%20Profile/my_profile_view.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/admin_feature.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/manager_feature.dart';
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
 
   String fullName = "";
   String viewPosition = "BACK-END DEVELOPER";
+  String avatar = '';
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
 
   late HomePresenter homePresenter;
@@ -104,10 +106,20 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                               ),
                               height: 64,
                               width: 64,
-                              child: const CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('images/employee.jpg'),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
+                                shape: BoxShape.circle,
                               ),
+                              child: avatar.isEmpty
+                                  ? const CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage('images/employee.jpg'))
+                                  : CircleAvatar(
+                                      backgroundImage: NetworkImage(avatar),
+                                    ),
                             ),
                             Container(
                               height: 64,
@@ -245,7 +257,19 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                           name: 'Profile',
                           icon: Icons.person_outline,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return MyProfileDetail(
+                                    id: "",
+                                  );
+                                },
+                              ),
+                            );
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -312,11 +336,12 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   }
 
   @override
-  void updateData(String name, String position) {
+  void updateData(String name, String position, String image) {
     if (mounted) {
       setState(() {
         fullName = name;
         viewPosition = position;
+        avatar = image;
       });
     }
   }

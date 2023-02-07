@@ -6,12 +6,15 @@ class RequestNotificationModel extends NotificationModel {
   final bool isAccepted;
   final bool isSalaryRequest;
 
-  RequestNotificationModel(
-      super.title,
-      super.details,
-      super.date,
-      this.idUserRequest,
-      this.idUserRespone,
-      this.isAccepted,
-      this.isSalaryRequest);
+  RequestNotificationModel({
+    required this.idUserRequest,
+    required this.idUserRespone,
+    required this.isAccepted,
+    required this.isSalaryRequest,
+    required super.id,
+    required super.title,
+    required super.details,
+    required super.date,
+    required super.isRead,
+  });
 }

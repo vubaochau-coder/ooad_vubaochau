@@ -7,8 +7,8 @@ class HomePresenter {
 
   HomePresenter(this.view) {
     model.userChange.listen((event) {
-      view.updateData(
-          event.docChanges[0].doc["name"], event.docChanges[0].doc["position"]);
+      model.futureUser().then(
+          (value) => view.updateData(value.name, value.position, value.image));
     });
   }
 }

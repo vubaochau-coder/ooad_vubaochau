@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ooad_vubaochau/Home%20Screen/user_model.dart';
 
 class HomeModel {
@@ -8,32 +9,28 @@ class HomeModel {
   final auth = FirebaseAuth.instance;
   late String id;
 
-  Future<TestUserModel?> futureUser() async {
+  Future<TestUserModel> futureUser() async {
     var user = auth.currentUser;
-    if (user != null) {
-      String uid = user.uid;
 
-      final ref = await firestore.collection("Account").doc(uid).get();
-      id = ref.get("idEmp");
+    final ref = await firestore
+        .collection("Account")
+        .where('userName', isEqualTo: user!.email)
+        .get();
+    String accID = ref.docs[0].id;
 
-      final userReference = firestore.collection("Users").doc(id);
+    final userReference =
+        firestore.collection("Users").where('id', isEqualTo: accID);
 
-      final snapshot = await userReference.get();
+    final snapshot = await userReference.get();
 
-      if (snapshot.exists) {
-        return TestUserModel.fromJson(snapshot.data()!);
-      } else {
-        return null;
-      }
-    }
-    return null;
+    String image = snapshot.docs[0].data()['image'];
+    var urlRef = FirebaseStorage.instance.ref().child('avatar').child(image);
+
+    String imgUrl = await urlRef.getDownloadURL();
+    return TestUserModel.fromJson(snapshot.docs[0].data(), imgUrl);
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> get userChange {
-    return firestore
-        .collection("Users")
-        .where("id", isEqualTo: auth.currentUser!.uid)
-        .limit(1)
-        .snapshots();
+    return firestore.collection("Users").snapshots();
   }
 }

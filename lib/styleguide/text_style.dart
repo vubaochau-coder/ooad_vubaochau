@@ -30,7 +30,7 @@ final TextStyle titleStyle = TextStyle(
 final TextStyle subTitleStyle = TextStyle(
   fontSize: 18.0,
   color: secondaryTextColor,
-  fontWeight: FontWeight.w200,
+  fontWeight: FontWeight.w300,
 );
 // ignore: prefer_const_constructors
 final TextStyle actionMenuStyle = TextStyle(

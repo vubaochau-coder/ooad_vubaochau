@@ -107,7 +107,9 @@ class EmployeeList extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (BuildContext context) {
-                          return const EmployeeProfile();
+                          return EmployeeProfile(
+                            id: "",
+                          );
                         },
                       ),
                     );
