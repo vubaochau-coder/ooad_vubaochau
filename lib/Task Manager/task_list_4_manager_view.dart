@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
 import 'package:ooad_vubaochau/Task%20Manager/abstract_task_view.dart';
 import 'package:ooad_vubaochau/Task%20Manager/bottom_sheet.dart';
 import 'package:ooad_vubaochau/Task%20Manager/edit_bottom_sheet.dart';
@@ -19,6 +20,7 @@ class _ManagerTaskListState extends State<ManagerTaskList>
     with AbstractTaskView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   List<ManagerTaskModel> taskList = [];
+  List<MemberInTask> allEmpsInDepart = [];
 
   final toast = FToast();
   late TaskManagerScreenPresenter presenter;
@@ -81,6 +83,7 @@ class _ManagerTaskListState extends State<ManagerTaskList>
                 onExit: () {
                   Navigator.pop(context);
                 },
+                allEmpsInDepart: allEmpsInDepart,
               );
             },
           );
@@ -154,6 +157,7 @@ class _ManagerTaskListState extends State<ManagerTaskList>
                                   onExit: () {
                                     Navigator.pop(context);
                                   },
+                                  allEmpsInDepart: allEmpsInDepart,
                                 );
                               },
                             );
@@ -165,7 +169,7 @@ class _ManagerTaskListState extends State<ManagerTaskList>
                         ),
                         SlidableAction(
                           onPressed: (context) {
-                            showSuccessToast('Task completed');
+                            presenter.completeTask(taskList[index]);
                           },
                           icon: Icons.done_outline_rounded,
                           label: "Done",
@@ -225,4 +229,13 @@ class _ManagerTaskListState extends State<ManagerTaskList>
         fontSize: 16,
         gravity: ToastGravity.BOTTOM,
       );
+
+  @override
+  void getAllEmpsInDepart(List<MemberInTask> emps) {
+    if (mounted) {
+      setState(() {
+        allEmpsInDepart = emps;
+      });
+    }
+  }
 }

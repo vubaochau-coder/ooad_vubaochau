@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:ooad_vubaochau/Models/Employee_Models/employee_item_model.dart';
 import 'package:ooad_vubaochau/commons/employee_info.dart';
 import 'package:ooad_vubaochau/commons/opaque_image.dart';
 import 'package:ooad_vubaochau/commons/profile_info_big_card.dart';
 import 'package:ooad_vubaochau/commons/profile_info_card.dart';
 
-class EmployeeProfile extends StatefulWidget {
-  final String id;
-  const EmployeeProfile({super.key, required this.id});
+class EmployeeDetailProfile extends StatefulWidget {
+  final EmployeeItemModel employee;
+  const EmployeeDetailProfile({super.key, required this.employee});
 
   @override
-  State<EmployeeProfile> createState() => _EmployeeProfileState();
+  State<EmployeeDetailProfile> createState() => _EmployeeDetailProfileState();
 }
 
-class _EmployeeProfileState extends State<EmployeeProfile> {
+class _EmployeeDetailProfileState extends State<EmployeeDetailProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +24,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
         title: const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "My Profile",
+            "Employee's Profile",
             textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 24,
@@ -32,12 +33,6 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
             ),
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.edit),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -52,8 +47,8 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                     width: MediaQuery.of(context).size.width,
                     child: Stack(
                       children: [
-                        const OpaqueImage(
-                          imageUrl: "images/employee.jpg",
+                        OpaqueImage(
+                          imageUrl: widget.employee.imgURL,
                         ),
                         SafeArea(
                           child: Padding(
@@ -62,14 +57,10 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                               right: 16,
                               bottom: 16,
                             ),
-                            child: Column(
-                              children: [
-                                MyInfo(
-                                  name: "",
-                                  posistion: "",
-                                  yearOld: 0,
-                                ),
-                              ],
+                            child: MyInfo(
+                              name: widget.employee.name,
+                              posistion: widget.employee.position,
+                              imageURL: widget.employee.imgURL,
                             ),
                           ),
                         ),
@@ -86,10 +77,11 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Expanded(
+                          Expanded(
                             flex: 2,
                             child: IntroduceCard(
-                              firstText: '54%',
+                              firstText:
+                                  "${(widget.employee.taskCountSuccess / widget.employee.taskCountTotal * 100).toStringAsFixed(0)}%",
                               secondText: 'Progress',
                             ),
                           ),
@@ -111,10 +103,14 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                           const SizedBox(
                             width: 10,
                           ),
-                          const Expanded(
+                          Expanded(
                             flex: 2,
                             child: IntroduceCard(
-                              firstText: 'Senior',
+                              firstText: widget.employee.levelPer == 1
+                                  ? 'Admin'
+                                  : widget.employee.levelPer == 2
+                                      ? 'Manager'
+                                      : 'Staff',
                               secondText: 'Level',
                             ),
                           ),
@@ -132,14 +128,21 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
               children: [
                 Expanded(
                   child: Column(
-                    children: const [
+                    children: [
                       ProfileInfoBigCard(
-                        firstText: '25',
+                        firstText:
+                            widget.employee.taskCountTotal.toStringAsFixed(0),
                         secondText: 'Dự án đã làm',
                         icon: Icons.star_purple500_outlined,
                         height: 100,
                       ),
                       ProfileInfoBigCard(
+                        firstText: widget.employee.taskScore.toStringAsFixed(1),
+                        secondText: 'Tổng điểm dự án',
+                        icon: Icons.bar_chart,
+                        height: 100,
+                      ),
+                      const ProfileInfoBigCard(
                         firstText: '02',
                         secondText: 'Ngày nghỉ',
                         icon: Icons.free_cancellation_rounded,
@@ -147,7 +150,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                       ),
                       ProfileInfoBigCard(
                         firstText: 'Email',
-                        secondText: '20521128@gm.uit.edu.vn',
+                        secondText: widget.employee.email,
                         icon: Icons.email,
                         height: 120,
                       ),
@@ -156,24 +159,32 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                 ),
                 Expanded(
                   child: Column(
-                    children: const [
-                      ProfileInfoBigCard(
-                        firstText: '256',
+                    children: [
+                      const ProfileInfoBigCard(
+                        firstText: '25',
                         secondText: 'Ngày đi làm',
                         icon: Icons.free_cancellation_rounded,
                         height: 100,
                       ),
                       ProfileInfoBigCard(
-                        firstText: 'Địa chỉ',
-                        secondText: '57 Quang Trung, TP Hồ Chí Minh',
-                        icon: Icons.location_on,
-                        height: 120,
+                        firstText: (widget.employee.taskScore /
+                                widget.employee.taskCountTotal)
+                            .toStringAsFixed(1),
+                        secondText: 'Đánh giá dự án',
+                        icon: Icons.polyline_outlined,
+                        height: 100,
                       ),
                       ProfileInfoBigCard(
                         firstText: 'Phone',
-                        secondText: '1900.xxx.xxx',
+                        secondText: widget.employee.phone,
                         icon: Icons.phone,
                         height: 100,
+                      ),
+                      ProfileInfoBigCard(
+                        firstText: 'Địa chỉ',
+                        secondText: widget.employee.address,
+                        icon: Icons.location_on,
+                        height: 120,
                       ),
                     ],
                   ),

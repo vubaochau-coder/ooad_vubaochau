@@ -58,4 +58,27 @@ class GeneralModel {
   Stream<QuerySnapshot<Map<String, dynamic>>> get listenNotiChanges {
     return firestore.collection("Notification").snapshots();
   }
+
+  Future<void> readNotification(String idNoti) async {
+    final currentUser = await firestore
+        .collection("Users")
+        .where('email', isEqualTo: auth.currentUser!.email)
+        .get();
+    String uid = currentUser.docs[0].id;
+
+    final readStatus = await firestore
+        .collection('Users')
+        .doc(uid)
+        .collection('ReadStatus')
+        .where('idNoti', isEqualTo: idNoti)
+        .get();
+    String readStatusID = readStatus.docs[0].id;
+
+    final docRef = firestore
+        .collection('Users')
+        .doc(uid)
+        .collection('ReadStatus')
+        .doc(readStatusID);
+    await docRef.update({'isRead': true});
+  }
 }

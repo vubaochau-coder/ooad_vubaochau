@@ -28,6 +28,7 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen>
   }
 
   List<AccountInfoModel> listAcc = [];
+  List<AccountInfoModel> searchList = [];
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -89,7 +90,7 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen>
                         ),
                       );
                     },
-                    itemCount: listAcc.length,
+                    itemCount: searchList.length,
                   ),
                 ),
               ],
@@ -182,6 +183,7 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen>
                         ),
                       ),
                     ),
+                    onChanged: search,
                   ),
                 ),
               ],
@@ -205,7 +207,7 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen>
           }
         },
         child: AccountItem(
-          accInfo: listAcc[index],
+          accInfo: searchList[index],
         ),
       ),
     );
@@ -219,8 +221,22 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen>
     if (mounted) {
       setState(() {
         listAcc = list;
+        searchList = list;
       });
     }
+  }
+
+  void search(String query) {
+    final suggestion = listAcc.where((element) {
+      final empName = element.name.toLowerCase();
+      final input = query.toLowerCase();
+
+      return empName.contains(input);
+    }).toList();
+
+    setState(() {
+      searchList = suggestion;
+    });
   }
 
   @override

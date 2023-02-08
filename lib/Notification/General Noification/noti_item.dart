@@ -9,6 +9,7 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Color themeColor = const Color.fromARGB(215, 24, 167, 176);
     return Card(
+      color: data.isRead ? Colors.grey[200] : null,
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -70,9 +71,11 @@ class NotificationItem extends StatelessWidget {
                         Container(
                           width: 6,
                           height: 6,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.black87,
+                            color: data.isRead
+                                ? Colors.transparent
+                                : Colors.black87,
                           ),
                         ),
                       ],

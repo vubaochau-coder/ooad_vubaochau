@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/test_label_model.dart';
 import 'package:ooad_vubaochau/Task%20Manager/add_label_dialog.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
+import 'package:ooad_vubaochau/Task%20Manager/add_member_dialog.dart';
 
 import 'hastag_task.dart';
 
@@ -11,11 +13,14 @@ class MyEditBottomSheet extends StatefulWidget {
   final void Function(ManagerTaskModel) onComplete;
   final VoidCallback onExit;
   final ManagerTaskModel item;
-  const MyEditBottomSheet(
-      {super.key,
-      required this.onComplete,
-      required this.item,
-      required this.onExit});
+  final List<MemberInTask> allEmpsInDepart;
+  const MyEditBottomSheet({
+    super.key,
+    required this.onComplete,
+    required this.item,
+    required this.onExit,
+    required this.allEmpsInDepart,
+  });
 
   @override
   State<MyEditBottomSheet> createState() => _MyEditBottomSheetState();
@@ -93,17 +98,21 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            widget.onComplete(
-                              ManagerTaskModel(
-                                id: widget.item.id,
-                                title: titleControl.text,
-                                label: newListLabel,
-                                subTitle: descControl.text,
-                                date: dateFormat.format(newDate),
-                                members: newListMembers,
-                                score: newScore,
-                              ),
-                            );
+                            if (titleControl.text.trim().isNotEmpty &&
+                                descControl.text.trim().isNotEmpty) {
+                              widget.onComplete(
+                                ManagerTaskModel(
+                                  id: widget.item.id,
+                                  title: titleControl.text.trim(),
+                                  label: newListLabel,
+                                  subTitle: descControl.text.trim(),
+                                  date: dateFormat.format(newDate),
+                                  members: newListMembers,
+                                  score: newScore,
+                                  idDepart: widget.item.idDepart,
+                                ),
+                              );
+                            } else {}
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: themeColor,
@@ -425,9 +434,26 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
                                 icon:
                                     const Icon(Icons.person_add_alt_1_rounded),
                                 onPressed: () {
-                                  setState(() {
-                                    newListMembers.add(MemberInTask(id: ""));
-                                  });
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AddMemberDialog(
+                                        inputData: widget.allEmpsInDepart,
+                                        callback: (p0) {
+                                          setState(() {
+                                            if (checkExistInList(
+                                                newListMembers, p0)) {
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      "Member already in the Task");
+                                            } else {
+                                              newListMembers.add(p0);
+                                            }
+                                          });
+                                        },
+                                      );
+                                    },
+                                  );
                                 },
                               ),
                             )
@@ -471,11 +497,19 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: ClipOval(
-                                  child: Image.asset(
-                                    'images/employee.jpg',
+                                  child: Image.network(
+                                    newListMembers[index].imgURL,
                                     fit: BoxFit.contain,
                                     width: 47,
                                     height: 47,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'images/employee.jpg',
+                                        fit: BoxFit.contain,
+                                        width: 47,
+                                        height: 47,
+                                      );
+                                    },
                                   ),
                                 ),
                               ),
@@ -528,5 +562,14 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
 
   Color stringToColor(String string) {
     return Color(int.parse(string, radix: 16));
+  }
+
+  bool checkExistInList(List<MemberInTask> list, MemberInTask item) {
+    for (var ele in list) {
+      if (ele.id == item.id) {
+        return true;
+      }
+    }
+    return false;
   }
 }

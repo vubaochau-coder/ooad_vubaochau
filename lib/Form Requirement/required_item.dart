@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
-import 'package:ooad_vubaochau/commons/rounded_image.dart';
 import 'package:intl/intl.dart';
 
 class RequiredItem extends StatelessWidget {
@@ -24,45 +23,34 @@ class RequiredItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    query.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                Text(
+                  query.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
                 const Spacer(),
-                Expanded(
-                  flex: 1,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        margin: const EdgeInsets.only(right: 4),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Text(
-                        daylefttoString,
-                        style: TextStyle(
-                          color: dayleft >= 0 ? Colors.grey : Colors.red[300],
-                          fontSize: 14,
-                        ),
-                      )
-                    ],
+                Container(
+                  width: 6,
+                  height: 6,
+                  margin: const EdgeInsets.only(right: 4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: dayleft >= 0 ? Colors.grey : Colors.red[300],
                   ),
                 ),
+                Text(
+                  daylefttoString,
+                  style: TextStyle(
+                    color: dayleft >= 0 ? Colors.grey : Colors.red[300],
+                    fontSize: 14,
+                  ),
+                )
               ],
             ),
             const SizedBox(
-              height: 4,
+              height: 6,
             ),
             Text(
               query.subTitle,
@@ -71,124 +59,32 @@ class RequiredItem extends StatelessWidget {
                 fontSize: 15,
                 color: Colors.black54,
               ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 4,
+              textAlign: TextAlign.justify,
             ),
             const SizedBox(
-              height: 4,
+              height: 6,
             ),
-            Container(
-              width: 84,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 4,
-                vertical: 2,
-              ),
-              decoration: BoxDecoration(
-                color: themeColor,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.access_time,
-                    color: Colors.white,
-                    size: 18,
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Text(
-                    query.date,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
+            Text(
+              'To: ${query.nameManager}',
+              style: const TextStyle(
+                color: Colors.grey,
               ),
             ),
-            const SizedBox(
-              height: 4,
-            ),
-            const Divider(
-              color: Colors.black54,
-              height: 0,
-            ),
-            ListTileTheme(
-              contentPadding: EdgeInsets.zero,
-              dense: true,
-              selectedTileColor: Colors.transparent,
-              child: Theme(
-                data: Theme.of(context)
-                    .copyWith(dividerColor: Colors.transparent),
-                child: ExpansionTile(
-                  childrenPadding: EdgeInsets.zero,
-                  tilePadding: EdgeInsets.zero,
-                  title: Row(
-                    children: [
-                      Text(
-                        "${query.members.length} members in Task.",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black45,
-                          fontSize: 15,
-                        ),
-                      ),
-                      const Spacer(),
-                      const Text(
-                        'Details',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                      )
-                    ],
+            Row(
+              children: [
+                const Text('Status: '),
+                Text(
+                  query.status,
+                  style: TextStyle(
+                    color: query.status == 'Sended'
+                        ? Colors.blue
+                        : query.status == 'Accepted'
+                            ? Colors.green
+                            : Colors.red,
+                    fontWeight: FontWeight.w500,
                   ),
-                  children: [
-                    SizedBox(
-                      height: 80,
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(right: 8, bottom: 2),
-                                width: 28,
-                                height: 28,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  border: Border.all(
-                                    color: themeColor,
-                                  ),
-                                ),
-                                child: const RoundedImage(
-                                    imagePath: "images/employee.jpg"),
-                              ),
-                              const Text(
-                                'Name of member',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                        itemCount: query.members.length,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                  ],
                 ),
-              ),
+              ],
             ),
           ],
         ),

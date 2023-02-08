@@ -6,12 +6,13 @@ import 'package:ooad_vubaochau/styleguide/text_style.dart';
 class MyInfo extends StatelessWidget {
   final String name;
   final String posistion;
-  final int yearOld;
-  const MyInfo(
-      {super.key,
-      required this.name,
-      required this.posistion,
-      required this.yearOld});
+  final String imageURL;
+  const MyInfo({
+    super.key,
+    required this.name,
+    required this.posistion,
+    required this.imageURL,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,30 +24,21 @@ class MyInfo extends StatelessWidget {
           width: 4,
           goalCompleted: 0.9,
           key: null,
-          child: const RoundedImage(
-            imagePath: "images/employee.jpg",
-            size: Size.fromWidth(120.0),
+          child: RoundedImage(
+            imagePath: imageURL,
+            size: const Size.fromWidth(120.0),
           ),
         ),
 
         const SizedBox(
           height: 10,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              name,
-              style: whiteNameTextStyle,
-            ),
-            Text(
-              ", $yearOld",
-              style: whiteNameTextStyle,
-            ),
-          ],
+        Text(
+          name,
+          style: whiteNameTextStyle,
         ),
         const SizedBox(
-          height: 8,
+          height: 2,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

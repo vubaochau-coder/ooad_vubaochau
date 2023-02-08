@@ -10,4 +10,10 @@ class MyProfilePresenter {
       model.getMyProfile().then((value) => view.getProfile(value));
     });
   }
+
+  Future<void> editProfile(
+      String id, String name, String phone, String address) async {
+    model.onEditMyProfile(id, name, phone, address).whenComplete(
+        () => view.showToastSuccess('Your Profile has been Edited!'));
+  }
 }
