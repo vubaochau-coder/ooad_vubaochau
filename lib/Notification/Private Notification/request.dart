@@ -119,7 +119,7 @@ class _RequestNotifyScreenState extends State<RequestNotifyScreen>
           flex: 12,
           child: notifies.isEmpty
               ? const Center(
-                  child: Text('No Request/Response to you.'),
+                  child: Text('No Request/Response to you'),
                 )
               : ListView.builder(
                   itemBuilder: (context, index) {
