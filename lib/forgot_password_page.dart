@@ -49,17 +49,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Container(
-              alignment: Alignment.center,
-              child: const Text(
-                'Enter your Email and we will send you a password reset link',
-                style: TextStyle(fontSize: 20),
-              ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            child: Text(
+              'Enter your Email and we will send you a password reset link',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20),         
             ),
           ),
-          TextField(
+          const SizedBox(height: 10),
+          //Email TextField
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: TextField(
             controller: emailController,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
@@ -91,6 +92,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
             ),
           ),
+        ),
           const SizedBox(height: 10),
           MaterialButton(
             onPressed: () => passwordReset(),
