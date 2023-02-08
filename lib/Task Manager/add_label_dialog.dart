@@ -67,12 +67,6 @@ class AddLabelDialog extends StatelessWidget {
                 decoration: InputDecoration(
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: themeColor,
-                      width: 3,
-                    ),
-                  ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: const BorderSide(

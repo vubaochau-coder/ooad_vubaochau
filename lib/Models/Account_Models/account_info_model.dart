@@ -8,6 +8,7 @@ class AccountInfoModel {
   final String position;
   final String email;
   late bool isActive;
+  final String imgURL;
 
   AccountInfoModel({
     required this.id,
@@ -17,12 +18,14 @@ class AccountInfoModel {
     required this.email,
     required this.position,
     required this.isActive,
+    required this.imgURL,
   });
 
   factory AccountInfoModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       String name,
-      String position) {
+      String position,
+      String image) {
     final data = snapshot.data()!;
     return AccountInfoModel(
       id: snapshot.id,
@@ -32,6 +35,7 @@ class AccountInfoModel {
       email: data["userName"],
       position: position,
       isActive: data["isEnable"],
+      imgURL: image,
     );
   }
 }

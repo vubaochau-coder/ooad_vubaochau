@@ -9,6 +9,9 @@ class TaskManagerScreenPresenter {
   TaskManagerScreenPresenter(this.taskView) {
     taskScreenModel.taskChanges.listen((event) {
       taskScreenModel.getData().then((value) => taskView.updateListView(value));
+      taskScreenModel
+          .getAllMemberInDepartment()
+          .then((value) => taskView.getAllEmpsInDepart(value));
     });
   }
 
@@ -26,5 +29,11 @@ class TaskManagerScreenPresenter {
   Future<void> updateTask(ManagerTaskModel task) async {
     await taskScreenModel.updateTask(task).whenComplete(
         () => taskView.showSuccessToast("Update Task Successfully."));
+  }
+
+  Future<void> completeTask(ManagerTaskModel task) async {
+    await taskScreenModel
+        .completeTask(task)
+        .whenComplete(() => taskView.showSuccessToast("Task Completed!"));
   }
 }

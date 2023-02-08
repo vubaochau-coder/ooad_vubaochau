@@ -10,4 +10,9 @@ class GeneralPresenter {
       model.onGetListNoti().then((value) => view.getListNoti(value));
     });
   }
+
+  void readNoti(String id) {
+    model.readNotification(id).whenComplete(
+        () => model.onGetListNoti().then((value) => view.getListNoti(value)));
+  }
 }

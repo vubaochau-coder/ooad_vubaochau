@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ooad_vubaochau/Login/abstract_login_view.dart';
 import 'package:ooad_vubaochau/Login/login_presenter.dart';
+import 'package:ooad_vubaochau/forgot_password_page.dart';
 import 'package:ooad_vubaochau/main_screen.dart';
 import 'package:ooad_vubaochau/signup.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -235,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) {
-                                                  return ForgotPasswordPage();
+                                                  return const ForgotPasswordPage();
                                                 },
                                               ),
                                             );

@@ -35,8 +35,8 @@ class EmpDepartmentCard extends StatelessWidget {
                     offset: Offset(1, 1),
                   ),
                 ],
-                image: const DecorationImage(
-                  image: AssetImage('images/employee.jpg'),
+                image: DecorationImage(
+                  image: NetworkImage(emp.imgURL),
                   fit: BoxFit.cover,
                 ),
               ),

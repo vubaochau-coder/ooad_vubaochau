@@ -180,7 +180,5 @@ class _DepartmentEmpListScreenState extends State<DepartmentEmpListScreen>
   }
 
   @override
-  void showSuccess(String message) {
-    // TODO: implement showSuccess
-  }
+  void showSuccess(String message) {}
 }

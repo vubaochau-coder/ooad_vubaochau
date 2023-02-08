@@ -4,7 +4,14 @@ import 'package:ooad_vubaochau/Login/login_view.dart';
 import 'package:ooad_vubaochau/commons/opaque_image.dart';
 
 class Navigationdrawer extends StatelessWidget {
-  const Navigationdrawer({super.key});
+  final String name;
+  final String email;
+  final String imgURL;
+  const Navigationdrawer(
+      {super.key,
+      required this.name,
+      required this.email,
+      required this.imgURL});
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -23,40 +30,60 @@ class Navigationdrawer extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        const SizedBox(
+        SizedBox(
           height: 232,
-          child: OpaqueImage(
-            imageUrl: "images/logo.png",
+          child: Stack(
+            children: [
+              Image.asset(
+                'images/logo.png',
+                width: double.maxFinite,
+                height: double.maxFinite,
+                fit: BoxFit.contain,
+              ),
+              Container(
+                color: const Color.fromARGB(215, 24, 167, 176),
+              ),
+            ],
           ),
         ),
         Container(
           padding: EdgeInsets.only(
-            top: 24 + MediaQuery.of(context).padding.top,
+            top: 18 + MediaQuery.of(context).padding.top,
             bottom: 24,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              CircleAvatar(
-                radius: 44,
-                backgroundImage: AssetImage('images/avatar.jpg'),
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(1),
+                child: CircleAvatar(
+                  radius: 44,
+                  backgroundImage: NetworkImage(imgURL),
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Text(
-                'Vu Bao Chau',
-                style: TextStyle(
+                name,
+                style: const TextStyle(
                   fontSize: 24,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 6,
               ),
               Text(
-                'baochau@gmail.com',
-                style: TextStyle(
+                email,
+                style: const TextStyle(
                   fontSize: 15,
                   color: Colors.white,
                 ),

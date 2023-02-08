@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/test_label_model.dart';
 import 'package:ooad_vubaochau/Task%20Manager/add_label_dialog.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
+import 'package:ooad_vubaochau/Task%20Manager/add_member_dialog.dart';
 
 import 'hastag_task.dart';
 
 class MyCreateBottomSheet extends StatefulWidget {
   final void Function(ManagerTaskModel) onComplete;
   final VoidCallback onExit;
+  final List<MemberInTask> allEmpsInDepart;
   const MyCreateBottomSheet(
-      {super.key, required this.onComplete, required this.onExit});
+      {super.key,
+      required this.onComplete,
+      required this.onExit,
+      required this.allEmpsInDepart});
 
   @override
   State<MyCreateBottomSheet> createState() => _MyCreateBottomSheetState();
@@ -80,17 +86,21 @@ class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            widget.onComplete(
-                              ManagerTaskModel(
-                                id: "",
-                                title: titleControl.text,
-                                label: listLabel,
-                                subTitle: descControl.text,
-                                date: dateFormat.format(myDate),
-                                members: listMembers,
-                                score: rating.toInt(),
-                              ),
-                            );
+                            if (titleControl.text.trim().isNotEmpty &&
+                                descControl.text.trim().isNotEmpty) {
+                              widget.onComplete(
+                                ManagerTaskModel(
+                                  id: "",
+                                  title: titleControl.text.trim(),
+                                  label: listLabel,
+                                  subTitle: descControl.text.trim(),
+                                  date: dateFormat.format(myDate),
+                                  members: listMembers,
+                                  score: rating.toInt(),
+                                  idDepart: '',
+                                ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: themeColor,
@@ -149,12 +159,6 @@ class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
                   decoration: InputDecoration(
                     hintText: "Task's title",
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: themeColor,
-                        width: 3,
-                      ),
-                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: const BorderSide(
@@ -206,12 +210,6 @@ class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
                       hintText: "Add a more detailed description...",
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 8),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: themeColor,
-                          width: 3,
-                        ),
-                      ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(
@@ -412,9 +410,25 @@ class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
                                 icon:
                                     const Icon(Icons.person_add_alt_1_rounded),
                                 onPressed: () {
-                                  setState(() {
-                                    listMembers.add(MemberInTask(id: ""));
-                                  });
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AddMemberDialog(
+                                        inputData: widget.allEmpsInDepart,
+                                        callback: (p0) {
+                                          setState(() {
+                                            if (listMembers.contains(p0)) {
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      "Member already in the Task");
+                                            } else {
+                                              listMembers.add(p0);
+                                            }
+                                          });
+                                        },
+                                      );
+                                    },
+                                  );
                                 },
                               ),
                             )
@@ -458,11 +472,19 @@ class _MyCreateBottomSheetState extends State<MyCreateBottomSheet> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: ClipOval(
-                                  child: Image.asset(
-                                    'images/employee.jpg',
+                                  child: Image.network(
+                                    listMembers[index].imgURL,
                                     fit: BoxFit.contain,
                                     width: 47,
                                     height: 47,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'images/employee.jpg',
+                                        fit: BoxFit.contain,
+                                        width: 47,
+                                        height: 47,
+                                      );
+                                    },
                                   ),
                                 ),
                               ),

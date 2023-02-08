@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ooad_vubaochau/Models/Account_Models/account_info_model.dart';
 
 class StaffAccModel {
@@ -21,9 +22,13 @@ class StaffAccModel {
             .get();
         String name = secondQuery.docs[0].data()["name"];
         String position = secondQuery.docs[0].data()["position"];
+        String imgName = secondQuery.docs[0].data()['image'];
+        var urlRef =
+            FirebaseStorage.instance.ref().child('avatar').child(imgName);
+        String imgUrl = await urlRef.getDownloadURL();
 
         AccountInfoModel temp =
-            AccountInfoModel.fromSnapshot(item, name, position);
+            AccountInfoModel.fromSnapshot(item, name, position, imgUrl);
         list.add(temp);
       }
     }

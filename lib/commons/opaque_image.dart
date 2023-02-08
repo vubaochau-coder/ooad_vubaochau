@@ -12,11 +12,19 @@ class OpaqueImage extends StatelessWidget {
   Widget buildWithoutHero() {
     return Stack(
       children: <Widget>[
-        Image.asset(
+        Image.network(
           imageUrl,
           width: double.maxFinite,
           height: double.maxFinite,
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Image.asset(
+              'images/employee.jpg',
+              width: double.maxFinite,
+              height: double.maxFinite,
+              fit: BoxFit.cover,
+            );
+          },
         ),
         Container(
           color: const Color.fromARGB(215, 24, 167, 176),

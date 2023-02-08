@@ -31,9 +31,16 @@ class AccountItem extends StatelessWidget {
                 bottomRight: Radius.circular(radius / 2),
               ),
             ),
-            child: const CircleAvatar(
-              backgroundImage: AssetImage(
-                'images/employee.jpg',
+            child: ClipOval(
+              child: Image.network(
+                accInfo.imgURL,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'images/employee.jpg',
+                    fit: BoxFit.cover,
+                  );
+                },
               ),
             ),
           ),

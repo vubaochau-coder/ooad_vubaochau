@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Models/Notification_Models/request_notification.dart';
-import 'package:ooad_vubaochau/Notification/request_detail.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:ooad_vubaochau/Custom%20widget/my_slidable_action.dart';
+import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
+import 'package:ooad_vubaochau/Notification/Private%20Notification/abstrac_request_view.dart';
+import 'package:ooad_vubaochau/Notification/Private%20Notification/request_notify_item.dart';
+import 'package:ooad_vubaochau/Notification/Private%20Notification/request_presenter.dart';
 
 class RequestNotifyScreen extends StatefulWidget {
   const RequestNotifyScreen({super.key});
@@ -9,14 +13,20 @@ class RequestNotifyScreen extends StatefulWidget {
   State<RequestNotifyScreen> createState() => _RequestNotifyScreenState();
 }
 
-String demo =
-    "Flutter is an open source framework by Google for building beautiful, natively compiled, multi-platform applications from a single codebase.";
-
-class _RequestNotifyScreenState extends State<RequestNotifyScreen> {
-  List<RequestNotificationModel> notifies = [];
+class _RequestNotifyScreenState extends State<RequestNotifyScreen>
+    with RequestNotiView, AutomaticKeepAliveClientMixin {
+  List<ManagerRequiredModel> notifies = [];
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   bool allSelected = true;
   bool unReadSelected = false;
+
+  late RequestNotifyPresenter presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = RequestNotifyPresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,167 +112,80 @@ class _RequestNotifyScreenState extends State<RequestNotifyScreen> {
                   ),
                 ),
               ),
-              const Expanded(
-                child: SizedBox(),
-              ),
-              Container(
-                margin: const EdgeInsets.only(right: 8),
-                height: 38,
-                width: 38,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: themeColor,
-                ),
-                alignment: Alignment.center,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.filter_list,
-                    color: Colors.white,
-                    size: 22,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
         Expanded(
           flex: 12,
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return buildListView(context, index);
-            },
-            itemCount: notifies.length,
-          ),
+          child: notifies.isEmpty
+              ? const Center(
+                  child: Text('No Request/Response to you'),
+                )
+              : ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Slidable(
+                      startActionPane: ActionPane(
+                        extentRatio: 0.5,
+                        motion: const ScrollMotion(),
+                        children: [
+                          MyCustomSlidableAction(
+                            height: 72,
+                            width: 72,
+                            margin: const EdgeInsets.only(left: 10),
+                            backgroundColor: Colors.red,
+                            icon: Icons.disabled_by_default_rounded,
+                            label: 'Refuse',
+                            borderRadius: BorderRadius.circular(36),
+                            onPressed: (context) {},
+                          ),
+                          MyCustomSlidableAction(
+                            height: 72,
+                            width: 72,
+                            margin: const EdgeInsets.only(left: 10),
+                            backgroundColor: Colors.blue,
+                            icon: Icons.check,
+                            label: 'Accept',
+                            borderRadius: BorderRadius.circular(36),
+                            onPressed: (context) {},
+                          ),
+                        ],
+                      ),
+                      child: buildListView(context, index),
+                    );
+                  },
+                  itemCount: notifies.length,
+                ),
         ),
       ],
     );
   }
 
   Widget buildListView(BuildContext context, int index) {
-    return InkWell(
-      onTap: () {
-        Navigator.of(context, rootNavigator: true).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) {
-              return const RequestDetailScreen();
-            },
-          ),
-        );
-      },
-      child: Card(
-        child: Container(
-          padding: const EdgeInsets.only(
-            left: 4,
-            right: 4,
-            top: 6,
-            bottom: 6,
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Icon(
-                  notifies[index].isSalaryRequest
-                      ? Icons.monetization_on_outlined
-                      : Icons.access_alarm,
-                  color: themeColor,
-                  size: 42,
-                ),
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Expanded(
-                flex: 7,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          notifies[index].title,
-                          style: const TextStyle(
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Container(
-                          width: 6,
-                          height: 6,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.black54,
-                          ),
-                        ),
-                        const Expanded(
-                          child: SizedBox(),
-                        ),
-                        Text(
-                          notifies[index].date,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: Color.fromRGBO(189, 189, 189, 1),
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Text(
-                      notifies[index].details,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 5,
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Row(
-                      children: [
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'From: ',
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Expanded(
-                          flex: 5,
-                          child: Text(
-                            notifies[index].idUserRequest,
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+    return Builder(
+      builder: (context) => GestureDetector(
+        onTap: () {
+          final slidable = Slidable.of(context)!;
+          final isClosed = slidable.actionPaneType.value == ActionPaneType.none;
+          if (isClosed) {
+            slidable.openStartActionPane();
+          } else {
+            slidable.close();
+          }
+        },
+        child: RequestNotifyItem(request: notifies[index]),
       ),
     );
   }
+
+  @override
+  void showListRequest(List<ManagerRequiredModel> list) {
+    if (mounted) {
+      setState(() {
+        notifies = list;
+      });
+    }
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }

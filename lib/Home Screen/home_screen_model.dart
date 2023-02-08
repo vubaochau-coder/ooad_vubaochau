@@ -17,6 +17,7 @@ class HomeModel {
         .where('userName', isEqualTo: user!.email)
         .get();
     String accID = ref.docs[0].id;
+    int level = ref.docs[0].data()['levelPermission'];
 
     final userReference =
         firestore.collection("Users").where('id', isEqualTo: accID);
@@ -27,7 +28,7 @@ class HomeModel {
     var urlRef = FirebaseStorage.instance.ref().child('avatar').child(image);
 
     String imgUrl = await urlRef.getDownloadURL();
-    return TestUserModel.fromJson(snapshot.docs[0].data(), imgUrl);
+    return TestUserModel.fromJson(snapshot.docs[0].data(), imgUrl, level);
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> get userChange {

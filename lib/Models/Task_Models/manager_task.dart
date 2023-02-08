@@ -13,6 +13,7 @@ class ManagerTaskModel {
   final String date;
   final List<MemberInTask> members;
   final int score;
+  final String idDepart;
 
   ManagerTaskModel({
     required this.id,
@@ -22,21 +23,24 @@ class ManagerTaskModel {
     required this.date,
     this.members = _defaultUser,
     required this.score,
+    required this.idDepart,
   });
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(String tempIDDepart) {
     return {
       'title': title,
       'description': subTitle,
       'scores': score,
       'date': date,
+      'idDepartment': tempIDDepart,
     };
   }
 
   factory ManagerTaskModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document,
       List<TestLabel> label,
-      List<MemberInTask> members) {
+      List<MemberInTask> members,
+      String idDepart) {
     final data = document.data()!;
     return ManagerTaskModel(
       id: document.id,
@@ -46,6 +50,7 @@ class ManagerTaskModel {
       score: data["scores"],
       label: label,
       members: members,
+      idDepart: idDepart,
     );
   }
 }

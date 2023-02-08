@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
 import 'package:ooad_vubaochau/Attendance/attendance_view.dart';
 import 'package:ooad_vubaochau/Form%20Requirement/requirement_list_view.dart';
-import 'package:ooad_vubaochau/Features/Task/task_list_4_employee.dart';
+import 'package:ooad_vubaochau/My%20Task/task_list_4_employee_view.dart';
 import 'package:ooad_vubaochau/Home%20Screen/abstract_home_view.dart';
 import 'package:ooad_vubaochau/Home%20Screen/home_screen_presenter.dart';
 import 'package:ooad_vubaochau/My%20Profile/my_profile_view.dart';
@@ -25,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   String fullName = "";
   String viewPosition = "BACK-END DEVELOPER";
   String avatar = '';
+  String myEmail = '';
+  int myLevelPer = 3;
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
 
   late HomePresenter homePresenter;
@@ -46,15 +48,13 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
         ),
         centerTitle: false,
         backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.settings),
-          )
-        ],
         elevation: 0,
       ),
-      drawer: const Navigationdrawer(),
+      drawer: Navigationdrawer(
+        name: fullName,
+        imgURL: avatar,
+        email: myEmail,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -262,9 +262,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return MyProfileDetail(
-                                    id: "",
-                                  );
+                                  return const MyProfileDetail();
                                 },
                               ),
                             );
@@ -321,14 +319,18 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                 ],
               ),
             ),
-            const ManagerFeatures(),
-            const SizedBox(
-              height: 20,
-            ),
-            const AdminFeatures(),
-            const SizedBox(
-              height: 20,
-            ),
+            myLevelPer <= 2 ? const ManagerFeatures() : const SizedBox(),
+            myLevelPer <= 2
+                ? const SizedBox(
+                    height: 20,
+                  )
+                : const SizedBox(),
+            myLevelPer <= 1 ? const AdminFeatures() : const SizedBox(),
+            myLevelPer <= 1
+                ? const SizedBox(
+                    height: 20,
+                  )
+                : const SizedBox(),
           ],
         ),
       ),
@@ -336,12 +338,15 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   }
 
   @override
-  void updateData(String name, String position, String image) {
+  void updateData(
+      String name, String position, String image, String email, int level) {
     if (mounted) {
       setState(() {
         fullName = name;
         viewPosition = position;
         avatar = image;
+        myEmail = email;
+        myLevelPer = level;
       });
     }
   }

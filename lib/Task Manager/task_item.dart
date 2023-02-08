@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ooad_vubaochau/Custom%20widget/user_item_name_avt.dart';
 import 'package:ooad_vubaochau/Task%20Manager/hastag_task.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
-import 'package:ooad_vubaochau/commons/rounded_image.dart';
 
 class TaskItem extends StatelessWidget {
   final ManagerTaskModel task;
@@ -175,32 +175,7 @@ class TaskItem extends StatelessWidget {
                       child: ListView.builder(
                         padding: EdgeInsets.zero,
                         itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(right: 8, bottom: 2),
-                                width: 28,
-                                height: 28,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  border: Border.all(
-                                    color: themeColor,
-                                  ),
-                                ),
-                                child: const RoundedImage(
-                                    imagePath: "images/employee.jpg"),
-                              ),
-                              const Text(
-                                'Name of member',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          );
+                          return AvatarNameUser(userInfo: task.members[index]);
                         },
                         itemCount: task.members.length,
                       ),

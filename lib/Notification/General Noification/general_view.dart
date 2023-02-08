@@ -128,7 +128,12 @@ class _GeneralNotifyScreenState extends State<GeneralNotifyScreen>
   }
 
   Widget buildListView(BuildContext context, NotificationModel data) {
-    return NotificationItem(data: data);
+    return GestureDetector(
+      onTap: () {
+        presenter.readNoti(data.id);
+      },
+      child: NotificationItem(data: data),
+    );
   }
 
   @override

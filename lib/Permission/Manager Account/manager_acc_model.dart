@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ooad_vubaochau/Models/Account_Models/account_info_model.dart';
 
 class MngAccModel {
@@ -22,7 +23,13 @@ class MngAccModel {
         String name = tempQuery.docs[0].data()["name"];
         String position = tempQuery.docs[0].data()["position"];
 
-        final newAcc = AccountInfoModel.fromSnapshot(item, name, position);
+        String imgName = tempQuery.docs[0].data()['image'];
+        var urlRef =
+            FirebaseStorage.instance.ref().child('avatar').child(imgName);
+        String imgUrl = await urlRef.getDownloadURL();
+
+        final newAcc =
+            AccountInfoModel.fromSnapshot(item, name, position, imgUrl);
         listMngAcc.add(newAcc);
       }
     }

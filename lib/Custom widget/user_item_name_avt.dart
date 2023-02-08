@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/Models/avt_name_model.dart';
-import 'package:ooad_vubaochau/commons/rounded_image.dart';
+import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
 
 class AvatarNameUser extends StatelessWidget {
-  final AvatarNameModel userInfo;
+  final MemberInTask userInfo;
   const AvatarNameUser({super.key, required this.userInfo});
 
   @override
@@ -21,16 +20,25 @@ class AvatarNameUser extends StatelessWidget {
               width: 1,
             ),
           ),
-          child: const RoundedImage(
-            imagePath: "images/employee.jpg",
+          child: ClipOval(
+            child: Image.network(
+              userInfo.imgURL,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  'images/employee.jpg',
+                  fit: BoxFit.contain,
+                );
+              },
+            ),
           ),
         ),
         const SizedBox(
           width: 12,
         ),
-        const Text(
-          "Vu Bao Chau",
-          style: TextStyle(
+        Text(
+          userInfo.name,
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
             color: Colors.black,
             fontSize: 16,
