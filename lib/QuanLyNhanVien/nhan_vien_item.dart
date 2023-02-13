@@ -4,9 +4,9 @@ import 'package:ooad_vubaochau/Custom%20widget/user_item_name_avt.dart';
 import 'package:ooad_vubaochau/Task%20Manager/hastag_task.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
 
-class TaskItem extends StatelessWidget {
+class ItemNhanVien extends StatelessWidget {
   final ManagerTaskModel task;
-  const TaskItem({super.key, required this.task});
+  const ItemNhanVien({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {

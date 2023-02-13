@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
 import 'package:ooad_vubaochau/Attendance/attendance_view.dart';
 import 'package:ooad_vubaochau/Form%20Requirement/requirement_list_view.dart';
-import 'package:ooad_vubaochau/My%20Task/task_list_4_employee_view.dart';
-import 'package:ooad_vubaochau/Home%20Screen/abstract_home_view.dart';
-import 'package:ooad_vubaochau/Home%20Screen/home_screen_presenter.dart';
+import 'package:ooad_vubaochau/QuanLyNhanVien/quan_ly_nhan_vien_view.dart';
 import 'package:ooad_vubaochau/My%20Profile/my_profile_view.dart';
-import 'package:ooad_vubaochau/main_screen/Home%20group/admin_feature.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
-import 'package:ooad_vubaochau/main_screen/Home%20group/manager_feature.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,25 +13,17 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> implements HomeView {
+class _HomeScreenState extends State<HomeScreen> {
   double iconSize = 62;
   double paddingContainer = 16;
   double borderRadius = 16;
 
-  String fullName = "";
+  String fullName = "Vũ Bảo Châu";
   String viewPosition = "BACK-END DEVELOPER";
   String avatar = '';
-  String myEmail = '';
+  String myEmail = 'admin@gmail.com';
   int myLevelPer = 3;
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-
-  late HomePresenter homePresenter;
-
-  @override
-  void initState() {
-    super.initState();
-    homePresenter = HomePresenter(this);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,17 +158,17 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Icon(
+                            children: const [
+                              Icon(
                                 Icons.person_pin_circle_sharp,
                                 color: Colors.white,
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 6,
                               ),
                               Text(
-                                viewPosition.toUpperCase(),
-                                style: const TextStyle(
+                                'ADMIN OF APPLICAtiON',
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   fontSize: 15,
@@ -216,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                         color: themeColor,
                       ),
                       Text(
-                        'Staff',
+                        'Quản lý',
                         style: TextStyle(
                           color: themeColor,
                           fontSize: 18,
@@ -235,15 +223,15 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                         splashColor: themeColor,
                         borderRadius: BorderRadius.circular(16),
                         child: const OperationButton(
-                          name: 'Task',
-                          icon: Icons.content_paste,
+                          name: 'Nhân viên',
+                          icon: Icons.people,
                         ),
                         onTap: () {
                           Future.delayed(const Duration(milliseconds: 150), () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return const EmployeeTaskList();
+                                  return const QuanLyNhanVien();
                                 },
                               ),
                             );
@@ -254,8 +242,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                         splashColor: themeColor,
                         borderRadius: BorderRadius.circular(16),
                         child: const OperationButton(
-                          name: 'Profile',
-                          icon: Icons.person_outline,
+                          name: 'Lương',
+                          icon: Icons.payments_outlined,
                         ),
                         onTap: () {
                           Future.delayed(const Duration(milliseconds: 150), () {
@@ -281,8 +269,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                         splashColor: themeColor,
                         borderRadius: BorderRadius.circular(16),
                         child: const OperationButton(
-                          name: 'Requirement',
-                          icon: Icons.contact_mail_outlined,
+                          name: 'Đơn vị',
+                          icon: Icons.groups_sharp,
                         ),
                         onTap: () {
                           Future.delayed(const Duration(milliseconds: 150), () {
@@ -300,8 +288,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                         splashColor: themeColor,
                         borderRadius: BorderRadius.circular(16),
                         child: const OperationButton(
-                            name: 'Attendance',
-                            icon: Icons.library_add_check_outlined),
+                            name: 'Đoàn thể', icon: Icons.meeting_room_sharp),
                         onTap: () {
                           Future.delayed(const Duration(milliseconds: 150), () {
                             Navigator.of(context).push(
@@ -316,38 +303,84 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        splashColor: themeColor,
+                        borderRadius: BorderRadius.circular(16),
+                        child: const OperationButton(
+                          name: 'Trình độ',
+                          icon: Icons.school,
+                        ),
+                        onTap: () {
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const ManagerRequiredList();
+                                },
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                      InkWell(
+                        splashColor: themeColor,
+                        borderRadius: BorderRadius.circular(16),
+                        child: const OperationButton(
+                            name: 'Chức vụ',
+                            icon: Icons.assignment_ind_outlined),
+                        onTap: () {
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const AttendanceScreen();
+                                },
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        splashColor: themeColor,
+                        borderRadius: BorderRadius.circular(16),
+                        child: const OperationButton(
+                          name: 'Thân nhân',
+                          icon: Icons.family_restroom,
+                        ),
+                        onTap: () {
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const ManagerRequiredList();
+                                },
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
-            myLevelPer <= 2 ? const ManagerFeatures() : const SizedBox(),
-            myLevelPer <= 2
-                ? const SizedBox(
-                    height: 20,
-                  )
-                : const SizedBox(),
-            myLevelPer <= 1 ? const AdminFeatures() : const SizedBox(),
-            myLevelPer <= 1
-                ? const SizedBox(
-                    height: 20,
-                  )
-                : const SizedBox(),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void updateData(
-      String name, String position, String image, String email, int level) {
-    if (mounted) {
-      setState(() {
-        fullName = name;
-        viewPosition = position;
-        avatar = image;
-        myEmail = email;
-        myLevelPer = level;
-      });
-    }
   }
 }

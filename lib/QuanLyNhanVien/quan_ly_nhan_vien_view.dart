@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/My%20Task/abstract_my_task_view.dart';
-import 'package:ooad_vubaochau/My%20Task/my_task_presenter.dart';
-import 'package:ooad_vubaochau/Task%20Manager/task_item.dart';
+import 'package:ooad_vubaochau/QuanLyNhanVien/abstract_my_task_view.dart';
+import 'package:ooad_vubaochau/QuanLyNhanVien/my_task_presenter.dart';
+import 'package:ooad_vubaochau/QuanLyNhanVien/nhan_vien_item.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
 
-class EmployeeTaskList extends StatefulWidget {
-  const EmployeeTaskList({super.key});
+class QuanLyNhanVien extends StatefulWidget {
+  const QuanLyNhanVien({super.key});
 
   @override
-  State<EmployeeTaskList> createState() => _EmployeeTaskListState();
+  State<QuanLyNhanVien> createState() => _QuanLyNhanVienState();
 }
 
-class _EmployeeTaskListState extends State<EmployeeTaskList>
+class _QuanLyNhanVienState extends State<QuanLyNhanVien>
     with AbstractMyTaskListView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   late MyTaskScreenPresenter presenter;
@@ -32,7 +32,7 @@ class _EmployeeTaskListState extends State<EmployeeTaskList>
         elevation: 0,
         foregroundColor: Colors.black54,
         title: const Text(
-          'My Task',
+          'Quản Lý Nhân Viên',
           style: TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -42,12 +42,6 @@ class _EmployeeTaskListState extends State<EmployeeTaskList>
             onPressed: () {},
             icon: const Icon(
               Icons.search,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.sort,
             ),
           ),
         ],
@@ -70,7 +64,7 @@ class _EmployeeTaskListState extends State<EmployeeTaskList>
               padding: const EdgeInsets.symmetric(horizontal: 10),
               margin: const EdgeInsets.only(bottom: 20),
               child: const Text(
-                'Need to do',
+                'Danh Sách Nhân Viên',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
@@ -82,7 +76,7 @@ class _EmployeeTaskListState extends State<EmployeeTaskList>
               child: ListView.builder(
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  return TaskItem(
+                  return ItemNhanVien(
                     task: taskList[index],
                   );
                 },
