@@ -5,7 +5,7 @@ import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
 import 'package:ooad_vubaochau/Task%20Manager/abstract_task_view.dart';
 import 'package:ooad_vubaochau/Task%20Manager/bottom_sheet.dart';
 import 'package:ooad_vubaochau/Task%20Manager/edit_bottom_sheet.dart';
-import 'package:ooad_vubaochau/Task%20Manager/task_item.dart';
+import 'package:ooad_vubaochau/QuanLyNhanVien/nhan_vien_item.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
 import 'package:ooad_vubaochau/Task%20Manager/task_list_4_manager_presenter.dart';
 
@@ -202,7 +202,7 @@ class _ManagerTaskListState extends State<ManagerTaskList>
             slidable.close();
           }
         },
-        child: TaskItem(task: task),
+        child: ItemNhanVien(task: task),
       ),
     );
   }

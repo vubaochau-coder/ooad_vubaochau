@@ -12,10 +12,6 @@ Future main() async {
   runApp(const MyApp());
 }
 
-// void main() {
-//   runApp(const MyApp());
-// }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -46,16 +42,17 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const MainScreen();
-          } else {
-            return const Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: LoginScreen(),
-            );
-          }
-        });
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return const MainScreen();
+        } else {
+          return const Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: LoginScreen(),
+          );
+        }
+      },
+    );
   }
 }

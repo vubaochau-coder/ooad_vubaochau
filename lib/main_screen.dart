@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Home%20Screen/home_screen_view.dart';
 import 'package:ooad_vubaochau/Notification/notification_screen.dart';
-import 'package:ooad_vubaochau/main_screen/statistical_animated_screen.dart';
-import 'package:ooad_vubaochau/main_screen/statistical_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -15,7 +13,6 @@ class _MainScreenState extends State<MainScreen> {
   final screens = const [
     HomeScreen(),
     NotificationScreen(),
-    StatisticalScreen(),
   ];
   int bottomNavIndex = 0;
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
@@ -39,10 +36,6 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.notification_add),
             label: 'Notifications',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Statistical',
           ),
         ],
         onTap: (value) {
