@@ -6,6 +6,8 @@ import 'package:ooad_vubaochau/QuanLyChucVu/quan_ly_chuc_vu_view.dart';
 import 'package:ooad_vubaochau/QuanLyNhanVien/quan_ly_nhan_vien_view.dart';
 import 'package:ooad_vubaochau/QuanLyThanNhan/quan_ly_than_nhan_view.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
+import 'package:ooad_vubaochau/trinh_do/quan_ly_chuyen_mon_view.dart';
+import '../FormRequirement/quan_ly_don_vi_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -278,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return const ManagerRequiredList();
+                                  return const QuanLyDonVi();
                                 },
                               ),
                             );
@@ -295,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return const AttendanceScreen();
+                                  return const QuanLyDoanThe();
                                 },
                               ),
                             );
@@ -322,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return const ManagerRequiredList();
+                                  return const QuanLyChuyenMon();
                                 },
                               ),
                             );
@@ -367,7 +369,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
+
                                   return const QuanLyThanNhan();
+
                                 },
                               ),
                             );
