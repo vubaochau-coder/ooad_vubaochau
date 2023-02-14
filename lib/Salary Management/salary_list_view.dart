@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:ooad_vubaochau/Salary%20Management/abstract_salary_view.dart';
 import 'package:ooad_vubaochau/Salary%20Management/bottom_sheet.dart';
 import 'package:ooad_vubaochau/Salary%20Management/edit_bottom_sheet.dart';
@@ -20,14 +20,12 @@ class _ManagerSalaryListState extends State<ManagerSalaryList>
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   List<ManagerSalaryModel> salaryList = [];
 
-  final toast = FToast();
   late SalaryManagementScreenPresenter presenter;
 
   @override
   void initState() {
     super.initState();
     presenter = SalaryManagementScreenPresenter(this);
-    toast.init(context);
   }
 
   @override
@@ -128,7 +126,6 @@ class _ManagerSalaryListState extends State<ManagerSalaryList>
                             setState(() {
                               salaryList.removeAt(index);
                             });
-                            showSuccessToast('Salary has been given');
                           },
                           icon: Icons.delete_outline,
                           label: "Delete",
@@ -153,8 +150,6 @@ class _ManagerSalaryListState extends State<ManagerSalaryList>
                                     setState(() {
                                       salaryList[index] = p0;
                                       Navigator.pop(context);
-                                      showSuccessToast(
-                                          'Salary has been edited');
                                     });
                                   },
                                   item: salaryList[index],
@@ -171,9 +166,7 @@ class _ManagerSalaryListState extends State<ManagerSalaryList>
                           borderRadius: BorderRadius.circular(10),
                         ),
                         SlidableAction(
-                          onPressed: (context) {
-                            showSuccessToast('Salary completed');
-                          },
+                          onPressed: (context) {},
                           icon: Icons.done_outline_rounded,
                           label: "Done",
                           backgroundColor: themeColor.withAlpha(200),
@@ -209,13 +202,6 @@ class _ManagerSalaryListState extends State<ManagerSalaryList>
       ),
     );
   }
-
-  @override
-  void showSuccessToast(String title) => Fluttertoast.showToast(
-        msg: title,
-        fontSize: 18,
-        gravity: ToastGravity.BOTTOM,
-      );
 
   @override
   void updateListView(List<ManagerSalaryModel> salary) {

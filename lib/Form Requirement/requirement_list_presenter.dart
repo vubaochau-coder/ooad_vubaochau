@@ -12,7 +12,6 @@ class FormManagerScreenPresenter {
   }
 
   Future<void> createRequirementForm(String title, String des) async {
-    formScreenModel.createRequirement(title, des).whenComplete(
-        () => formView.showSuccessToast("Requirement has been Created!"));
+    formScreenModel.createRequirement(title, des);
   }
 }

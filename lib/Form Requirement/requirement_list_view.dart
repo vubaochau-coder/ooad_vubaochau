@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:ooad_vubaochau/Form%20Requirement/abstract_requirement_view.dart';
 import 'package:ooad_vubaochau/Form%20Requirement/bottom_sheet.dart';
 import 'package:ooad_vubaochau/Form%20Requirement/required_item.dart';
@@ -18,14 +18,12 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
   List<ManagerRequiredModel> formList = [];
 
-  final toast = FToast();
   late FormManagerScreenPresenter presenter;
 
   @override
   void initState() {
     super.initState();
     presenter = FormManagerScreenPresenter(this);
-    toast.init(context);
   }
 
   @override
@@ -122,13 +120,6 @@ class _ManagerRequiredListState extends State<ManagerRequiredList>
       ),
     );
   }
-
-  @override
-  void showSuccessToast(String title) => Fluttertoast.showToast(
-        msg: title,
-        fontSize: 18,
-        gravity: ToastGravity.BOTTOM,
-      );
 
   @override
   void updateListView(List<ManagerRequiredModel> task) {

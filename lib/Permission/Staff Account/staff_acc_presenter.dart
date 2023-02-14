@@ -12,30 +12,10 @@ class StaffAccPresenter {
   }
 
   void disableAccount(String id) {
-    model
-        .onDisableAccount(id)
-        .whenComplete(() => view.showSuccessToast("Account has been Disable!"))
-        .onError((error, stackTrace) =>
-            view.showFailedToast("Disable Failed!\nError:$error"))
-        .timeout(
-      const Duration(seconds: 3),
-      onTimeout: () {
-        view.showFailedToast("Time out");
-      },
-    );
+    model.onDisableAccount(id);
   }
 
   void enableAccount(String id) {
-    model
-        .onEnableAccount(id)
-        .whenComplete(() => view.showSuccessToast("Account has been Enable!"))
-        .onError((error, stackTrace) =>
-            view.showFailedToast("Enable Failed!\nError:$error"))
-        .timeout(
-      const Duration(seconds: 3),
-      onTimeout: () {
-        view.showFailedToast("Time out");
-      },
-    );
+    model.onEnableAccount(id);
   }
 }

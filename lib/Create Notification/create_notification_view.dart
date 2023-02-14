@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:ooad_vubaochau/Create%20Notification/abstract_create_noti_view.dart';
 import 'package:ooad_vubaochau/Create%20Notification/create_notification_presenter.dart';
 
@@ -288,24 +288,4 @@ class _CreateNotificationScreenState extends State<CreateNotificationScreen>
       descControl.clear();
     }
   }
-
-  @override
-  void showFailed(String message) => Fluttertoast.showToast(
-        msg: message,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        fontSize: 15,
-        toastLength: Toast.LENGTH_LONG,
-        textColor: Colors.white,
-      );
-
-  @override
-  void showSuccess(String message) => Fluttertoast.showToast(
-        msg: message,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: const Color(0xff1de9b6),
-        fontSize: 15,
-        toastLength: Toast.LENGTH_LONG,
-        textColor: Colors.black,
-      );
 }

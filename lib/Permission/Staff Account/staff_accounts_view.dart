@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:ooad_vubaochau/Custom%20widget/my_slidable_action.dart';
 import 'package:ooad_vubaochau/Models/Account_Models/account_info_model.dart';
 import 'package:ooad_vubaochau/Permission/Staff%20Account/abstract_staff_acc_view.dart';
@@ -238,22 +238,4 @@ class _StaffAccountListScreenState extends State<StaffAccountListScreen>
       searchList = suggestion;
     });
   }
-
-  @override
-  void showFailedToast(String message) => Fluttertoast.showToast(
-        msg: message,
-        backgroundColor: Colors.red[300],
-        gravity: ToastGravity.BOTTOM,
-        toastLength: Toast.LENGTH_LONG,
-        fontSize: 15,
-      );
-
-  @override
-  void showSuccessToast(String message) => Fluttertoast.showToast(
-        msg: message,
-        backgroundColor: Colors.green[300],
-        gravity: ToastGravity.BOTTOM,
-        toastLength: Toast.LENGTH_LONG,
-        fontSize: 15,
-      );
 }
