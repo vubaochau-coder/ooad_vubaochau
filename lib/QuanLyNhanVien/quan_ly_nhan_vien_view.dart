@@ -69,6 +69,7 @@ class _QuanLyNhanVienState extends State<QuanLyNhanVien>
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
