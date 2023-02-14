@@ -15,9 +15,5 @@ class CreateNotiPresenter {
         title: title,
         description: description,
         date: dateFormat.format(DateTime.now()));
-    await model
-        .onCreaetNotification(newNoti)
-        .whenComplete(() => view.showSuccess('Notification has been Created!'))
-        .onError((error, stackTrace) => view.showFailed('Error: $error'));
   }
 }

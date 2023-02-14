@@ -29,7 +29,7 @@ class NhanVienItemModel {
       DocumentSnapshot<Map<String, dynamic>> snapshot, String imgURL) {
     final data = snapshot.data()!;
     return NhanVienItemModel(
-      id: data['id'],
+      id: snapshot.id,
       name: data['name'],
       isMen: data['isMen'],
       ngaySinh: data['ngaySinh'],

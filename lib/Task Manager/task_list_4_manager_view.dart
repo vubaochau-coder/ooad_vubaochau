@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
 import 'package:ooad_vubaochau/Task%20Manager/abstract_task_view.dart';
 import 'package:ooad_vubaochau/Task%20Manager/bottom_sheet.dart';
 import 'package:ooad_vubaochau/Task%20Manager/edit_bottom_sheet.dart';
-import 'package:ooad_vubaochau/QuanLyNhanVien/nhan_vien_item.dart';
+
 import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
 import 'package:ooad_vubaochau/Task%20Manager/task_list_4_manager_presenter.dart';
 
@@ -22,14 +22,12 @@ class _ManagerTaskListState extends State<ManagerTaskList>
   List<ManagerTaskModel> taskList = [];
   List<MemberInTask> allEmpsInDepart = [];
 
-  final toast = FToast();
   late TaskManagerScreenPresenter presenter;
 
   @override
   void initState() {
     super.initState();
     presenter = TaskManagerScreenPresenter(this);
-    toast.init(context);
   }
 
   @override
@@ -202,17 +200,10 @@ class _ManagerTaskListState extends State<ManagerTaskList>
             slidable.close();
           }
         },
-        child: ItemNhanVien(task: task),
+        child: Container(),
       ),
     );
   }
-
-  @override
-  void showSuccessToast(String title) => Fluttertoast.showToast(
-        msg: title,
-        fontSize: 16,
-        gravity: ToastGravity.BOTTOM,
-      );
 
   @override
   void updateListView(List<ManagerTaskModel> task) {
@@ -222,13 +213,6 @@ class _ManagerTaskListState extends State<ManagerTaskList>
       });
     }
   }
-
-  @override
-  void deleteSuccessful(String toast) => Fluttertoast.showToast(
-        msg: toast,
-        fontSize: 16,
-        gravity: ToastGravity.BOTTOM,
-      );
 
   @override
   void getAllEmpsInDepart(List<MemberInTask> emps) {

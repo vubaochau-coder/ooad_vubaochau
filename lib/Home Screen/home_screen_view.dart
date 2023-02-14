@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
 import 'package:ooad_vubaochau/Attendance/attendance_view.dart';
 import 'package:ooad_vubaochau/Form%20Requirement/requirement_list_view.dart';
+import 'package:ooad_vubaochau/QuanLyChucVu/quan_ly_chuc_vu_view.dart';
 import 'package:ooad_vubaochau/QuanLyNhanVien/quan_ly_nhan_vien_view.dart';
-import 'package:ooad_vubaochau/My%20Profile/my_profile_view.dart';
+import 'package:ooad_vubaochau/QuanLyThanNhan/quan_ly_than_nhan_view.dart';
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -250,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return const MyProfileDetail();
+                                  return const SizedBox();
                                 },
                               ),
                             );
@@ -339,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return const AttendanceScreen();
+                                  return const QuanLyChucVu();
                                 },
                               ),
                             );
@@ -366,7 +367,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return const ManagerRequiredList();
+                                  return const QuanLyThanNhan();
                                 },
                               ),
                             );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_slidable_action.dart';
 import 'package:ooad_vubaochau/Permission/Manager%20Account/abstract_manager_acc_view.dart';
 import 'package:ooad_vubaochau/Permission/Manager%20Account/manager_acc_presenter.dart';
@@ -182,22 +181,4 @@ class _ManagerAccountListScreenState extends State<ManagerAccountListScreen>
       });
     }
   }
-
-  @override
-  void showFailedToast(String message) => Fluttertoast.showToast(
-        msg: message,
-        backgroundColor: Colors.red[300],
-        gravity: ToastGravity.BOTTOM,
-        fontSize: 15,
-        toastLength: Toast.LENGTH_LONG,
-      );
-
-  @override
-  void showSuccessToast(String message) => Fluttertoast.showToast(
-        msg: message,
-        backgroundColor: Colors.green[300],
-        gravity: ToastGravity.BOTTOM,
-        fontSize: 15,
-        toastLength: Toast.LENGTH_LONG,
-      );
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:intl/intl.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/test_emp_model.dart';
 import 'package:ooad_vubaochau/Models/Task_Models/test_label_model.dart';
@@ -443,9 +443,6 @@ class _MyEditBottomSheetState extends State<MyEditBottomSheet> {
                                           setState(() {
                                             if (checkExistInList(
                                                 newListMembers, p0)) {
-                                              Fluttertoast.showToast(
-                                                  msg:
-                                                      "Member already in the Task");
                                             } else {
                                               newListMembers.add(p0);
                                             }

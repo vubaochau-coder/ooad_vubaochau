@@ -15,8 +15,6 @@ class SalaryManagementScreenPresenter {
   }
 
   Future<void> addNewTask(ManagerSalaryModel salary) async {
-    await salaryScreenModel
-        .addSalary(salary)
-        .whenComplete(() => salaryView.showSuccessToast("Add success."));
+    await salaryScreenModel.addSalary(salary);
   }
 }

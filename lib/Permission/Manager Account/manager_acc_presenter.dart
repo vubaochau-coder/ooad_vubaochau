@@ -12,30 +12,10 @@ class MngAccPresenter {
   }
 
   void disableAccount(String id) {
-    model
-        .onDisableAccount(id)
-        .whenComplete(() => view.showSuccessToast("Account has been Disable!"))
-        .onError((error, stackTrace) =>
-            view.showFailedToast("Disable Failed!\nError:$error"))
-        .timeout(
-      const Duration(seconds: 10),
-      onTimeout: () {
-        view.showFailedToast("Session Timeout");
-      },
-    );
+    model.onDisableAccount(id);
   }
 
   void enableAccount(String id) {
-    model
-        .onEnableAccount(id)
-        .whenComplete(() => view.showSuccessToast("Account has been Enable!"))
-        .onError((error, stackTrace) =>
-            view.showFailedToast("Enable Failed!\nError:$error"))
-        .timeout(
-      const Duration(seconds: 10),
-      onTimeout: () {
-        view.showFailedToast("Session Timeout");
-      },
-    );
+    model.onEnableAccount(id);
   }
 }

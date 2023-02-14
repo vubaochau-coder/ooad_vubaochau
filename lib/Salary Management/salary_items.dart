@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ooad_vubaochau/Salary%20Management/hastag_salary.dart';
 import 'package:ooad_vubaochau/Models/Salary_Models/manager_salary.dart';
-import 'package:ooad_vubaochau/commons/rounded_image.dart';
 
 class SalaryItem extends StatelessWidget {
   final ManagerSalaryModel salary;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:ooad_vubaochau/Login/abstract_login_view.dart';
 import 'package:ooad_vubaochau/Login/login_presenter.dart';
 import 'package:ooad_vubaochau/forgot_password_page.dart';
@@ -375,16 +375,6 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
 
   @override
   void onLoginSuccess() {
-    if (mounted) {
-      setState(() {
-        loadingLogIn = false;
-      });
-    }
-    Fluttertoast.showToast(
-      msg: 'Login successfully',
-      gravity: ToastGravity.BOTTOM,
-      toastLength: Toast.LENGTH_LONG,
-    );
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) {
         return const MainScreen();
@@ -398,11 +388,5 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
       loadingLogIn = false;
       isClickedLoginBtn = false;
     });
-
-    Fluttertoast.showToast(
-      msg: message,
-      gravity: ToastGravity.BOTTOM,
-      toastLength: Toast.LENGTH_LONG,
-    );
   }
 }
