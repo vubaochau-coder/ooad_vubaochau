@@ -180,7 +180,6 @@ class _DepartmentListScreenState extends State<DepartmentListScreen>
 
   @override
   onSuccess(String message) {
-    // TODO: implement onSuccess
     throw UnimplementedError();
   }
 }

@@ -1,42 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:ooad_vubaochau/QuanLyNhanVien/abstract_my_task_view.dart';
-import 'package:ooad_vubaochau/QuanLyNhanVien/my_task_presenter.dart';
-import 'package:ooad_vubaochau/QuanLyNhanVien/nhan_vien_item.dart';
-import 'package:ooad_vubaochau/Models/Task_Models/manager_task.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
 
-class QuanLyNhanVien extends StatefulWidget {
-  const QuanLyNhanVien({super.key});
+class QuanLyDonVi extends StatefulWidget {
+  const QuanLyDonVi({super.key});
 
   @override
-  State<QuanLyNhanVien> createState() => _QuanLyNhanVienState();
+  State<QuanLyDonVi> createState() => _QuanLyDonViState();
 }
 
-class _QuanLyNhanVienState extends State<QuanLyNhanVien>
-    with AbstractMyTaskListView {
+class _QuanLyDonViState extends State<QuanLyDonVi> {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-  late MyTaskScreenPresenter presenter;
+  List<ManagerRequiredModel> formList = [];
 
-  @override
-  void initState() {
-    super.initState();
-    presenter = MyTaskScreenPresenter(this);
-  }
+  final toast = FToast();
 
-  List<ManagerTaskModel> taskList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         foregroundColor: Colors.black54,
-        title: const Text(
-          'Quản Lý Nhân Viên',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -44,27 +31,42 @@ class _QuanLyNhanVienState extends State<QuanLyNhanVien>
               Icons.search,
             ),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.sort,
+            ),
+          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: themeColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () {},
       ),
       body: Container(
         decoration: BoxDecoration(
           color: themeColor,
           image: const DecorationImage(
-            image: AssetImage('images/position_right.png'),
+            image: AssetImage('images/demo.jpg'),
             fit: BoxFit.cover,
-            opacity: 0.4,
+            opacity: 0.2,
           ),
         ),
         padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top +
                 AppBar().preferredSize.height),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               margin: const EdgeInsets.only(bottom: 20),
               child: const Text(
-                'Danh Sách Nhân Viên',
+                'Form Management',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
@@ -74,15 +76,14 @@ class _QuanLyNhanVienState extends State<QuanLyNhanVien>
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 10,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  return ItemNhanVien(
-                    task: taskList[index],
-                  );
+                  final ManagerRequiredModel queries = formList[index];
+                  return Container();
                 },
+                itemCount: formList.length,
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -90,10 +91,17 @@ class _QuanLyNhanVienState extends State<QuanLyNhanVien>
   }
 
   @override
-  void getListTask(List<ManagerTaskModel> listData) {
+  void showSuccessToast(String title) => Fluttertoast.showToast(
+        msg: title,
+        fontSize: 18,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+  @override
+  void updateListView(List<ManagerRequiredModel> task) {
     if (mounted) {
       setState(() {
-        taskList = listData;
+        formList = task;
       });
     }
   }
