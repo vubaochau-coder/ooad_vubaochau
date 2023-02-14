@@ -174,7 +174,6 @@ class _DepartmentListScreenState extends State<DepartmentListScreen>
 
   @override
   onFailed(String message) {
-    // TODO: implement onFailed
     throw UnimplementedError();
   }
 
