@@ -5,7 +5,9 @@ packages:
     dependency: transitive
     description:
       name: _flutterfire_internals
+
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "1.0.13"
   async:
@@ -54,7 +56,10 @@ packages:
     dependency: "direct main"
     description:
       name: cloud_firestore
+
+
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "4.3.2"
   cloud_firestore_platform_interface:
@@ -62,6 +67,7 @@ packages:
     description:
       name: cloud_firestore_platform_interface
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "5.10.2"
   cloud_firestore_web:
@@ -69,6 +75,7 @@ packages:
     description:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "3.2.2"
   collection:
@@ -96,35 +103,45 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_auth
+
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "4.2.6"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
       name: firebase_auth_platform_interface
+
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "6.11.8"
   firebase_auth_web:
     dependency: transitive
     description:
       name: firebase_auth_web
+
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "5.2.5"
   firebase_core:
     dependency: "direct main"
     description:
       name: firebase_core
+
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "2.5.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
+
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "4.5.3"
   firebase_core_web:
@@ -132,13 +149,16 @@ packages:
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "2.1.1"
   firebase_storage:
     dependency: "direct main"
     description:
       name: firebase_storage
+
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "11.0.11"
   firebase_storage_platform_interface:
@@ -146,6 +166,7 @@ packages:
     description:
       name: firebase_storage_platform_interface
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "4.1.27"
   firebase_storage_web:
@@ -153,6 +174,7 @@ packages:
     description:
       name: firebase_storage_web
       url: "https://pub.dartlang.org"
+
     source: hosted
     version: "3.3.20"
   flutter:
