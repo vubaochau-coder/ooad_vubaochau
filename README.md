@@ -24,3 +24,7 @@ Nhóm sinh viên thực hiện:
 - Nguyễn Trương Đình Du
 
 ỨNG DỤNG QUẢN LÝ NHÂN VIÊN VÀ LƯƠNG
+
+Account demo:
+Tài khoản: admin@gmail.com
+Mật khẩu: admin123
