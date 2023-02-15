@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:ooad_vubaochau/Models/Requirement_Models/manager_requirement.dart';
+import 'package:ooad_vubaochau/QuanLyDonVi/abstract_ql_dv_view.dart';
+import 'package:ooad_vubaochau/QuanLyDonVi/add_don_vi_bottomsheet.dart';
+import 'package:ooad_vubaochau/QuanLyDonVi/don_vi_item_model.dart';
+import 'package:ooad_vubaochau/QuanLyDonVi/quan_ly_don_vi_presenter.dart';
+import 'package:ooad_vubaochau/loading_ui.dart';
 
 class QuanLyDonVi extends StatefulWidget {
   const QuanLyDonVi({super.key});
@@ -9,11 +12,17 @@ class QuanLyDonVi extends StatefulWidget {
   State<QuanLyDonVi> createState() => _QuanLyDonViState();
 }
 
-class _QuanLyDonViState extends State<QuanLyDonVi> {
+class _QuanLyDonViState extends State<QuanLyDonVi> with AbstractQLDVView {
   Color themeColor = const Color.fromARGB(215, 24, 167, 176);
-  List<ManagerRequiredModel> formList = [];
+  List<DonViItemModel> listData = [];
+  bool loading = true;
+  late QuanLyDonViPresenter presenter;
 
-  final toast = FToast();
+  @override
+  void initState() {
+    super.initState();
+    presenter = QuanLyDonViPresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +32,7 @@ class _QuanLyDonViState extends State<QuanLyDonVi> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: Colors.black54,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.sort,
-            ),
-          ),
-        ],
+        foregroundColor: Colors.white,
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: themeColor,
@@ -45,7 +40,32 @@ class _QuanLyDonViState extends State<QuanLyDonVi> {
           Icons.add,
           color: Colors.white,
         ),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(22),
+                topRight: Radius.circular(22),
+              ),
+            ),
+            builder: (BuildContext context) {
+              return Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: AddDonViBottomSheet(
+                  code: listData.length + 1,
+                  onComplete: (p0) async {
+                    await presenter
+                        .createNewDonVi(p0)
+                        .whenComplete(() => Navigator.of(context).pop());
+                  },
+                ),
+              );
+            },
+          );
+        },
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -66,24 +86,109 @@ class _QuanLyDonViState extends State<QuanLyDonVi> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               margin: const EdgeInsets.only(bottom: 20),
               child: const Text(
-                'Form Management',
+                'Quản Lý Đơn Vị',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
-                  color: Colors.black54,
+                  color: Colors.white,
                 ),
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemBuilder: (context, index) {
-                  final ManagerRequiredModel queries = formList[index];
-                  return Container();
-                },
-                itemCount: formList.length,
-              ),
-            )
+              child: loading
+                  ? const Loading()
+                  : ListView.builder(
+                      itemCount: listData.length,
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 12),
+                          margin: const EdgeInsets.only(
+                              top: 4, bottom: 4, left: 2, right: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    listData[index].name,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  const Text(
+                                    "ID:  ",
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  Text(
+                                    listData[index].id,
+                                    style: const TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                'Địa chỉ: ${listData[index].diaChi}',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                'Số điện thoại: ${listData[index].soDienThoai}',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                'Năm thành lập: ${listData[index].namThanhLap}',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                'Tổng số nhân viên: ${listData[index].numMember}',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+            ),
           ],
         ),
       ),
@@ -91,17 +196,11 @@ class _QuanLyDonViState extends State<QuanLyDonVi> {
   }
 
   @override
-  void showSuccessToast(String title) => Fluttertoast.showToast(
-        msg: title,
-        fontSize: 18,
-        gravity: ToastGravity.BOTTOM,
-      );
-
-  @override
-  void updateListView(List<ManagerRequiredModel> task) {
+  void getListDonVi(List<DonViItemModel> list) {
     if (mounted) {
       setState(() {
-        formList = task;
+        listData = list;
+        loading = false;
       });
     }
   }

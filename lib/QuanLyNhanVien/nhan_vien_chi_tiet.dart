@@ -73,7 +73,7 @@ class _ChiTietThongTinNhanVienState extends State<ChiTietThongTinNhanVien> {
                             ),
                             child: MyInfo(
                               name: widget.data.name,
-                              posistion: 'Position',
+                              posistion: widget.data.chucVu,
                               imageURL: widget.data.imgURL,
                             ),
                           ),
@@ -91,11 +91,11 @@ class _ChiTietThongTinNhanVienState extends State<ChiTietThongTinNhanVien> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Expanded(
+                          Expanded(
                             flex: 2,
                             child: IntroduceCard(
-                              firstText: "90%",
-                              secondText: 'Progress',
+                              firstText: widget.data.ngachID,
+                              secondText: 'Mã ngạch',
                             ),
                           ),
                           const SizedBox(
@@ -116,11 +116,11 @@ class _ChiTietThongTinNhanVienState extends State<ChiTietThongTinNhanVien> {
                           const SizedBox(
                             width: 10,
                           ),
-                          const Expanded(
+                          Expanded(
                             flex: 2,
                             child: IntroduceCard(
-                              firstText: 'Nhân viên',
-                              secondText: 'Chức vụ',
+                              firstText: widget.data.chucVuID.substring(5),
+                              secondText: 'Mã chức vụ',
                             ),
                           ),
                         ],
@@ -348,7 +348,7 @@ class _ChiTietThongTinNhanVienState extends State<ChiTietThongTinNhanVien> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               child: Text(
-                'Quá trình làm việc',
+                'Thông tin công việc',
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: 16,
@@ -365,10 +365,180 @@ class _ChiTietThongTinNhanVienState extends State<ChiTietThongTinNhanVien> {
                 left: 12,
                 right: 12,
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                child: SizedBox(
-                  height: 50,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Ngạch: ',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          widget.data.ngach,
+                          style: TextStyle(
+                            color: Colors.red[400],
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Đơn vị hiện tại: ',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          widget.data.donVi,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Chức vụ hiện tại: ',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          widget.data.chucVu,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              child: Text(
+                'Quá trình làm việc',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: widget.data.quaTrinhLamViec.length * 78,
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                margin: const EdgeInsets.only(
+                  left: 12,
+                  right: 12,
+                  bottom: 20,
+                ),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 4),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Chức vụ: ',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Text(
+                                widget.data.quaTrinhLamViec[index].chucVu,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Đơn vị: ',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Text(
+                                widget.data.quaTrinhLamViec[index].donVi,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Từ: ${widget.data.quaTrinhLamViec[index].ngayVao}',
+                                style: const TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              Container(
+                                width: 60,
+                                height: 2,
+                                margin:
+                                    const EdgeInsets.only(left: 12, right: 12),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                'Đến: ${widget.data.quaTrinhLamViec[index].ngayRa}',
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: widget.data.quaTrinhLamViec.length,
                 ),
               ),
             ),
