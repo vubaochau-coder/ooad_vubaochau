@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/QuanLyChucVu/abstract_quan_ly_chuc_vu_view.dart';
-import 'package:ooad_vubaochau/QuanLyChucVu/chuc_vu_item.dart';
-import 'package:ooad_vubaochau/QuanLyChucVu/chuc_vu_item_model.dart';
+import 'package:ooad_vubaochau/QuanLyChucVu/ChiTietChucVu/chuc_vu_chi_tiet.dart';
+import 'package:ooad_vubaochau/QuanLyChucVu/don_vi_qlcv_item.dart';
+import 'package:ooad_vubaochau/QuanLyChucVu/don_vi_chuc_vu_item_model.dart';
 import 'package:ooad_vubaochau/QuanLyChucVu/quan_ly_chuc_vu_presenter.dart';
 import 'package:ooad_vubaochau/loading_ui.dart';
 
@@ -30,17 +31,7 @@ class _QuanLyChucVuState extends State<QuanLyChucVu>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: themeColor,
-        elevation: 4,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -70,7 +61,7 @@ class _QuanLyChucVuState extends State<QuanLyChucVu>
               padding: const EdgeInsets.symmetric(horizontal: 10),
               margin: const EdgeInsets.only(bottom: 30, top: 14),
               child: const Text(
-                'Danh Sách Chức Vụ',
+                'Danh Sách Đơn Vị',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
@@ -89,6 +80,12 @@ class _QuanLyChucVuState extends State<QuanLyChucVu>
                       itemBuilder: (context, index) {
                         return ItemChucVu(
                           data: searchedList[index],
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) {
+                              return ChucVuChiTiet(data: searchedList[index]);
+                            }));
+                          },
                         );
                       },
                       itemCount: searchedList.length,
@@ -105,19 +102,9 @@ class _QuanLyChucVuState extends State<QuanLyChucVu>
     if (mounted) {
       setState(() {
         listData = list;
-        searchedList = getListByYear(listData);
+        searchedList = list;
         loading = false;
       });
     }
-  }
-
-  List<ChucVuItemModel> getListByYear(List<ChucVuItemModel> input) {
-    List<ChucVuItemModel> result = [];
-    for (var item in input) {
-      if (int.parse(item.year) == currentYear) {
-        result.add(item);
-      }
-    }
-    return result;
   }
 }

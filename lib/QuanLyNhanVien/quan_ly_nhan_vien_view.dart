@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ooad_vubaochau/QuanLyNhanVien/add_member_bottomsheet.dart';
 import 'package:ooad_vubaochau/loading_ui.dart';
 import 'package:ooad_vubaochau/QuanLyNhanVien/abstract_quan_ly_nhan_vien.dart';
 import 'package:ooad_vubaochau/QuanLyNhanVien/nhan_vien_chi_tiet.dart';
@@ -32,6 +33,34 @@ class _QuanLyNhanVienState extends State<QuanLyNhanVien>
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(22),
+                topRight: Radius.circular(22),
+              ),
+            ),
+            builder: (BuildContext context) {
+              return Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: AddNhanVienBottomSheet(
+                  onComplete: (p0) {},
+                ),
+              );
+            },
+          );
+        },
+        backgroundColor: themeColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -69,7 +98,6 @@ class _QuanLyNhanVienState extends State<QuanLyNhanVien>
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -156,11 +184,13 @@ class _QuanLyNhanVienState extends State<QuanLyNhanVien>
 
   @override
   void getListNhanVien(List<NhanVienItemModel> list) {
-    setState(() {
-      listData = list;
-      searchedList = list;
-      loading = false;
-    });
+    if (mounted) {
+      setState(() {
+        listData = list;
+        searchedList = list;
+        loading = false;
+      });
+    }
   }
 
   void search(String query) {

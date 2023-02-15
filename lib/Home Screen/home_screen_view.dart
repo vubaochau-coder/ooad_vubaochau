@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ooad_vubaochau/Custom%20widget/my_operation_button.dart';
 
 import 'package:ooad_vubaochau/QuanLyChucVu/quan_ly_chuc_vu_view.dart';
+import 'package:ooad_vubaochau/QuanLyNgachLuong/quan_ly_ngach_view.dart';
 import 'package:ooad_vubaochau/QuanLyNhanVien/quan_ly_nhan_vien_view.dart';
 import 'package:ooad_vubaochau/QuanLyThanNhan/quan_ly_than_nhan_view.dart';
 
-
-
-import 'package:ooad_vubaochau/doan_the/quan_ly_doan_the_view.dart';
+import 'package:ooad_vubaochau/QuanLyDoanThe/quan_ly_doan_the_view.dart';
+import 'package:ooad_vubaochau/TinhLuong/tinh_luong_view.dart';
 
 import 'package:ooad_vubaochau/main_screen/Home%20group/drawer.dart';
-import 'package:ooad_vubaochau/trinh_do/quan_ly_chuyen_mon_view.dart';
+import 'package:ooad_vubaochau/QuanLyChuyenMon/quan_ly_chuyen_mon_view.dart';
 
-import '../FormRequirement/quan_ly_don_vi_view.dart';
+import '../QuanLyDonVi/quan_ly_don_vi_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(
@@ -258,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return const SizedBox();
+                                  return const QuanLyLuong();
                                 },
                               ),
                             );
@@ -374,9 +373,26 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-
                                   return const QuanLyThanNhan();
-
+                                },
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                      InkWell(
+                        splashColor: themeColor,
+                        borderRadius: BorderRadius.circular(16),
+                        child: const OperationButton(
+                          name: 'Tính lương',
+                          icon: Icons.calculate,
+                        ),
+                        onTap: () {
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const TinhLuong();
                                 },
                               ),
                             );

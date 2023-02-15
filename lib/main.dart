@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ooad_vubaochau/Home%20Screen/home_screen_view.dart';
 import 'package:ooad_vubaochau/Login/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ooad_vubaochau/main_screen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +45,7 @@ class _RootPageState extends State<RootPage> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const MainScreen();
+          return const HomeScreen();
         } else {
           return const Scaffold(
             resizeToAvoidBottomInset: false,

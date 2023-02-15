@@ -77,7 +77,7 @@ class ItemNhanVien extends StatelessWidget {
                   'Đơn vị quản lý: ',
                 ),
                 Text(
-                  'PHÒNG ĐÀO TẠO',
+                  data.donVi,
                   style: TextStyle(
                     color: themeColor,
                     fontWeight: FontWeight.w600,
